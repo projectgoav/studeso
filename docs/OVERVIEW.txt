@@ -1,0 +1,28 @@
+STUDESO Overview
+----------------
+
+A Computer Science general discussion board and content aggregtor.
+
+
+BASIC SPEC
+----------
+Users will be able to view questions/posts without an account.
+If users want to comment or post their own content they require to register. However, they are able to post annoymously if they so wish.
+Registering requires a ac.uk email address.
+
+The post itself will be tagged, much like Twitter allowing for the post to be visible in different boards.
+Tags use "@" symbol, followed by the name. [QUESTION] There is no limit on tags per question? [/QUESTION]
+By default each put will use users username as tag, however, this will not be displayed if user posts annoymously.
+
+Tags are used for searching relevant questions.
+If a question is tagged @TagA, a second question is tagged @TagB and a third question is tagged: @TagA @TagB;
+If user searches TagA 					- the first question would show up, the others wouldn't
+If user searches TagB 					- the second question would show up, the others wouldn't
+If user searches TagA/TagB OR TagB/TagA - the third question would show up, the others wouldn't
+
+A special reserved 'all' tag can be used [QUESTION] by admins? [/QUESTION] to all posts to be spread on all tags
+A special reserved 'admin' tag can be used to display important information on ALL or a specific tag.
+
+Users can 'subscribe' to a tag which adds this to their homepage, when they sign in, so they get content that they are interested in
+
+Each post will be able to be rated. This system will only work positively (Rated something if you found it helpful or you 'liked' the content)

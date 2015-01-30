@@ -1,0 +1,16 @@
+REQUIREMENTS
+------------
+Users need to sign up
+	- Validation of email address
+
+Users need to be able to log in
+	- Users can post questions or content
+	- Users can rate others content, with a positive scale
+	- Users can comment on existing posts or content
+	- Users can search content by one or more tags
+	- Users can subscribe to tags to view them easily
+
+Site needs to respond quickly (as given)
+Content that the user is interested in should be shown more often
+Easily navigated
+Tutorial/Explaination + onhand help at any time if users get stuck or can't remember
