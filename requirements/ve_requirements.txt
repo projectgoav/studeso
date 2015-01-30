@@ -1,0 +1,5 @@
+Django==1.7
+Pillow==2.7.0
+virtualenv==12.0.5
+virtualenv-clone==0.2.5
+virtualenvwrapper==4.3.2

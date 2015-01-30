@@ -1,0 +1,35 @@
+#Studeso Git Ignore List
+#=======================
+
+#============
+#CODE FILES
+#============
+#PYTHON FILES
+# Copied from .gitignore -> python
+#------------
+*.py[cod]
+
+#DATABASE FILES
+#------------
+*.sqlite3
+
+#DJANGO FILES
+# Copied from .gitignore -> python
+#------------
+
+#============
+#OPERATING SYSTEM FILES
+#============
+# OSX FILES
+#------------
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# WINDOWS FILES
+#------------
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
