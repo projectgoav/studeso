@@ -1,0 +1,17 @@
+  <form>
+          <div class="form-group">
+    <input type="text" class="form-control" placeholder="Title">
+  </div>
+  <div class="form-group">
+    <textarea class="form-control" rows="3" placeholder="Bark something..."></textarea>
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Tags">
+  </div>
+ <div class="checkbox">
+  <label>
+    <input type="checkbox" value="">
+   Post Annoymously
+</div>
+  <button type="submit" class="btn btn-default">Post/Bark</button>
+</form>
