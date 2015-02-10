@@ -1,0 +1,4 @@
+Bark		-	He "barked" about the lecture last night!
+Shitzu		-	404 Page not found: Oh, Shitzu, 404!
+Tag		-	Dog collar tag? Follow tag: add this "tag" to your collar?
+Lead/Leash	-	Follow? Add this to your leash...?
