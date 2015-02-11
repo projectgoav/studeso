@@ -8,17 +8,19 @@ In one of this lectures he's baffled by the concept of dictionaries in Python an
 
 (Michael- this didn't make sense, how can he be just starting uni and just getting "hello world" programs working?)
 
-Jim can go onto our website and search for the tags @python and @python_dictionary and a tag for his university course(like @bristol.ac.uk). He not only finds answers to his problem but also many other students have asked 
+Jim can go onto our website and search for the tags @python and @dictionary and a tag for his university course(like @bristol.ac.uk). He not only finds answers to his problem but also many other students have asked 
 similar questions.
+
+(Paul- @python_dictionary seems like a very specific tag. Shouldn't a user be able to search for posts containing "@python AND @dictionary"?)
 
 Dave, 22
 
 Dave is a pretty cool programming guru who knows every single language from Python to COBOL. He's in his final year at university and wants to impart his wisdom onto future generations.
 
-He can browse our website for programming tags e.g. @java and look for unanswered questions in which he can answer. Many students would appreciate it. He gets a buzz out of answering questions and enjoys a large "score", as many people find his answers helpful.
+He can browse BARK! for programming tags e.g. @java and look for unanswered questions in which he can answer. Many students would appreciate it. He gets a buzz out of answering questions and enjoys a large "score", as many people find his answers helpful.
 
 Trollo
 
-Trollo is the personification of the typical Stack Overflow user who belittles other people's questions and offers unhelpful answers and thus making users feel bad about themselves. He is an good Java programmer but doesn't have much patience for more advance languages- he thinks Java is the best language.
+Trollo is the personification of the typical Stack Overflow user who belittles other people's questions and offers unhelpful answers and thus making users feel bad about themselves. He is a good Java programmer but doesn't have much patience for more advance languages- he thinks Java is the best language.
 
 BARK! can monitor these users and take various measures such as moving these posts to the bottom of pages, deletion of these comments altogether by admins or removing these users altogether. We wouldn't anticipate many of these users would use our website (students only with .ac.uk emails) but our aggregated likes system also ensures the best posts/comments appear at the top, and after a few negatively reported posts Trollo can be given a temporary ban- or for serious abuse a permanent ban.
