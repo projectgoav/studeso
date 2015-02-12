@@ -8,6 +8,9 @@
 # Not sure if we need this one
 /posts/unanswered/tag1+tag2+...
 
+# Alternative could use 'new'
+/posts/new/tag1+tag2+...
+
 # Add a new post
 /posts/bark
 
