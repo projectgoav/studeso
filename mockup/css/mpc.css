@@ -71,6 +71,7 @@ i { font-size:14px;}
 /* ------------------ */
 #i_Small { font-size:18px;}
 #i_rSmall {font-size: 16px;}
+#i_rrSmall { font-size:12px;}
 
 
 .btn-search
@@ -81,6 +82,17 @@ i { font-size:14px;}
 .btn-search:hover,
 {
 	background-color:orange;
+}
+
+
+#bbb
+{
+	font-size:14px;
+}
+
+.panel-default > .panel-heading
+{
+	background-color: #FFB445;
 }
 
 
