@@ -23,7 +23,7 @@
             <span class="icon-bar"></span>
           </button>
           <div class="small-logo-container">
-            <a class="small-logo a-brand" href="#">Bark!</a>
+            <a class="small-logo a-brand" href="#">Bark!</a><small id="header">Q&amp;A discussion site for Students</small>
           </div>
         </div>
         <div class="navbar-collapse collapse">
@@ -48,7 +48,7 @@
           <div class="col-xs-12 big-logo-container">
             <a href="#" class="a-brand"><img src="../../img/akita.png" id="limg" class="big-logo-image"/>
             <h1 class="big-logo">Bark!</h1></a>
-            <h2 class="big-logo">Search, Post, Bark </h2>
+            <h2 class="big-logo">Search, Post, Bark<small id="header">Q&amp;A discussion site for Students</small></h2>
           </div><!--/.col-xs-12 -->
         </div><!--/.row -->
       </div><!--/.container -->
@@ -82,10 +82,66 @@
 
             </div>
             <div class="col-sm-10">
-                <h2>Coolest Posts</h2>
+                <h1>Newest Posts<small id="s-brand"> You might also like: <a href="#exr">Featured Posts</a> | <a href="#exr">Top Discussion</a> | <a href="#exr2">Most Helpful</a> | <a href="#exr2">Suggested for you</small></h1>
                 <br>
                 <div class="panel panel-default">
-                <div class="panel-heading" id="ph"><h4 class="panel-title"><a href="PostView.html">TwD confusion!</a><span class="pull-right small">55 found this interesting</span></h4></div>
+                <div class="panel-heading"><h4 class="panel-title"><a href="PostView.html">TwD confusion!</a><span class="pull-right small">55 found this interesting</span></h4></div>
+                <div class="panel-body"> Hi guys, so I'm working through "Tango with Django", but I'm stuck on Chapter 6... 😟 what is an "entity relationship diagram"? 😕 Is it okay if I don't fully understand this part?
+                </div>
+                <!-- Move username down into the footer -->
+                <div class="panel-footer" id="bark-tags">
+                <b>Tags: </b><a href="#" id="USER"/>@stuck_student55</a> | <a href="#" id="UNI">@gla.ac.uk</a> | <a href="#">@tango_with_django</a> | <a href="#">@leif</a> | <a href="#">@erdiagram</a><span class="pull-right small">117 comments</span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">Leif's exciting lecture yesterday</a><span class="pull-right small">4 found this interesting</span></h4></div>
+                <div class="panel-body"> My doctor recommended I take tablets for my insomnia- but Leif's incredible lecture style seems to do the trick! I'd recommend if you have a similar condition...
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@johnno94</a> | <a href="#">@sleep</a> | <a href="#">@leif</a> | <a href="#" id="UNI">@gla.ac.uk</a><span class="pull-right small">16 comments</span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">C++ STL Help</a><span class="pull-right small">1 found this interesting</span></h4></div>
+                <div class="panel-body"> I thought I'd do some research into C++, what is the "STL"? and why is it different to the standard library? I've seen std::vector and std::map being used, is the std:: part something to do with this?
+                <br>Cheers,Barry x
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@barry_the_bear</a> | <a href="#">@c++</a> | <a href="#">@stl</a> | <a href="#">@standardlibrary</a>| <a href="#">@stdvector</a><span class="pull-right small">No comments... <a href="#">Add something?</a></span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">So confused about references in Java...</a><span class="pull-right small">0 found this interesting</span></h4></div>
+                <div class="panel-body">I'm a C++ programmer, but I find it really hard in Java how if you have:<br><code>Object a, b;</code> then
+                    <br><code>a = b.clone();</code> means <code> !(a < b) && !(a > b) but not (a == b)</code><br><br>The equality operator operates on references... but the < and > operators operate by value... Why doesn't Java just have a specific reference syntax, like better languages...
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@xXDragonMasterXx</a> | <a href="#">@java</a> | <a href="#">@references</a>
+                <span class="pull-right small">No comments... <a href="#">Add something?</a></span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">Stack Overflow is terrible</a><span class="pull-right small">0 found this interesting</span></h4></div>
+                <div class="panel-body">Does anyone else get abused on S/O? I asked what I thought was a simple ish question but I was banned and men came round to my house and beat me up.
+                <br>Has anyone else had a similar experience?
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@batman_fan_123</a> | <a href="#">@stackoverflow</a> | <a href="#">@discussion_forums</a> | <a href="#">@help</a>
+                <span class="pull-right small">No comments... <a href="#">Add something?</a></span>
+                </div>
+                </div>
+        </div>
+       
+      </div><!--/.row -->
+    <a id="exr"></a>
+    <br>    
+    <hr width="75%"> 
+      <div class="row">
+      <div class="col-sm-6">
+                        <h1>Featured Posts</h1>
+                <br>
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="PostView.html">TwD confusion!</a><span class="pull-right small">55 found this interesting</span></h4></div>
                 <div class="panel-body"> Hi guys, so I'm working through "Tango with Django", but I'm stuck on Chapter 6... 😟 what is an "entity relationship diagram"? 😕 Is it okay if I don't fully understand this part?
                 </div>
                 <!-- Move username down into the footer -->
@@ -119,8 +175,172 @@
                 <span class="pull-right small">No comments... <a href="#">Add something?</a></span>
                 </div>
                 </div>
-        </div>
-      </div><!--/.row -->
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">Stack Overflow is terrible</a><span class="pull-right small">0 found this interesting</span></h4></div>
+                <div class="panel-body">Does anyone else get abused on S/O? I asked what I thought was a simple ish question but I was banned and men came round to my house and beat me up.
+                <br>Has anyone else had a similar experience?
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@batman_fan_123</a> | <a href="#">@stackoverflow</a> | <a href="#">@discussion_forums</a> | <a href="#">@help</a>
+                <span class="pull-right small">No comments... <a href="#">Add something?</a></span>
+                </div>
+                </div>
+      </div>
+
+            <div class="col-sm-6">
+                <h1>Top Discussion</h1>
+                <br>
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="PostView.html">TwD confusion!</a><span class="pull-right small">55 found this interesting</span></h4></div>
+                <div class="panel-body"> Hi guys, so I'm working through "Tango with Django", but I'm stuck on Chapter 6... 😟 what is an "entity relationship diagram"? 😕 Is it okay if I don't fully understand this part?
+                </div>
+                <!-- Move username down into the footer -->
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER"/>@stuck_student55</a> | <a href="#" id="UNI">@gla.ac.uk</a> | <a href="#">@tango_with_django</a> | <a href="#">@leif</a> | <a href="#">@erdiagram</a> <span class="pull-right small">117 comments</span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">Leif's exciting lecture yesterday</a><span class="pull-right small">4 found this interesting</span></h4></div>
+                <div class="panel-body"> My doctor recommended I take tablets for my insomnia- but Leif's incredible lecture style seems to do the trick! I'd recommend if you have a similar condition...
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@johnno94</a> | <a href="#">@sleep</a> | <a href="#">@leif</a> | <a href="#" id="UNI">@gla.ac.uk</a><span class="pull-right small">16 comments</span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">C++ STL Help</a><span class="pull-right small">1 found this interesting</span></h4></div>
+                <div class="panel-body"> I thought I'd do some research into C++, what is the "STL"? and why is it different to the standard library? I've seen std::vector and std::map being used, is the std:: part something to do with this?
+                <br>Cheers,Barry x
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@barry_the_bear</a> | <a href="#">@c++</a> | <a href="#">@stl</a> | <a href="#">@standardlibrary</a>| <a href="#">@stdvector</a><span class="pull-right small">No comments... <a href="#">Add something?</a></span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">So confused about references in Java...</a><span class="pull-right small">0 found this interesting</span></h4></div>
+                <div class="panel-body">I'm a C++ programmer, but I find it really hard in Java how if you have:<br><code>Object a, b;</code> then
+                    <br><code>a = b.clone();</code> means <code> !(a < b) && !(a > b) but not (a == b)</code><br><br>The equality operator operates on references... but the < and > operators operate by value... Why doesn't Java just have a specific reference syntax, like better languages...
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@xXDragonMasterXx</a> | <a href="#">@java</a> | <a href="#">@references</a>
+                <span class="pull-right small">No comments... <a href="#">Add something?</a></span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">Stack Overflow is terrible</a><span class="pull-right small">0 found this interesting</span></h4></div>
+                <div class="panel-body">Does anyone else get abused on S/O? I asked what I thought was a simple ish question but I was banned and men came round to my house and beat me up.
+                <br>Has anyone else had a similar experience?
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@batman_fan_123</a> | <a href="#">@stackoverflow</a> | <a href="#">@discussion_forums</a> | <a href="#">@help</a>
+                <span class="pull-right small">No comments... <a href="#">Add something?</a></span>
+                </div>
+                </div>
+      </div>
+    </div><!-- /.row-->  
+    <a id="exr2"></a>
+    <br>    
+    <hr width="75%"> 
+    <div class="row">
+       <div class="col-sm-6">
+                <h1>Most Helpful</h1>
+                <br>
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="PostView.html">TwD confusion!</a><span class="pull-right small">55 found this interesting</span></h4></div>
+                <div class="panel-body"> Hi guys, so I'm working through "Tango with Django", but I'm stuck on Chapter 6... 😟 what is an "entity relationship diagram"? 😕 Is it okay if I don't fully understand this part?
+                </div>
+                <!-- Move username down into the footer -->
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER"/>@stuck_student55</a> | <a href="#" id="UNI">@gla.ac.uk</a> | <a href="#">@tango_with_django</a> | <a href="#">@leif</a> | <a href="#">@erdiagram</a> <span class="pull-right small">117 comments</span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">Leif's exciting lecture yesterday</a><span class="pull-right small">4 found this interesting</span></h4></div>
+                <div class="panel-body"> My doctor recommended I take tablets for my insomnia- but Leif's incredible lecture style seems to do the trick! I'd recommend if you have a similar condition...
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@johnno94</a> | <a href="#">@sleep</a> | <a href="#">@leif</a> | <a href="#" id="UNI">@gla.ac.uk</a><span class="pull-right small">16 comments</span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">C++ STL Help</a><span class="pull-right small">1 found this interesting</span></h4></div>
+                <div class="panel-body"> I thought I'd do some research into C++, what is the "STL"? and why is it different to the standard library? I've seen std::vector and std::map being used, is the std:: part something to do with this?
+                <br>Cheers,Barry x
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@barry_the_bear</a> | <a href="#">@c++</a> | <a href="#">@stl</a> | <a href="#">@standardlibrary</a>| <a href="#">@stdvector</a><span class="pull-right small">No comments... <a href="#">Add something?</a></span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">So confused about references in Java...</a><span class="pull-right small">0 found this interesting</span></h4></div>
+                <div class="panel-body">I'm a C++ programmer, but I find it really hard in Java how if you have:<br><code>Object a, b;</code> then
+                    <br><code>a = b.clone();</code> means <code> !(a < b) && !(a > b) but not (a == b)</code><br><br>The equality operator operates on references... but the < and > operators operate by value... Why doesn't Java just have a specific reference syntax, like better languages...
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@xXDragonMasterXx</a> | <a href="#">@java</a> | <a href="#">@references</a>
+                <span class="pull-right small">No comments... <a href="#">Add something?</a></span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">Stack Overflow is terrible</a><span class="pull-right small">0 found this interesting</span></h4></div>
+                <div class="panel-body">Does anyone else get abused on S/O? I asked what I thought was a simple ish question but I was banned and men came round to my house and beat me up.
+                <br>Has anyone else had a similar experience?
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@batman_fan_123</a> | <a href="#">@stackoverflow</a> | <a href="#">@discussion_forums</a> | <a href="#">@help</a>
+                <span class="pull-right small">No comments... <a href="#">Add something?</a></span>
+                </div>
+                </div>
+      </div>
+             <div class="col-sm-6">
+                <h1>Suggested for you</h1>
+                <br>
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title bark-heading"><a href="PostView.html">TwD confusion!</a><span class="pull-right small">55 found this interesting</span></h4></div>
+                <div class="panel-body"> Hi guys, so I'm working through "Tango with Django", but I'm stuck on Chapter 6... 😟 what is an "entity relationship diagram"? 😕 Is it okay if I don't fully understand this part?
+                </div>
+                <!-- Move username down into the footer -->
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER"/>@stuck_student55</a> | <a href="#" id="UNI">@gla.ac.uk</a> | <a href="#">@tango_with_django</a> | <a href="#">@leif</a> | <a href="#">@erdiagram</a> <span class="pull-right small">117 comments</span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">Leif's exciting lecture yesterday</a><span class="pull-right small">4 found this interesting</span></h4></div>
+                <div class="panel-body"> My doctor recommended I take tablets for my insomnia- but Leif's incredible lecture style seems to do the trick! I'd recommend if you have a similar condition...
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@johnno94</a> | <a href="#">@sleep</a> | <a href="#">@leif</a> | <a href="#" id="UNI">@gla.ac.uk</a><span class="pull-right small">16 comments</span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">C++ STL Help</a><span class="pull-right small">1 found this interesting</span></h4></div>
+                <div class="panel-body"> I thought I'd do some research into C++, what is the "STL"? and why is it different to the standard library? I've seen std::vector and std::map being used, is the std:: part something to do with this?
+                <br>Cheers,Barry x
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@barry_the_bear</a> | <a href="#">@c++</a> | <a href="#">@stl</a> | <a href="#">@standardlibrary</a>| <a href="#">@stdvector</a><span class="pull-right small">No comments... <a href="#">Add something?</a></span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">So confused about references in Java...</a><span class="pull-right small">0 found this interesting</span></h4></div>
+                <div class="panel-body">I'm a C++ programmer, but I find it really hard in Java how if you have:<br><code>Object a, b;</code> then
+                    <br><code>a = b.clone();</code> means <code> !(a < b) && !(a > b) but not (a == b)</code><br><br>The equality operator operates on references... but the < and > operators operate by value... Why doesn't Java just have a specific reference syntax, like better languages...
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@xXDragonMasterXx</a> | <a href="#">@java</a> | <a href="#">@references</a>
+                <span class="pull-right small">No comments... <a href="#">Add something?</a></span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">Stack Overflow is terrible</a><span class="pull-right small">0 found this interesting</span></h4></div>
+                <div class="panel-body">Does anyone else get abused on S/O? I asked what I thought was a simple ish question but I was banned and men came round to my house and beat me up.
+                <br>Has anyone else had a similar experience?
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@batman_fan_123</a> | <a href="#">@stackoverflow</a> | <a href="#">@discussion_forums</a> | <a href="#">@help</a>
+                <span class="pull-right small">No comments... <a href="#">Add something?</a></span>
+                </div>
+                </div>
+      </div>
+
+      </div><!-- /.row -->
     </div><!--/.container -->
 
   <script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>

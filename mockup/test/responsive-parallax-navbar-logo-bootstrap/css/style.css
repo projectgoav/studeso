@@ -56,6 +56,14 @@ body{
     font-family: 'Oxygen', sans-serif;
 }
 
+/* Extra small headings for more content */
+#s-brand { font-size:14px;}
+
+/* Custom styling for bark pannels */
+.panel-title { font-size:18px;}
+.panel-footer { font-size:12px;}
+
+#header { color:#777;}
 
 
 /* *********************************
