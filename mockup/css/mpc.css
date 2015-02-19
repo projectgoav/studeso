@@ -44,16 +44,12 @@ i { font-size:14px;}
     font-size:16px;		
 }
 
-.Brand img
-{
-	display: inline-block;
-
-}
-
-.Brand h1
+.Brand
 {
 	display: inline-block;
 }
+
+.Brand h1, h3 { display: inline-block;}
 
 .input-customsize { width:500px;}
 
