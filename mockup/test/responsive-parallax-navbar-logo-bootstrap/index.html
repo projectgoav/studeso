@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Bark!</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.css'>
+      <link href='http://fonts.googleapis.com/css?family=Oxygen:400' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+</head>
+
+<body>
+
+     <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class="small-logo-container">
+            <a class="small-logo a-brand" href="#">Bark!</a>
+          </div>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Help</a></li>
+            <li><a href="#">Login</a></li>
+            <li><a href="#">Register</a></li>
+            <form class="navbar-form navbar-right" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                            <button type="submit" class="btn btn-default">Go fetch!</button>
+                        </div>
+          </form>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container-fluid big-logo-row">
+      <div class="container">
+        <div class="clearfix row">
+          <div class="col-xs-12 big-logo-container">
+            <a href="#" class="a-brand"><img src="../../img/akita.png" id="limg" class="big-logo-image"/>
+            <h1 class="big-logo">Bark!</h1></a>
+            <h2 class="big-logo">Search, Post, Bark </h2>
+          </div><!--/.col-xs-12 -->
+        </div><!--/.row -->
+      </div><!--/.container -->
+    </div><!--/.container-fluid -->
+
+    <div class="container">
+      <div class="row">
+        <div class="row">
+            <div class="col-sm-2">
+                <p><h2>Popular Tags</h2></p>
+                <ol>
+                    <li> @wad2_glasgow </li>
+                    <li> @webappdev </li>
+                    <li> @wireframes </li>
+                    <li id="UNI">@gla.ac.uk</font></li>
+                    <li> @artsncrafts </li>
+                    <li> @dream_team </li>
+                    <li> @dogs </li>
+                    <li> @leif_app </li>
+                    <li id="UNI">@bristol.ac.uk</font></li>
+                    <li> @glasgow_city </li>
+                </ol>
+                <p class="text-left"><small>
+                    <a href="#">More...</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+                    <a href="#">All Tags</a></small></p>
+                <small><a href="#">What's this? - tags help</a></small>
+
+                <br>
+                 <p> Help Me <br> Can't find something - ask! </p>
+
+            </div>
+            <div class="col-sm-10">
+                <h2>Coolest Posts</h2>
+                <br>
+                <div class="panel panel-default">
+                <div class="panel-heading" id="ph"><h4 class="panel-title"><a href="PostView.html">TwD confusion!</a><span class="pull-right small">55 found this interesting</span></h4></div>
+                <div class="panel-body"> Hi guys, so I'm working through "Tango with Django", but I'm stuck on Chapter 6... 😟 what is an "entity relationship diagram"? 😕 Is it okay if I don't fully understand this part?
+                </div>
+                <!-- Move username down into the footer -->
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER"/>@stuck_student55</a> | <a href="#" id="UNI">@gla.ac.uk</a> | <a href="#">@tango_with_django</a> | <a href="#">@leif</a> | <a href="#">@erdiagram</a> <span class="pull-right small">117 comments</span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">Leif's exciting lecture yesterday</a><span class="pull-right small">4 found this interesting</span></h4></div>
+                <div class="panel-body"> My doctor recommended I take tablets for my insomnia- but Leif's incredible lecture style seems to do the trick! I'd recommend if you have a similar condition...
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@johnno94</a> | <a href="#">@sleep</a> | <a href="#">@leif</a> | <a href="#" id="UNI">@gla.ac.uk</a><span class="pull-right small">16 comments</span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">C++ STL Help</a><span class="pull-right small">1 found this interesting</span></h4></div>
+                <div class="panel-body"> I thought I'd do some research into C++, what is the "STL"? and why is it different to the standard library? I've seen std::vector and std::map being used, is the std:: part something to do with this?
+                <br>Cheers,Barry x
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@barry_the_bear</a> | <a href="#">@c++</a> | <a href="#">@stl</a> | <a href="#">@standardlibrary</a>| <a href="#">@stdvector</a><span class="pull-right small">No comments... <a href="#">Add something?</a></span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">So confused about references in Java...</a><span class="pull-right small">0 found this interesting</span></h4></div>
+                <div class="panel-body">I'm a C++ programmer, but I find it really hard in Java how if you have:<br><code>Object a, b;</code> then
+                    <br><code>a = b.clone();</code> means <code> !(a < b) && !(a > b) but not (a == b)</code><br><br>The equality operator operates on references... but the < and > operators operate by value... Why doesn't Java just have a specific reference syntax, like better languages...
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@xXDragonMasterXx</a> | <a href="#">@java</a> | <a href="#">@references</a>
+                <span class="pull-right small">No comments... <a href="#">Add something?</a></span>
+                </div>
+                </div>
+        </div>
+      </div><!--/.row -->
+    </div><!--/.container -->
+
+  <script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+  <script src='http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js'></script>
+
+  <script src="js/index.js"></script>
+
+</body>
+
+</html>

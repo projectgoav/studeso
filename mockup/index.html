@@ -11,36 +11,21 @@
     <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
+    <nav class="navbar navbar-default navbar-static-top"> 
+        <div class="container-fluid" style="line-height:96px;">
+            <ul class="nav navbar-nav navbar-left">
+                <li><img src="img/akita.png" alt="Bark Logo" width="96" height="96"/><h3>Bark!</h3></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">                    
+                <li><a href="#">About</a></li>
+                <li><a href="#">Help</a></li>
+                <li><a href="index.html">Login</a></li>
+                <li><a href="#">Register</a></li>
+            </ul>
+        </div>
+    </nav>
 
-
-    <div class="container-fluid" id="brand">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container-fluid">
-                <ul class="nav navbar-nav navbar-left">
-                    <!-- Michael - removed the "Bark!" title beside the search bar,
-                        felt it was redundant with the "Bark!" title below beside the logo. -->
-                    <!-- <li><a href="index.html">Bark!</a></li> -->
-
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                            <button type="submit" class="btn btn-warning">Go fetch!</button>
-                        </div>
-                    </form>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Help</a></li>
-                    <li><a href="index.html">Login</a></li>
-                    <li><a href="#">Register</a></li>
-                </ul>
-
-
-            </div>
-        </nav>
-    </div>
-
-    <div class="container">
+    <div class="container-fluid">
         <div class="Brand">
             <div class="row">
                     <img src="img/akita.png" alt="Bark Logo" width="128" height="128" />&nbsp;&nbsp;<h1>Bark!</h1>
@@ -49,17 +34,17 @@
         </div>
         <div class="row">
             <div class="col-sm-2">
-                <p><h2>tags</h2></p>
+                <p><h2>Popular Tags</h2></p>
                 <ol>
                     <li> @wad2_glasgow </li>
                     <li> @webappdev </li>
                     <li> @wireframes </li>
-                    <li><font color="red">@gla.ac.uk</font></li>
+                    <li id="UNI">@gla.ac.uk</font></li>
                     <li> @artsncrafts </li>
                     <li> @dream_team </li>
                     <li> @dogs </li>
                     <li> @leif_app </li>
-                    <li><font color="red">@bristol.ac.uk</font></li>
+                    <li id="UNI">@bristol.ac.uk</font></li>
                     <li> @glasgow_city </li>
                 </ol>
                 <p class="text-left"><small>
@@ -67,22 +52,25 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
                     <a href="#">All Tags</a></small></p>
                 <small><a href="#">What's this? - tags help</a></small>
+
+                <br>
+                 <p> Help Me <br> Can't find something - ask! </p>
+
             </div>
-            <div class="col-sm-8">
-                <h2>coolest posts</h2>
+            <div class="col-sm-10">
+                <h2>Coolest Posts</h2>
                 <br>
                 <div class="panel panel-default">
                 <div class="panel-heading" id="ph"><h4 class="panel-title"><a href="PostView.html">TwD confusion!</a></h4></div>
                 <div class="panel-body">
                 
                 <p>
-                    Hi guys, so I'm working through "Tango with Django", but I'm stuck on Chapter 6... what is an "entity relationship diagram"?
+                    Hi guys, so I'm working through "Tango with Django", but I'm stuck on Chapter 6... 😟 what is an "entity relationship diagram"? 😕
                     Is it okay if I don't fully understand this part?
                 </p>
-                <p><small id="i_rSmall"><a href="#">stuck_student55</a></small> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b> Tags:</b>
                 </div>
                 <!-- Move username down into the footer -->
-                <div class="panel-footer"><a href="#">@tango_with_django</a> | <a href="#">@leif</a> | <a href="#">@erdiagram</a>
+                <div class="panel-footer"><b>Tags: </b><a href="#"/><i>@stuck_student55</i></a> | <a href="#" id="UNI">@gla.ac.uk</a> | <a href="#">@tango_with_django</a> | <a href="#">@leif</a> | <a href="#">@erdiagram</a>
                 </p>
                 </div>
                 </div>
@@ -137,76 +125,7 @@
                 <a href="#">@stackoverflow</a> | <a href="#">@discussion_forums</a> | <a href="#">@help</a></p>
                 <br>
             </div>
-            <div class="col-sm-2">
-                <p> Help Me <br> Can't find something - ask! </p>
-
-            </div>
         </div>
-
-        <!--
-                    Other layouts below
-
-        <div class="container">
-          <h1>Search, post, contribute, howl!</h1>
-          <br>
-            <div class="row">
-            <div class="col-sm-4">
-                <p><h2>Most Popular Tags <br><small id="i_Small">Sort by: Today</small></h2></p>
-                <ol>
-                <li> @DreamTeam </li>
-                <li> @WebApps </li>
-                <li> @Wireframes </li>
-                <li> @gla.ac.uk </li>
-                <li> @randomtag </li>
-                <li> @DreamTeamR </li>
-                <li> @WebAppsR </li>
-                <li> @WireframesR </li>
-                <li> @gla.ac.ukR </li>
-              </ol>
-              <p class="text-left"><small><a href="#">More...</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">All Tags</a></small></p>
-            </div>
-            <div class="col-sm-4">
-              <p><h2>Most Popular Posts <br><small id="i_Small">Sort by: Weekly</small></h2></p>
-              <ol>
-                <li> <h5>I Hate WebApps</h5> <small>BigE</small> </li>
-                <li> <h5>I Love WebApps</h5> <small>Lewis</small> </li>
-                <li> <h5>Arts &amp; Crafts</h5> <small>Michael</small> </li>
-                <li> <h5>I am the best</h5> <small>SCOTPAUL</small> </li>
-                <li> <h5>Tango With Django</h5> <small>Leif#1</small></li>
-              </ol>
-              <p class="text-left"><small><a href="#">More...</a></p>
-            </div>
-              <div class="col-sm-4">
-              <p><h2>Most Helpful Posts <br><small id="i_Small">Sort by: Monthy</small></h2></p>
-              <ol>
-                <li> <p><h5>[QuickFix] WebApps Chpater 12</h5> <small>Leif#1</small> </p></li>
-                <li> <h5>Algo Lecture Attendance</h5> <small>PAT</small> </li>
-                <li> <h5>Arts &amp; Crafts</h5> <small>Michael</small> </li>
-                <li> <h5>Java Tips</h5> <small>Jeremy</small> </li>
-                <li> <h5>Bootstrap</h5> <small>Twiiter</small></li>
-              </ol>
-              <p class="text-left"><small><a href="#">More...</a></small></p>
-            </div>
-        </div>
-        <hr width="75%">
-        <div class="row">
-          <h2> Newest Content </h2>
-          <br>
-          <p><h3><a href="#">This is a Sample Post</a></h3></p>
-          <p> Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.</p>
-          <p><small id="i_rSmall"><a href="#">Username</a></small> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b> Tags:</b> <a href="#">@tag1</a> | <a href="#">@tag2</a> | <a href="#">@tag3</a></p>
-          <br>
-          <p><h3><a href="#">This is a Sample Post</a></h3></p>
-          <p> Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.</p>
-          <p><small id="i_rSmall"><a href="#">Username</a></small> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b> Tags:</b> <a href="#">@tag1</a> | <a href="#">@tag2</a> | <a href="#">@tag3</a></p>
-          <br>
-          <p><h3><a href="#">This is a Sample Post</a></h3></p>
-          <p> Some content.Some content.Some content.</p>
-          <p><small id="i_rSmall"><a href="#">Username</a></small> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b> Tags:</b> <a href="#">@tag1</a> | <a href="#">@tag2</a> | <a href="#">@tag3</a></p>
-
-         </div>
-
-            -->
         <hr width="95%">
         <div class="footer">
             &copy;<i>N-Tier the Matrix</i>

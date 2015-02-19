@@ -33,16 +33,21 @@ i { font-size:14px;}
 	background-color:white;
 	border-width:1px;
 	border-left: 0;
-	border-right: 0;;
+	border-right: 0;
+	line-height:96px;
 }
 
 /* Centers NavBar to middle of screen */
 .navbar-nav{
     margin: 0 auto; 
-    display: inline-block;;
     float:none;
-    font-size:16px;		
+    display:inline-block;
+    font-size:16px;	
+    line-height:96px;
 }
+
+.navbar .nav  > li > a{ line-height:96px;}
+
 
 .Brand
 {
@@ -51,7 +56,8 @@ i { font-size:14px;}
 
 .Brand h1, h3 { display: inline-block;}
 
-.input-customsize { width:500px;}
+#UNI { color: red;}
+
 
 /* Styling for each button on navbar
  *
