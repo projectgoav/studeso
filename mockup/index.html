@@ -11,40 +11,52 @@
     <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-static-top"> 
-        <div class="container-fluid" style="line-height:96px;">
-            <ul class="nav navbar-nav navbar-left">
-                <li><img src="img/akita.png" alt="Bark Logo" width="96" height="96"/><h3>Bark!</h3></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">                    
-                <li><a href="#">About</a></li>
-                <li><a href="#">Help</a></li>
-                <li><a href="index.html">Login</a></li>
-                <li><a href="#">Register</a></li>
-            </ul>
-        </div>
-    </nav>
 
-    <div class="container-fluid">
-        <div class="Brand">
-            <div class="row">
-                    <img src="img/akita.png" alt="Bark Logo" width="128" height="128" />&nbsp;&nbsp;<h1>Bark!</h1>
-                    &nbsp;&nbsp;<h3>Search, post, bark!</h3>
+
+    <div class="container-fluid" id="brand">
+        <nav class="navbar navbar-default navbar-static-top">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav navbar-left">
+                    <!-- Michael - removed the "Bark!" title beside the search bar,
+                        felt it was redundant with the "Bark!" title below beside the logo. -->
+                    <!-- <li><a href="index.html">Bark!</a></li> -->
+
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                            <button type="submit" class="btn btn-warning">Go fetch!</button>
+                        </div>
+                    </form>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Help</a></li>
+                    <li><a href="index.html">Login</a></li>
+                    <li><a href="#">Register</a></li>
+                </ul>
+
+
             </div>
-        </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="Brand">
+            <img src="img/akita.png" alt="Bark Logo" width="108" height="108" />
+            &nbsp;&nbsp;<h1>Bark!</h1> &nbsp;&nbsp; <h3>Search, post, bark!</h3> <small>Q&amp;A discussion site for Students</small></div>
         <div class="row">
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <p><h2>Popular Tags</h2></p>
                 <ol>
                     <li> @wad2_glasgow </li>
                     <li> @webappdev </li>
                     <li> @wireframes </li>
-                    <li id="UNI">@gla.ac.uk</font></li>
+                    <li><font color="red">@gla.ac.uk</font></li>
                     <li> @artsncrafts </li>
                     <li> @dream_team </li>
                     <li> @dogs </li>
                     <li> @leif_app </li>
-                    <li id="UNI">@bristol.ac.uk</font></li>
+                    <li><font color="red">@bristol.ac.uk</font></li>
                     <li> @glasgow_city </li>
                 </ol>
                 <p class="text-left"><small>
@@ -52,80 +64,122 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
                     <a href="#">All Tags</a></small></p>
                 <small><a href="#">What's this? - tags help</a></small>
-
-                <br>
-                 <p> Help Me <br> Can't find something - ask! </p>
-
             </div>
-            <div class="col-sm-10">
-                <h2>Coolest Posts</h2>
+            <div class="col-sm-9">
+                <h1>Coolest Posts</h1>
                 <br>
                 <div class="panel panel-default">
-                <div class="panel-heading" id="ph"><h4 class="panel-title"><a href="PostView.html">TwD confusion!</a></h4></div>
-                <div class="panel-body">
-                
-                <p>
-                    Hi guys, so I'm working through "Tango with Django", but I'm stuck on Chapter 6... 😟 what is an "entity relationship diagram"? 😕
-                    Is it okay if I don't fully understand this part?
-                </p>
+                <div class="panel-heading"><h4 class="panel-title"><a href="PostView.html">TwD confusion!</a><span class="pull-right small">55 found this interesting</span></h4></div>
+                <div class="panel-body"> Hi guys, so I'm working through "Tango with Django", but I'm stuck on Chapter 6... 😟 what is an "entity relationship diagram"? 😕 Is it okay if I don't fully understand this part?
                 </div>
                 <!-- Move username down into the footer -->
-                <div class="panel-footer"><b>Tags: </b><a href="#"/><i>@stuck_student55</i></a> | <a href="#" id="UNI">@gla.ac.uk</a> | <a href="#">@tango_with_django</a> | <a href="#">@leif</a> | <a href="#">@erdiagram</a>
-                </p>
+                <div class="panel-footer" id="bark-tags">
+                <b>Tags: </b><a href="#" id="USER"/>@stuck_student55</a> | <a href="#" id="UNI">@gla.ac.uk</a> | <a href="#">@tango_with_django</a> | <a href="#">@leif</a> | <a href="#">@erdiagram</a><span class="pull-right small">117 comments</span>
                 </div>
                 </div>
-                 <br>
+
                 <div class="panel panel-default">
-                <div class="panel-body">
-                <p><h3><a href="#">Leif's exciting lecture yesterday</a></h3></p>
-                <p>
-                    My doctor recommended I take tablets for my insomnia- but Leif's incredible lecture style seems to do the trick! I'd recommend if you have
-                    a similar condition...
-                </p>
-                <p><small id="i_rSmall"><a href="#">johnno94</a></small> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b> Tags:</b>
-                <a href="#">@sleep</a> | <a href="#">@leif</a> | <a href="#">@glasgow_uni</a></p>
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">Leif's exciting lecture yesterday</a><span class="pull-right small">4 found this interesting</span></h4></div>
+                <div class="panel-body"> My doctor recommended I take tablets for my insomnia- but Leif's incredible lecture style seems to do the trick! I'd recommend if you have a similar condition...
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@johnno94</a> | <a href="#">@sleep</a> | <a href="#">@leif</a> | <a href="#" id="UNI">@gla.ac.uk</a><span class="pull-right small">16 comments</span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">C++ STL Help</a><span class="pull-right small">1 found this interesting</span></h4></div>
+                <div class="panel-body"> I thought I'd do some research into C++, what is the "STL"? and why is it different to the standard library? I've seen std::vector and std::map being used, is the std:: part something to do with this?
+                <br>Cheers,Barry x
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@barry_the_bear</a> | <a href="#">@c++</a> | <a href="#">@stl</a> | <a href="#">@standardlibrary</a>| <a href="#">@stdvector</a><span class="pull-right small">No comments... <a href="#">Add something?</a></span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">So confused about references in Java...</a><span class="pull-right small">0 found this interesting</span></h4></div>
+                <div class="panel-body">I'm a C++ programmer, but I find it really hard in Java how if you have:<br><code>Object a, b;</code> then
+                    <br><code>a = b.clone();</code> means <code> !(a < b) && !(a > b) but not (a == b)</code><br><br>The equality operator operates on references... but the < and > operators operate by value... Why doesn't Java just have a specific reference syntax, like better languages...
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@xXDragonMasterXx</a> | <a href="#">@java</a> | <a href="#">@references</a>
+                <span class="pull-right small">No comments... <a href="#">Add something?</a></span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">Stack Overflow is terrible</a><span class="pull-right small">0 found this interesting</span></h4></div>
+                <div class="panel-body">Does anyone else get abused on S/O? I asked what I thought was a simple ish question but I was banned and men came round to my house and beat me up.
+                <br>Has anyone else had a similar experience?
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@batman_fan_123</a> | <a href="#">@stackoverflow</a> | <a href="#">@discussion_forums</a> | <a href="#">@help</a>
+                <span class="pull-right small">No comments... <a href="#">Add something?</a></span>
+                </div>
+                </div>
+        </div>
+
+        <!--
+                    Other layouts below
+
+        <div class="container">
+          <h1>Search, post, contribute, howl!</h1>
+          <br>
+            <div class="row">
+            <div class="col-sm-4">
+                <p><h2>Most Popular Tags <br><small id="i_Small">Sort by: Today</small></h2></p>
+                <ol>
+                <li> @DreamTeam </li>
+                <li> @WebApps </li>
+                <li> @Wireframes </li>
+                <li> @gla.ac.uk </li>
+                <li> @randomtag </li>
+                <li> @DreamTeamR </li>
+                <li> @WebAppsR </li>
+                <li> @WireframesR </li>
+                <li> @gla.ac.ukR </li>
+              </ol>
+              <p class="text-left"><small><a href="#">More...</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">All Tags</a></small></p>
             </div>
+            <div class="col-sm-4">
+              <p><h2>Most Popular Posts <br><small id="i_Small">Sort by: Weekly</small></h2></p>
+              <ol>
+                <li> <h5>I Hate WebApps</h5> <small>BigE</small> </li>
+                <li> <h5>I Love WebApps</h5> <small>Lewis</small> </li>
+                <li> <h5>Arts &amp; Crafts</h5> <small>Michael</small> </li>
+                <li> <h5>I am the best</h5> <small>SCOTPAUL</small> </li>
+                <li> <h5>Tango With Django</h5> <small>Leif#1</small></li>
+              </ol>
+              <p class="text-left"><small><a href="#">More...</a></p>
             </div>
-                <br>
-                <p><h3><a href="#">C++ STL help?</a></h3></p>
-                <p>
-                    I thought I'd do some research into C++, what is the "STL"? and why is it different to the standard
-                    library? I've seen std::vector and std::map being used, is the std:: part something to do with this?
-                    <br /><br />Cheers,<br />Barry x
-                </p>
-                <p><small id="i_rSmall"><a href="#">barry_the_bear</a></small> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b> Tags:</b>
-                <a href="#">@c++</a> | <a href="#">@stl</a> | <a href="#">@standardlibrary</a>| <a href="#">@stdvector</a></p>
-                <p><h3><a href="#">So confused about references in Java...</a></h3></p>
-                <p>
-                    I'm a C++ programmer, but I find it really hard in Java how if you have:<br /><br />
-                    Object a, b;
-                    <br /><br />
-                    then<br /><br />
-                    a = b.clone();
-                    <br />
-                    means
-                    <br />
-                    !(a < b) && !(a > b) but not (a == b)
-                    <br /> <br />
-                    The equality operator operates on references... but the < and > operators
-                    operate by value... Why doesn't Java just have a specific reference syntax,
-                    like better languages...
-                </p>
-                <p><small id="i_rSmall"><a href="#">xXDragonMasterXx</a></small> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b> Tags:</b>
-                <a href="#">@java</a> | <a href="#">@references</a><a </p>
-                <br>
-                <p><h3><a href="#">Stack Overflow is terrible</a></h3></p>
-                <p>
-                   Does anyone else get abused on S/O? I asked what I thought was a simple ish
-                    question but I was banned and men came round to my house and beat me up.
-                    <br />
-                    Has anyone else had a similar experience?
-                </p>
-                <p><small id="i_rSmall"><a href="#">batman_fan_123</a></small> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b> Tags:</b>
-                <a href="#">@stackoverflow</a> | <a href="#">@discussion_forums</a> | <a href="#">@help</a></p>
-                <br>
+              <div class="col-sm-4">
+              <p><h2>Most Helpful Posts <br><small id="i_Small">Sort by: Monthy</small></h2></p>
+              <ol>
+                <li> <p><h5>[QuickFix] WebApps Chpater 12</h5> <small>Leif#1</small> </p></li>
+                <li> <h5>Algo Lecture Attendance</h5> <small>PAT</small> </li>
+                <li> <h5>Arts &amp; Crafts</h5> <small>Michael</small> </li>
+                <li> <h5>Java Tips</h5> <small>Jeremy</small> </li>
+                <li> <h5>Bootstrap</h5> <small>Twiiter</small></li>
+              </ol>
+              <p class="text-left"><small><a href="#">More...</a></small></p>
             </div>
         </div>
+        <hr width="75%">
+        <div class="row">
+          <h2> Newest Content </h2>
+          <br>
+          <p><h3><a href="#">This is a Sample Post</a></h3></p>
+          <p> Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.</p>
+          <p><small id="i_rSmall"><a href="#">Username</a></small> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b> Tags:</b> <a href="#">@tag1</a> | <a href="#">@tag2</a> | <a href="#">@tag3</a></p>
+          <br>
+          <p><h3><a href="#">This is a Sample Post</a></h3></p>
+          <p> Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.</p>
+          <p><small id="i_rSmall"><a href="#">Username</a></small> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b> Tags:</b> <a href="#">@tag1</a> | <a href="#">@tag2</a> | <a href="#">@tag3</a></p>
+          <br>
+          <p><h3><a href="#">This is a Sample Post</a></h3></p>
+          <p> Some content.Some content.Some content.</p>
+          <p><small id="i_rSmall"><a href="#">Username</a></small> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b> Tags:</b> <a href="#">@tag1</a> | <a href="#">@tag2</a> | <a href="#">@tag3</a></p>
+
+         </div>
+
+            -->
         <hr width="95%">
         <div class="footer">
             &copy;<i>N-Tier the Matrix</i>

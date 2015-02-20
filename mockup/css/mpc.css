@@ -34,7 +34,6 @@ i { font-size:14px;}
 	border-width:1px;
 	border-left: 0;
 	border-right: 0;
-	line-height:96px;
 }
 
 /* Centers NavBar to middle of screen */
@@ -43,10 +42,7 @@ i { font-size:14px;}
     float:none;
     display:inline-block;
     font-size:16px;	
-    line-height:96px;
 }
-
-.navbar .nav  > li > a{ line-height:96px;}
 
 
 .Brand
