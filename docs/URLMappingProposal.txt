@@ -4,10 +4,6 @@
 # Tag view
 /posts/tags/tag1+tag2+...
 
-# Tags with no comments view (any suggestions for replacing 'unanswered'?)
-# Not sure if we need this one
-/posts/unanswered/tag1+tag2+...
-
 # Alternative could use 'new'
 /posts/new/tag1+tag2+...
 
