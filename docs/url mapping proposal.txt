@@ -1,0 +1,22 @@
+# Posts/Questions
+/posts/postId/post-title-slug
+
+# Tag view
+/posts/tags/tag1+tag2+...
+
+# Alternative could use 'new'
+/posts/new/tag1+tag2+...
+
+# Add a new post
+/posts/bark
+
+# Tag search
+/search?q=tag1+tag2+...
+
+# User profile
+/user/username
+
+Michael- Can we change 'user' to 'users'... or 'posts' to 'post', I feel there is some inconsistency here.
+If they go to '/user/' what will they see?
+I think it'd be more intuitive to make it /users/, so when they visit the general page they see some
+kind of user list.
