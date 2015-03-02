@@ -7,4 +7,9 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
+
+    #Main Bark Application Root
+    url(r'^bark/', include('bark.urls')),
+
+
 )
