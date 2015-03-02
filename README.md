@@ -1,5 +1,5 @@
 <h1> studeso </h1>
-&nbsp;&nbsp;B1 - WebApps Project
+&nbsp;&nbsp;B1 (N-Tier The Matrix) - WebApps Project
 
 # Team
  - [Paul Cowie](https://github.com/SCOTPAUL)
@@ -11,6 +11,9 @@
 
  <h4> docs/ </h4>
   <h6>&nbsp;&nbsp;&nbsp;&nbsp;Plans, notes & design documents</h6>
+
+ <h4> mockups/ </h4>
+  <h6>&nbsp;&nbsp;&nbsp;&nbsp;Sample wireframe of site</h6>
   
  <h4> studeso/ </h4>
   <h6>&nbsp;&nbsp;&nbsp;&nbsp;Project code</h6>
@@ -22,3 +25,5 @@
  Django 1.7
  
  Python 2.7.X
+
+ Bootstrap 3.X

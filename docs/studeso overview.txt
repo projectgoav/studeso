@@ -8,11 +8,11 @@ BASIC SPEC
 ----------
 Users will be able to view questions/posts without an account.
 If users want to comment or post their own content they require to register. However, they are able to post annoymously if they so wish.
-Registering requires a ac.uk email address.
+Registering requires an ac.uk email address.
 
 The post itself will be tagged, much like Twitter allowing for the post to be visible in different boards.
 Tags use "@" symbol, followed by the name. [QUESTION] There is no limit on tags per question? [/QUESTION]
-By default each put will use users username as tag, however, this will not be displayed if user posts annoymously.
+By default each post will use the user's username as a tag, however, this will not be displayed if user chooses to post annoymously.
 
 Tags are used for searching relevant questions.
 If a question is tagged @TagA, a second question is tagged @TagB and a third question is tagged: @TagA @TagB;

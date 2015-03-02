@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>OUR FANTASTIC WEBAPPS PROJECT</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mpc.css">
+    <link href='http://fonts.googleapis.com/css?family=Oxygen:400' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+    <div class="container-fluid" id="brand">
+        <nav class="navbar navbar-default navbar-static-top">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav navbar-left">
+                    <!-- Michael - removed the "Bark!" title beside the search bar,
+                        felt it was redundant with the "Bark!" title below beside the logo. -->
+                    <!-- <li><a href="index.html">Bark!</a></li> -->
+
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                            <button type="submit" class="btn btn-warning">Go fetch!</button>
+                        </div>
+                    </form>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Add Post</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Help</a></li>
+                    <li><a href="index.html">Logout</a></li>
+                    <li><a href="#" id="active"><img src="img/jim.png" width="28" height="28"/>  JimmyJim_W</a></li>
+                </ul>
+
+
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="Brand">
+            <img src="img/akita.png" alt="Bark Logo" width="96" height="96" />
+            &nbsp;&nbsp;<h1>Bark!</h1> &nbsp;&nbsp; <h3>Search, post, bark!</h3> <small>Q&amp;A discussion site for Students</small></div>
+        <div class="row">
+            <div class="col-sm-2">
+                <p><h2>Tags You Follow</h2></p>
+                <ol>
+                    <li id="UNI"> @bristol.ac.uk </li>
+                    <li> @python </li>
+                    <li> @lists </li>
+                    <li> @hobbyprogramming</li>
+                    <li> @dream_team </li>
+                </ol>
+                <p class="text-left"><small>
+                    <a href="#">More...</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+                    <a href="#">All Tags</a></small></p>
+                <small><a href="#">What's this? - tags help</a></small>
+            </div>
+            <div class="col-sm-10">
+                <h1>Recent from Tags you follow</h1>
+                <br>
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">Python Lists confusion</a><span class="pull-right small">12 found this interesting</span></h4></div>
+                <div class="panel-body"> I'm really not sure about this list concept in Python. My lecturer hasn't explained it well and the notes aren't much use either. Anyone else struggling too?
+                </div>
+                <div class="panel-footer" id="bark-tags">
+                <b>Tags: </b><a href="#" id="USER"/>@JimmyJim_W</a> | <a href="#" id="UNI">@bristol.ac.uk</a> | <a href="#">@python</a> | <a href="#">@lists</a><span class="pull-right small">2 comments</span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="PostView.html">TwD confusion!</a><span class="pull-right small">55 found this interesting</span></h4></div>
+                <div class="panel-body"> Hi guys, so I'm working through "Tango with Django", but I'm stuck on Chapter 6... what is an "entity relationship diagram"? Is it okay if I don't fully understand this part?
+                </div>
+                <!-- Move username down into the footer -->
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER"/>@stuck_student55</a> | <a href="#" id="UNI">@gla.ac.uk</a> | <a href="#">@tango_with_django</a> | <a href="#">@leif</a> | <a href="#">@erdiagram</a> <span class="pull-right small">117 comments</span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">Leif's exciting lecture yesterday</a><span class="pull-right small">4 found this interesting</span></h4></div>
+                <div class="panel-body"> My doctor recommended I take tablets for my insomnia- but Leif's incredible lecture style seems to do the trick! I'd recommend if you have a similar condition...
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@johnno94</a> | <a href="#">@sleep</a> | <a href="#">@leif</a> | <a href="#" id="UNI">@gla.ac.uk</a><span class="pull-right small">16 comments</span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">C++ STL Help</a><span class="pull-right small">1 found this interesting</span></h4></div>
+                <div class="panel-body"> I thought I'd do some research into C++, what is the "STL"? and why is it different to the standard library? I've seen std::vector and std::map being used, is the std:: part something to do with this?
+                <br>Cheers,Barry x
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@barry_the_bear</a> | <a href="#">@c++</a> | <a href="#">@stl</a> | <a href="#">@standardlibrary</a>| <a href="#">@stdvector</a><span class="pull-right small">No comments... <a href="#">Add something?</a></span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">So confused about references in Java...</a><span class="pull-right small">0 found this interesting</span></h4></div>
+                <div class="panel-body">I'm a C++ programmer, but I find it really hard in Java how if you have:<br><code>Object a, b;</code> then
+                    <br><code>a = b.clone();</code> means <code> !(a < b) && !(a > b) but not (a == b)</code><br><br>The equality operator operates on references... but the < and > operators operate by value... Why doesn't Java just have a specific reference syntax, like better languages...
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@xXDragonMasterXx</a> | <a href="#">@java</a> | <a href="#">@references</a>
+                <span class="pull-right small">No comments... <a href="#">Add something?</a></span>
+                </div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title"><a href="#">Stack Overflow is terrible</a><span class="pull-right small">0 found this interesting</span></h4></div>
+                <div class="panel-body">Does anyone else get abused on S/O? I asked what I thought was a simple ish question but I was banned and men came round to my house and beat me up.
+                <br>Has anyone else had a similar experience?
+                </div>
+                <div class="panel-footer"><b>Tags: </b><a href="#" id="USER">@batman_fan_123</a> | <a href="#">@stackoverflow</a> | <a href="#">@discussion_forums</a> | <a href="#">@help</a>
+                <span class="pull-right small">No comments... <a href="#">Add something?</a></span>
+                </div>
+        </div>
+    </div>
+
+</div>
+
+        <hr width="95%">
+        <div class="footer">
+            &copy;<i>N-Tier the Matrix</i>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+KEY:	(*) UNQIUE
+	(^) INHERITTED
+
+
+Users:
+	- Email		 (*)
+	- Screenname	 (*)
+	- Password
+	
+	- Posts
+	- Comments
+	- Subscribed Tags
+
+
+Tags: (ONE WORD NAMES)
+	- Tag/Name	(*)
+
+Posts:
+	- ID		(*)
+	- Author
+	- Content
+	- Views
+	- Likes
+	- Tags
+
+	- Comments
+
+Comments:
+	- ID		(*)
+	- Author
+	- Comment
+	- Post
+	- Likes
+
+Likes:
+	- Author	(^)
+	- Post/Comment	(^)

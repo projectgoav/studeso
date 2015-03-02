@@ -1,0 +1,177 @@
+/* *********************************
+           Variables
+  ********************************** */
+/* *********************************
+   Some Style Overrides on Bootstrap
+  ********************************** */
+.navbar-inverse {
+ background: rgba(62, 195, 246, 0);
+  border-bottom: none;
+  display:inline-block;
+}
+
+.navbar-inverse form {
+  display:inline-block;
+}
+
+.navbar-inverse .navbar-toggle {
+  border: 1px solid #333;
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+  border-color: transparent;
+}
+@media (max-width: 767px) {
+  .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+  background: rgba(255, 255, 255, 0.75); 
+  }
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: #444;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+  color: black;
+  background-color:white;
+}
+
+/* *********************************
+           Bark Stuff
+  ********************************** */
+
+/* Makes Bark! Title link styling disappear */
+.a-brand {
+  text-decoration: none;
+  color:#555;
+}
+.a-brand:hover, .a-brand:active {  text-decoration: none; color:black;  }
+
+/* Custom 'Active' link */
+.nav-active { background-color:#ADD8FD;}
+
+/* Custom font for site */
+body{
+    font-family: 'Oxygen', sans-serif;
+}
+
+/* Extra small headings for more content */
+#s-brand { font-size:14px;}
+
+/* Custom styling for bark pannels */
+.panel-title { font-size:18px;}
+.panel-footer { font-size:12px;}
+
+#header { color:#777;}
+
+
+/* *********************************
+            Tag Styles
+   ********************************* */
+#UNI { color: red; }
+#USER { font-style:italic; }
+
+/* *********************************
+           Toolbar Logo
+  ********************************** */
+.small-logo-container {
+  padding-top: 50px;
+  height: 50px;
+  overflow: hidden;
+}
+
+.small-logo {
+  color: #555;
+  font-size: 2.5em;
+  padding-bottom: 2px;
+}
+
+/* *********************************
+           Big Logo
+  ********************************** */
+.big-logo-row {
+  background: orange;
+}
+.big-logo-row .big-logo-container {
+  padding-top: 50px;
+  display:inline-block;
+}
+.big-logo-row h1 {
+  display:inline;
+  font-size: 4em;
+  margin: 0;
+  padding: 0 0 15px 0;
+}
+
+.big-logo-image { float:left;}
+
+#limg { width:64px;
+        height:64px;
+      }
+
+.big-logo-row h2 { display:inline-block;}
+
+@media (min-width: 400px) {
+  .big-logo-row h1 {
+    font-size: 4.5em;
+  }
+
+  #limg
+  {
+    width:72px;
+    height:72px;
+  }
+}
+@media (min-width: 440px) {
+  .big-logo-row h1 {
+    font-size: 5.5em;
+  }
+
+  #limg
+  {
+    width:84px;
+    height:84px;
+  }
+}
+@media (min-width: 500px) {
+  .big-logo-row h1 {
+    font-size: 6.5em;
+  }
+  #limg
+  {
+    width:96px;
+    height:96px;
+  }
+}
+@media (min-width: 630px) {
+  .big-logo-row h1 {
+    font-size: 7.5em;
+  }
+    #limg
+  {
+    width:108px;
+    height:108px;
+  }
+}
+@media (min-width: 768px) {
+  .big-logo-row h1 {
+    font-size: 9em;
+    padding-bottom: 30px;
+  }
+  #limg
+  {
+    width:128px;
+    height:128px;
+  }
+}
+@media (min-width: 1200px) {
+  .big-logo-row h1 {
+    font-size: 11em;
+  }
+    #limg
+  {
+    width:156px;
+    height:156px;
+  }
+}

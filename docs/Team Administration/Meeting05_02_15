@@ -1,0 +1,89 @@
+Notes from Meeting 05/02/2015
+-----------------------------
+
+===============================================================
+===============================================================
+===============================================================
+1 : What we need for Pitch
+2 : Database Model	
+	2.1 : Entities
+	2.2 : ER-Diagram
+3 : User Personas
+	3.1 : 'Basic' User
+	3.2 : 'Expert' User
+	3.3 : 'Troll'
+4: What we need to do
+===============================================================
+===============================================================
+===============================================================
+
+
+1 : What we need for Pitch:
+	- Team Name + Project Name
+	- Outline of Site + Main Features
+	- User Personas (x3)
+	- ER-Diagram
+	- nTier Model
+	- Requiremnents
+		- What we want
+		- What we'd like
+		- What we don't want to do
+	- Wireframes (For next meeting)
+	- URL Mappings (For next meeting)
+	- Sitemap (For next meeting)
+
+2 : Database Model
+------------------
+2.1 : Entities
+--------------
+
+User
+	- Username / Email
+	- Password
+	- Questions/Posts written
+	- Total Votes + Views
+	- 'Followed' tags
+
+Questions/Posts
+	- Author
+	- Content
+	- Tags
+	- Votes/Score + Views
+	- Comments
+
+Comments
+	- Parent
+	- Author
+	- Content
+	- Votes/Score
+
+
+
+2.2 : ER-Diagram
+-----------------
+[ Users ] 1 ---------- < Makes > ---------- m [ Questions/Posts ] 1 --------- < have > ---------- m [ Comments ]
+
+
+
+3 : User Personas
+-------------
+
+3.1 : 'Basic' Prorgrammer : Would like to be able to ask questions and seek help when they are writting their "Hello World" applications (*).
+
+3.2 :'Expert' Programmer : Wants to fufill their inflated ego by shown just how much they know to everyone and anyone who will list. Doesn't mind helping the 'basic' or 'advanced'
+
+3.3 : 'Troll'	: Someone who posts intenionally wrong and/or missleading answers or even abusive and unhelpful content. 
+					- We can get back at them as comments with a better score apper more often/futher up than ones without score. (This shouldn't happen very often as 	it's only students but the system will be in place just incase (+))
+
+
+4 : What we need to do for next meeting
+------------------------------------
+
+	A: Make sample homepage Wireframe
+	B: Make list of requirements
+	C: Think of URL mappings and Sitemap
+
+
+
++ - Also going to add a flag, or report, system as well.
+* - Going to add a sort of Delete function. This will make question annoymous so user isn't associated with it.
