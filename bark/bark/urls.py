@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-from bark import views, regviews
+from bark.views import views, regviews
 
 urlpatterns = patterns('',
     # Examples:
