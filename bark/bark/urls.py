@@ -26,10 +26,10 @@ urlpatterns = patterns('',
         #Generic Post list
         #TODO
         #Add tags as /TAG/TAG/TAG to filter depending on the tags
-        url(r'^bark/tags/', views.posts, name='posts'),
+        url(r'^bark/tags/', views.barks, name='barks'),
 
         #Specific Bark view
-        url(r'^bark/<post_id>/', views.postview, name ='postview'),
+        url(r'^bark/<post_id>/', views.barkview, name ='barkview'),
        
         #Add new Bark
         url(r'^bark/new/', views.addbark, name='addbark'),
@@ -48,7 +48,7 @@ urlpatterns = patterns('',
         url(r'^users/', regviews.users, name='users'),
 
         #Displays specific user profile
-        url(r'^users/<user_name>/', regviews.profile, name='profile'),
+        url(r'^users/<user_name>/', regviews.viewuser, name='viewuser'),
 
         #PERSONAL PROFILE VIEWS
         #------------
@@ -64,7 +64,7 @@ urlpatterns = patterns('',
         #---------
 
         #Register
-        url(r'^signup/', regviews.index, name='signup'),
+        url(r'^signup/', regviews.signup, name='signup'),
 
         #Login
         url(r'^signin/', regviews.signin, name = 'signin'),
