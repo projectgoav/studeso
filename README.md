@@ -15,7 +15,7 @@
  <h4> mockups/ </h4>
   <h6>&nbsp;&nbsp;&nbsp;&nbsp;Sample wireframe of site</h6>
   
- <h4> studeso/ </h4>
+ <h4> bark/ </h4>
   <h6>&nbsp;&nbsp;&nbsp;&nbsp;Project code</h6>
   
  <h4> requirements/ </h4>
