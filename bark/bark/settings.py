@@ -1,5 +1,5 @@
 """
-Django settings for studeso project.
+Django settings for bark project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '7lqr60ejd=20tvtq$vla%p2g+1ext47-o4p)85jj$)m_oljzch'
+SECRET_KEY = '6ivkrma9_d3@$s0ec%37p@2d5418su1i*ebxt7et84d*g_98-h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -36,9 +36,6 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    #Our Applications
-    'bark'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -51,9 +48,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'studeso.urls'
+ROOT_URLCONF = 'bark.urls'
 
-WSGI_APPLICATION = 'studeso.wsgi.application'
+WSGI_APPLICATION = 'bark.wsgi.application'
 
 
 # Database
