@@ -13,7 +13,6 @@ class Like(models.Model):
 
 
 class PostLike(Like):
-    like = models.ForeignKey(Like, unique=True)
     post = models.ForeignKey(Post)
 
     def __unicode__(self):
@@ -21,7 +20,6 @@ class PostLike(Like):
 
 
 class CommentLike(Like):
-    like = models.ForeignKey(Like, unique=True)
     comment = models.ForeignKey(Comment)
 
     def __unicode__(self):
