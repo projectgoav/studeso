@@ -8,11 +8,17 @@ class Tag(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
     followers = models.ManyToManyField(UserProfile, through="TagFollowing")
     posts = models.ManyToManyField(Post, through="PostTagging")
+    description = models.TextField()
 
     def save(self, *args, **kwargs):
         # Run clean()
         self.full_clean()
+        self.autogenDescription()
         super(Tag, self).save(*args, **kwargs)
+
+
+    def genDescription(self):
+        self.description = "This is for discussing " + self.name + "."
 
     def clean(self):
         # Remove any spaces from name
@@ -21,6 +27,16 @@ class Tag(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class InstitutionTag(Tag):
+    def genDescription(self):
+        self.description = "Posting in this tag is restricted to " + self.name + " students."
+
+
+class UserTag(Tag):
+    def genDescription(self):
+        self.description = "This tag lists the posts of " + self.name + "."
 
 
 class TagFollowing(models.Model):

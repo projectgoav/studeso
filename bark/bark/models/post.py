@@ -9,6 +9,7 @@ class Post(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
     views = models.IntegerField(default=0)
     tags = models.ManyToManyField(Tag, through="PostTagging")
+    rating = 0.0
 
     title = models.CharField(max_length=100)
     content = models.TextField()
