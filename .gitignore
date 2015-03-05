@@ -32,4 +32,7 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
-*.lnk
+*.name
+.idea/encodings.xml
+*.xml
+*.iml
