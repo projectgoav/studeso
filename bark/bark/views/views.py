@@ -6,24 +6,21 @@ from django.http import HttpResponse
 def index(request):
 	return HttpResponse("Welcome to Bark!<br><br>Woof")
 
-#Redirect index page
-def Barkindex(request):
+# Redirect index page
+def barkIndex(request):
 	return HttpResponse("Welcome to Bark!<br><br>Woof <br><br>We need to put a redirect here")
 
-
-#Bark Tag listing
+# Bark Tag listing
 def barks(request):
 	return HttpResponse("Random Bark 1<br>Random Bark 2<br>Random Bark 3<br>")
 
-#View a specific bark
+# View a specific bark
 def barkview(request):
 	return HttpResponse("Random Bark 1<br><br>Blah. Blah. Blah. Blah.<br><b>Author:</b>Blah.")
 
+def addbark(request):
+	return HttpResponse("Add some new bark")
 
-#Search view
+# Search view
 def search(request):
 	return HttpResponse("Perform a fantastic search!")
-
-
-
-
