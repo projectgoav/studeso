@@ -18,6 +18,9 @@ def barks(request):
 def barkview(request):
 	return HttpResponse("Random Bark 1<br><br>Blah. Blah. Blah. Blah.<br><b>Author:</b>Blah.")
 
+def addbark(request):
+	return HttpResponse("Add some new bark")
+
 # Search view
 def search(request):
 	return HttpResponse("Perform a fantastic search!")

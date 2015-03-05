@@ -19,7 +19,7 @@ urlpatterns = patterns('',
 
         #Just redirect back to homepage?
         #TODO
-        url(r'^bark/' views.index, name = 'barkIndex'),
+        url(r'^bark/', views.index, name = 'barkIndex'),
 
 		#BARK URLS
 		#----------
@@ -79,4 +79,4 @@ if settings.DEBUG:
         'django.views.static',
         (r'^media/(?P<path>.*)',
         'serve',
-        {'document_root': settings.MEDIA_ROOT}), 
+        {'document_root': settings.MEDIA_ROOT}))

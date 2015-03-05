@@ -8,7 +8,7 @@ def index(request):
 
 
 #View a list of people on the site
-def profile(request):
+def users(request):
 	return HttpResponse("Person 1<br>Person 2<br>Person 3<br>Person 4")
 
 #View specific user profile
