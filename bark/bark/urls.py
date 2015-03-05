@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-from bark.views import views, regviews
+from views import views, regviews
 
 urlpatterns = patterns('',
     # Examples:
@@ -11,38 +11,38 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
 
-    	#PROJECT URLS
-    	#----------
-
+    # #PROJECT URLS
+    # #----------
+    #
 	#Main Application Root
         url(r'^$', views.index, name = 'index'),
-		#BARK URLS
-		#----------
-
-        #Generic Post list
+    # #BARK URLS
+    # #----------
+    #
+    # #Generic Post list
         # TODO
         # Add tags as /TAG/TAG/TAG to filter depending on the tags
         url(r'^tags/', views.barks, name = 'barks'),
-
-        #Specific Bark view
+    #
+    # #Specific Bark view
         url(r'^<post_id>/', views.barkview, name = 'barkview'),
-       
-        #Add new Bark
+    #
+    # #Add new Bark
         url(r'^new/', views.addbark, name = 'addbark'),
-
-        #Search
-        #Followed by query string or some form of search regex
+    #
+    # #Search
+    # #Followed by query string or some form of search regex
         url(r'^search/', views.search, name = 'search'),
-
-        #REGISTRATION VIEWS
-        #---------
-
+    #
+    # #REGISTRATION VIEWS
+    # #---------
+    #
         url(r'^signup/', regviews.signup, name = 'signup'),
-        url(r'^signin/', regviews.signin, name = 'signin'),
+    # url(r'^signin/', regviews.signin, name = 'signin'),
         url(r'^signout/', regviews.signout, name = 'signout'),
-
-        url(r'^password/', regviews.passwordMenu, name = 'passwordMenu'),
-        url(r'^password/change/', regviews.passwordChange, name = 'passwordChange'),
+    #
+    # url(r'^password/', regviews.passwordMenu, name = 'passwordMenu'),
+    # url(r'^password/change/', regviews.passwordChange, name = 'passwordChange'),
         url(r'^password/reset/', regviews.passwordReset, name = 'passwordReset'),
 )
 
@@ -53,3 +53,4 @@ if settings.DEBUG:
         (r'^media/(?P<path>.*)',
         'serve',
         {'document_root': settings.MEDIA_ROOT}))
+        )
