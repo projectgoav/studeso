@@ -13,7 +13,7 @@ class Tag(models.Model):
     def save(self, *args, **kwargs):
         # Run clean()
         self.full_clean()
-        self.autogenDescription()
+        self.genDescription()
         super(Tag, self).save(*args, **kwargs)
 
 
