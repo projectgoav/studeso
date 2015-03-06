@@ -73,6 +73,9 @@ class Post(models.Model):
         self.slug = slugify(self.title)
         super(Post, self).save(*args, **kwargs)
 
+        # Tag the user automatically
+        PostTagging.objects.get_or_create(post=self, tag=self.author.user_tag)
+
     def __unicode__(self):
         return self.title
 
