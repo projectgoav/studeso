@@ -4,7 +4,12 @@ from django.http import HttpResponse
 # Index Page
 # Returns a welcome message
 def index(request):
-	return HttpResponse("Welcome to Bark!<br><br>Woof")
+        # Create a context dictionary with the top posts.
+        contextDictionary = {}
+
+        contextDictionary['topPosts'] = Post.objects.get()
+        # TODO: Flesh the views out (Michael: I'll do this)        
+	return render('
 
 # Redirect index page
 def barkIndex(request):
