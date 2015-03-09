@@ -7,6 +7,8 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, unique=True)
     followed_tags = models.ManyToManyField('Tag', through="TagFollowing")
 
+    profile_image = picture = models.ImageField(upload_to='profile_images', blank=True, editable=True)
+
     user_tag = models.OneToOneField('UserTag', related_name="userprofile_user_tag", editable=False)
     institution_tag = models.ForeignKey('InstitutionTag', related_name='userprofile_institution_tag', editable=False)
 
