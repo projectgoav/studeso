@@ -3,11 +3,13 @@ from django.db import models
 from django.template.defaultfilters import slugify
 
 
+# User Models
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, unique=True)
     followed_tags = models.ManyToManyField('Tag', through="TagFollowing")
 
-    profile_image = picture = models.ImageField(upload_to='profile_images', blank=True, editable=True)
+    profile_picture = models.ImageField(upload_to='profile_images', blank=True, editable=True)
 
     user_tag = models.OneToOneField('UserTag', related_name="userprofile_user_tag", editable=False)
     institution_tag = models.ForeignKey('InstitutionTag', related_name='userprofile_institution_tag', editable=False)
@@ -26,6 +28,8 @@ class UserProfile(models.Model):
         return self.user.username
 
 
+# Comment Models
+
 class Comment(models.Model):
     author = models.ForeignKey('UserProfile')
     post = models.ForeignKey('Post')
@@ -37,34 +41,38 @@ class Comment(models.Model):
         return self.content
 
 
+# Like Models
+
 class Like(models.Model):
     author = models.ForeignKey('UserProfile')
     creation_date = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
-        return self.author + "," + self.creation_date
+        return str(self.author)
 
 
 class PostLike(Like):
     post = models.ForeignKey('Post')
 
     def __unicode__(self):
-        return self.post + "," + super(Like, self)
+        return str(self.author) + " liked " + str(self.post)
 
 
 class CommentLike(Like):
     comment = models.ForeignKey('Comment')
 
     def __unicode__(self):
-        return self.comment + "," + super(Like, self)
+        return str(self.author) + " liked " + str(self.comment)
 
+
+# Post Models
 
 class Post(models.Model):
     author = models.ForeignKey('UserProfile')
     creation_date = models.DateTimeField(auto_now_add=True)
     views = models.IntegerField(default=0)
     tags = models.ManyToManyField('Tag', through="PostTagging", null=False, blank=False)
-    rating = 0.0
+    rating = models.IntegerField(default=0)
 
     title = models.CharField(max_length=100)
     content = models.TextField()
@@ -87,6 +95,8 @@ class PostTagging(models.Model):
     tag = models.ForeignKey('Tag')
     tagging_date = models.DateTimeField(auto_now_add=True)
 
+
+# Tag Models
 
 class Tag(models.Model):
     name = models.CharField(unique=True, max_length=30)
@@ -128,6 +138,8 @@ class TagFollowing(models.Model):
     tag = models.ForeignKey('Tag')
     follow_date = models.DateTimeField(auto_now_add=True)
 
+
+# Misc. Functions
 
 def getInstitution(email):
     # Could be changed to return domain.ac.uk instead of *.ac.uk
