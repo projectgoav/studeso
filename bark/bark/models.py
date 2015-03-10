@@ -112,7 +112,8 @@ class Tag(models.Model):
         super(Tag, self).save(*args, **kwargs)
 
     def genDescription(self):
-        self.description = "This is for discussing " + self.name + "."
+        #Remove the leading "@" from tag when given it a default description
+        self.description = "This is for discussing " + self.name[1:] + "."
 
     def clean(self):
         # Remove any spaces from name
