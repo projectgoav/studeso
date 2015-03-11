@@ -17,6 +17,9 @@
 # Copied from .gitignore -> python
 #------------
 
+#EXTRAS
+keys.py
+
 #============
 #OPERATING SYSTEM FILES
 #============

@@ -56,6 +56,8 @@ def signup(request):
 
             profile.save()
 
+            sendRegEmail(user)
+
             registered = True
 
         # If something went wrong, it goes to terminal and to the template.

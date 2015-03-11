@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from keys import USERNAME, PASSWORD
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -80,7 +81,7 @@ TEMPLATE_DIRS = (
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-uk'
 
 TIME_ZONE = 'UTC'
 
@@ -105,3 +106,12 @@ STATICFILES_DIRS = (
 #PROFILE IMAGES?
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Absolute path to the media directory
+
+# Sends emails
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp-mail.outlook.com'
+EMAIL_HOST_USER = USERNAME
+EMAIL_HOST_PASSWORD = PASSWORD
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
