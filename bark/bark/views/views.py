@@ -5,13 +5,17 @@ from django.http import HttpResponse
 # Index Page
 # Returns a welcome message
 def index(request):
-        # Create a context dictionary with the top posts.
-        contextDictionary = {}
 
-        contextDictionary['topPosts'] = Post.objects.get()
-        # TODO: Flesh the views out (Michael: I'll do this)
-        # TODO: Uncomment render, had to do this to prevent EOL error
-	 # return render('
+    # Create a context dictionary with the top posts.
+    contextDictionary = {}
+
+    #contextDictionary['topPosts'] = Post.objects.get()
+    # TODO: Flesh the views out (Michael: I'll do this)
+    # TODO: Uncomment render, had to do this to prevent EOL error
+
+    # NOTE: PLEASE PLEASE PLEASE DON'T REMOVE THE HTTPResponse UNTIL YOU ACTUALLY GIVE IT SOME DATA
+    # THEN THE SITE WILL STILL BE ABLE TO RUN AND BE TESTED BY OTHERS!!! :@
+    return HttpResponse("HI THERE")
 
 # Redirect index page
 def barkIndex(request):

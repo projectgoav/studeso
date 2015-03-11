@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bark - Signup</title>
+    </head>
+
+    <body>
+        <h1>Register with Bark</h1>
+
+        {% if registered %}
+        <h2> Bark Welcomes you! </h2>
+        {% else %}
+
+        <h3>Signup</h3>
+
+        <form id="user_form" method="post" action="/signup/"
+                enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <!-- COMMENT -->
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+
+            <!-- Provide a button to click to submit the form. -->
+            <input type="submit" name="submit" value="Signup!" />
+        </form>
+
+        {% endif %}
+    </body>
+</html>

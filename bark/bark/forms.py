@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from rango.models import UserProfile
+from bark.models import UserProfile
 
 #Get data for user when they sign up
 class UserForm(forms.ModelForm):
@@ -14,4 +14,4 @@ class UserForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('picture')
+        fields = ('profile_picture',)

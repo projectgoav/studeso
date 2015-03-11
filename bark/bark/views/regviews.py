@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+from bark.forms import UserForm, UserProfileForm
+
 # Index Page
 # Returns a welcome registration message
 def index(request):
@@ -29,7 +31,44 @@ def profileUpdate(request):
 
 #User can sign up
 def signup(request):
-    return HttpResponse("You wish to join bark?!?!?")
+
+    registered = False
+
+    # If post, we want to sort out the form.
+    if request.method == 'POST':
+        #Get form data
+        user_form = UserForm(data=request.POST)
+        profile_form = UserProfileForm(data=request.POST)
+
+        # If the two forms are valid...
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save()
+            #Save form and password
+            user.set_password(user.password)
+            user.save()
+
+            profile = profile_form.save(commit=False)
+            profile.user = user
+
+            # Did the user provide a profile picture?
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES['picture']
+
+            profile.save()
+
+            registered = True
+
+        # If something went wrong, it goes to terminal and to the template.
+        else:
+            print user_form.errors, profile_form.errors
+
+    # If GET, just display form
+    else:
+        user_form = UserForm()
+        profile_form = UserProfileForm()
+
+    return render(request, 'auth/signup.html', {'user_form': user_form, 'profile_form': profile_form, 'registered': registered} )
+
 
 
 #User can sign in
@@ -52,4 +91,3 @@ def passwordChange(request):
 #Password Reset
 def passwordReset(request):
     return HttpResponse("You can reset you password. You twit. You much have forgotten it")
-
