@@ -31,7 +31,6 @@ tags = [
         ]
 
 institutionTags = [
-            #Institution tags
             "@gla.ac.uk",
             "@bristol.ac.uk",
             "@sta.ac.uk",
@@ -39,6 +38,21 @@ institutionTags = [
             "@uws.ac.uk",
             "@cityofglasgowcollege.ac.uk",
         ]
+
+defaultPostData = [
+    ["C++ Help"],
+    ["Python Stuck"],
+    ["Django sucks"],
+    ["Class banter"],
+    ["Populate.py is hard"],
+    ["The Godfather - What a movie!"],
+    ["I love arts and crafts"],
+    ["Java sucks"],
+    ["BinSort is tricky"],
+    ["Python 3 is way better than 2"],
+    ["Ruby on Rails > Python, right?!"],
+    ["Differece between Java and Javascript?"]
+    ]
 
 # Adds some users to the application
 # NOTE: These user passwords do not have any password hashing!
@@ -50,7 +64,7 @@ def addUsers():
     for userName in userNames:
         print "\t> " + userName
         
-        email = userName + institutionTags[selectedUserInstitution % len(institutionTags)][1:]
+        email = userName + "@" + institutionTags[selectedUserInstitution % len(institutionTags)][1:]
         selectedUserInstitution += 1
 
         user = User.objects.get_or_create(username = userName, password = "test", email = email)
@@ -59,18 +73,20 @@ def addUsers():
 
     print str(len(userNames)) + " users added!\n"
 
-#Adds some basic information to the users and their profiles.
+# Adds some basic information to the users and their profiles.
 def addProfiles():
     print "Setting up User Profiles..."
 
     for userName in userNames:
         user = User.objects.get(username = userName)
+        userProfile = UserProfile.objects.get_or_create(user = user)
+
         print "\t> " + str(user)
 
     print "Updated all profiles\n"
 
-#Add all tags and a short descripton
-#NOTE: Add tags have the default descriptno "A tag all about: "
+# Add all tags and a short descripton
+# Note: Add tags have the default descriptno "A tag all about: "
 def addTags():
     print "Creating tags..."
 
@@ -88,11 +104,29 @@ def addTags():
 
     print "Institution tags setup.\n"
 
+def addPosts():
+    print "Creating posts..."
+
+    allUsers = UserProfile.objects.all()
+    userIndex = 0
+
+    for postData in defaultPostData:
+        post = Post.objects.get_or_create(
+            title = postData[0],
+            author = allUsers[userIndex % len(allUsers)],
+            content = "Test post... Hello C++ Python Hello"
+            )
+        
+        userIndex += 1
+
+    print "Finished creating posts."
+
 def populate():
     addUsers()
-    addTags()
+    addProfiles()
 
-    #addProfiles()
+    addTags()
+    addPosts()
 
     #for u in User.objects.all():
     #    print u

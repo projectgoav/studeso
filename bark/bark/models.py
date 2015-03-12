@@ -28,7 +28,7 @@ class UserProfile(models.Model):
         self.user_tag = UserTag.objects.create(name=self.user.username)
         self.institution_tag = InstitutionTag.objects.get_or_create(name=institution)[0]
 
-        self.reg_code = randInt(10000,99999)
+        self.reg_code = 0
 
         super(UserProfile, self).save(*args, **kwargs)
 
@@ -85,7 +85,9 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
 
-    slug = models.SlugField(editable=False, unique=True)
+    # Michael- had to make "slug" not unique for now. In the future maybe we can make it
+    # so when a slug is generated it will be generated uniquely?
+    slug = models.SlugField(editable=False)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
