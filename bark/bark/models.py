@@ -80,7 +80,9 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
 
-    slug = models.SlugField(editable=False, unique=True)
+    # Michael- had to make "slug" not unique for now. In the future maybe we can make it
+    # so when a slug is generated it will be generated uniquely?
+    slug = models.SlugField(editable=False)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
