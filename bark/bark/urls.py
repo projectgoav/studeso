@@ -38,11 +38,11 @@ urlpatterns = patterns('',
                        # #---------
                        #
                        url(r'^signup/', regviews.signup, name = 'signup'),
-                       # url(r'^signin/', regviews.signin, name = 'signin'),
+                       url(r'^signin/', regviews.signin, name = 'signin'),
                        url(r'^signout/', regviews.signout, name = 'signout'),
                        #
                        # url(r'^password/', regviews.passwordMenu, name = 'passwordMenu'),
-                       # url(r'^password/change/', regviews.passwordChange, name = 'passwordChange'),
+                       url(r'^password/change/', regviews.passwordChange, name = 'passwordChange'),
                        url(r'^password/reset/', regviews.passwordReset, name = 'passwordReset'),
                        )
 

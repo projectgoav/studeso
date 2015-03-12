@@ -1,0 +1,13 @@
+<html>
+<head>
+  <title> Bark Index </title>
+</head>
+<body>
+  {% if user.is_authenticated %}
+<h1>Welcome to Bark {{ user.username }}!</h1>
+{% else %}
+<h1>Welcomee to Bark!</h1>
+{% endif %}
+</body>
+
+</html>

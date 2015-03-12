@@ -15,7 +15,7 @@ def index(request):
 
     # NOTE: PLEASE PLEASE PLEASE DON'T REMOVE THE HTTPResponse UNTIL YOU ACTUALLY GIVE IT SOME DATA
     # THEN THE SITE WILL STILL BE ABLE TO RUN AND BE TESTED BY OTHERS!!! :@
-    return HttpResponse("HI THERE")
+    return render(request, "bark/index.html", {})
 
 # Redirect index page
 def barkIndex(request):

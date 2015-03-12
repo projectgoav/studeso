@@ -1,7 +1,10 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth import authenticate, login
+
 
 from bark.forms import UserForm, UserProfileForm
+from bark.email import sendWelcomeEmail
 
 # Index Page
 # Returns a welcome registration message
@@ -29,7 +32,7 @@ def profileUpdate(request):
 
 
 
-#User can sign up
+#User can sign up. Once done, they'll get a nice welcome email :)
 def signup(request):
 
     registered = False
@@ -55,10 +58,13 @@ def signup(request):
                 profile.picture = request.FILES['picture']
 
             profile.save()
-
-            sendRegEmail(user)
+            sendWelcomeEmail(user)
 
             registered = True
+
+            #We re-direct home!
+            # TODO Auto log in users here so they're all logged in and ready to roll.
+            redirect('/')
 
         # If something went wrong, it goes to terminal and to the template.
         else:
@@ -72,10 +78,33 @@ def signup(request):
     return render(request, 'auth/signup.html', {'user_form': user_form, 'profile_form': profile_form, 'registered': registered} )
 
 
-
 #User can sign in
 def signin(request):
-    return HttpResponse("You wish to sign in!?!?!<br>You'll need to register first")
+    # Try and login
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # Attempt to login
+        user = authenticate(username=username, password=password)
+
+        # If we've made it
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect('/')
+            else:
+                # TODO get some form of error page here.
+                return HttpResponse("Your Bark account is disabled.")
+        else:
+            # TODO get some form of error page here.
+            print "Invalid login details: {0}, {1}".format(username, password)
+            return HttpResponse("Invalid login details supplied.")
+
+    else:
+        #Show the login form
+        return render(request, 'auth/signin.html', {})
+
 
 #User can sign out
 def signout(request):

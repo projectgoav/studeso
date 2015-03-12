@@ -16,8 +16,6 @@ class UserProfile(models.Model):
     user_tag = models.OneToOneField('UserTag', related_name="userprofile_user_tag", editable=False)
     institution_tag = models.ForeignKey('InstitutionTag', related_name='userprofile_institution_tag', editable=False)
 
-    reg_code = models.IntegerField("RegCode", editable=False)
-    reg_comp = models.CharField("RegComp", default="na", max_length=2)
 
     def canPostToTag(self, instTag):
         # Checks if a user can post to an InstitutionTag
@@ -27,9 +25,6 @@ class UserProfile(models.Model):
         institution = getInstitution(self.user.email)
         self.user_tag = UserTag.objects.create(name=self.user.username)
         self.institution_tag = InstitutionTag.objects.get_or_create(name=institution)[0]
-
-        self.reg_code = randInt(10000,99999)
-
         super(UserProfile, self).save(*args, **kwargs)
 
     def __unicode__(self):
