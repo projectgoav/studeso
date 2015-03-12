@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+<ol>
+    {% for topPost in topPosts %}
+    <li><b><a href="#">{{ topPost.title }}</a></b></li>
+    {% endfor %}
+</ol>
+{% endblock %}

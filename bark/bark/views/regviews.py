@@ -3,12 +3,6 @@ from django.http import HttpResponse
 
 from bark.forms import UserForm, UserProfileForm
 
-# Index Page
-# Returns a welcome registration message
-def index(request):
-    return HttpResponse("Welcome to Bark!<br><br>Woof > Register!")
-
-
 #View a list of people on the site
 def users(request):
     return HttpResponse("Person 1<br>Person 2<br>Person 3<br>Person 4")
@@ -26,8 +20,6 @@ def profile(request):
 #MUST BE LOGGED IN
 def profileUpdate(request):
     return HttpResponse("You wish to update your profile!?!?!?")
-
-
 
 #User can sign up
 def signup(request):
