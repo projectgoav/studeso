@@ -23,7 +23,7 @@ class UserProfile(models.Model):
 
     def save(self, *args, **kwargs):
         institution = getInstitution(self.user.email)
-        self.user_tag = UserTag.objects.create(name=self.user.username)
+        self.user_tag = UserTag.objects.get_or_create(name=self.user.username)[0]
         self.institution_tag = InstitutionTag.objects.get_or_create(name=institution)[0]
         super(UserProfile, self).save(*args, **kwargs)
 
@@ -75,13 +75,11 @@ class Post(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
     views = models.IntegerField(default=0)
     tags = models.ManyToManyField('Tag', through="PostTagging", null=False, blank=False)
-    rating = models.IntegerField(default=0)
+    rating = models.FloatField(default=0)
 
     title = models.CharField(max_length=100)
     content = models.TextField()
 
-    # Michael- had to make "slug" not unique for now. In the future maybe we can make it
-    # so when a slug is generated it will be generated uniquely?
     slug = models.SlugField(editable=False)
 
     def save(self, *args, **kwargs):
@@ -95,13 +93,13 @@ class Post(models.Model):
         return self.title
 
 
+# Tag Models
+
 class PostTagging(models.Model):
     post = models.ForeignKey('Post')
     tag = models.ForeignKey('Tag')
     tagging_date = models.DateTimeField(auto_now_add=True)
 
-
-# Tag Models
 
 class Tag(models.Model):
     name = models.CharField(unique=True, max_length=30)
@@ -117,8 +115,7 @@ class Tag(models.Model):
         super(Tag, self).save(*args, **kwargs)
 
     def genDescription(self):
-        #Remove the leading "@" from tag when given it a default description
-        self.description = "This is for discussing " + self.name[1:] + "."
+        self.description = "This is for discussing @" + self.name + "."
 
     def clean(self):
         # Remove any spaces from name
@@ -131,12 +128,12 @@ class Tag(models.Model):
 
 class InstitutionTag(Tag):
     def genDescription(self):
-        self.description = "Posting in this tag is restricted to " + self.name + " students."
+        self.description = "Posting in this tag is restricted to @" + self.name + " students."
 
 
 class UserTag(Tag):
     def genDescription(self):
-        self.description = "This tag lists the posts of " + self.name + "."
+        self.description = "This tag lists the posts of @" + self.name + "."
 
 
 class TagFollowing(models.Model):

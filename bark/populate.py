@@ -3,10 +3,9 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bark.settings')
 
 import django
 import random
-from django.contrib.auth import get_user_model
 
 #TODO import correct models here.
-from bark.models import UserProfile, Comment, Post, User, Tag, InstitutionTag, UserTag
+from bark.models import UserProfile, Post, User, Tag
 
 django.setup()
 
@@ -22,21 +21,21 @@ userNames = [
 
 tags = [
             #Special Tags
-            "@admin", "@bark", "@all", "@open",
+            "admin", "bark", "all", "open",
 
             #Random Tags
-            "@CS", "@Computing", "@leif", "@twd", "@artsandcrafts", "@c++",
-            "@CS-1P", "@WAD2", "@JOOSE", "@Maths-2P", "@matrix",
-            "@codegolf", "@python", "@python-lists", "@help", "@java",
+            "CS", "Computing", "leif", "twd", "artsandcrafts", "c++",
+            "CS-1P", "WAD2", "JOOSE", "Maths-2P", "matrix",
+            "codegolf", "python", "python-lists", "help", "java",
         ]
 
 institutionTags = [
-            "@gla.ac.uk",
-            "@bristol.ac.uk",
-            "@sta.ac.uk",
-            "@edu.ac.uk",
-            "@uws.ac.uk",
-            "@cityofglasgowcollege.ac.uk",
+            "gla.ac.uk",
+            "bristol.ac.uk",
+            "sta.ac.uk",
+            "edu.ac.uk",
+            "uws.ac.uk",
+            "cityofglasgowcollege.ac.uk",
         ]
 
 numberOfDefaultPosts = 150
@@ -66,13 +65,10 @@ def addUsers():
     for userName in userNames:
         print "\t> " + userName
         
-        email = userName + "@" + institutionTags[selectedUserInstitution % len(institutionTags)][1:]
+        email = userName + "@" + institutionTags[selectedUserInstitution % len(institutionTags)]
         selectedUserInstitution += 1
 
-        user = User.objects.get_or_create(username = userName, password = "test", email = email)
-        userTagName = "@" + userName
-        userTag = UserTag.objects.get_or_create(name = userTagName)
-
+        User.objects.get_or_create(username=userName, password="test", email=email)
     print str(len(userNames)) + " users added!\n"
 
 # Adds some basic information to the users and their profiles.
@@ -80,31 +76,24 @@ def addProfiles():
     print "Setting up User Profiles..."
 
     for userName in userNames:
-        user = User.objects.get(username = userName)
-        userProfile = UserProfile.objects.get_or_create(user = user)
+        user = User.objects.get(username=userName)
+        user_profile = UserProfile.objects.get_or_create(user=user)
 
-        print "\t> " + str(user)
+        print "\t> " + str(user_profile)
 
     print "Updated all profiles\n"
 
-# Add all tags and a short descripton
-# Note: Add tags have the default descriptno "A tag all about: "
+# Add all tags and a short description
+# Note: Add tags have the default description "A tag all about: "
 def addTags():
     print "Creating tags..."
 
     for tag in tags:
         print "\t > " + tag
-        t = Tag.objects.get_or_create(name = tag)
+        Tag.objects.get_or_create(name=tag)
 
     print str(len(tags)) + " tags added!\n"
 
-    print "Setting up institution tags..."
-
-    for institutionTag in institutionTags:
-        print "\t> " + institutionTag
-        st = InstitutionTag.objects.get_or_create(name=institutionTag)
-
-    print "Institution tags setup.\n"
 
 def addPosts():
     print "Creating posts..."
@@ -113,22 +102,23 @@ def addPosts():
     userIndex = 0
 
     for postIndex in range(0, numberOfDefaultPosts):
-        postData = defaultPostData[postIndex % len(defaultPostData)]
+        post_data = defaultPostData[postIndex % len(defaultPostData)]
 
         post = Post.objects.get_or_create(
-            title = postData[0] + " Number: " + str(postIndex),
-            author = allUsers[userIndex % len(allUsers)],
-            content = "Test post... Hello C++ Python Hello Django Java Test Hello Test World Java"
+            title=post_data[0] + " Number: " + str(postIndex),
+            author=allUsers[userIndex % len(allUsers)],
+            content="Test post... Hello C++ Python Hello Django Java Test Hello Test World Java",
+            views=random.randint(0, 100)
             )
-        
+        print "\t > " + str(post)
         userIndex += 1
 
-    print "Finished creating posts."
+    print str(numberOfDefaultPosts) + " posts added!\n"
+
 
 def populate():
     addUsers()
     addProfiles()
-
     addTags()
     addPosts()
 
