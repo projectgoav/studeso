@@ -22,13 +22,13 @@ urlpatterns = patterns('',
                        # #Generic Post list
                        # TODO
                        # Add tags as /TAG/TAG/TAG to filter depending on the tags
-                       url(r'^tags/', views.barks, name = 'barks'),
+                       url(r'^barks/', views.viewPosts, name = 'viewPosts'),
                        #
                        # #Specific Bark view
-                       url(r'^<post_id>/', views.barkview, name = 'barkview'),
+                       url(r'^<post_id>/', views.viewPost, name = 'viewPost'),
                        #
                        # #Add new Bark
-                       url(r'^new/', views.addbark, name = 'addbark'),
+                       url(r'^new/', views.addPost, name = 'addPost'),
                        #
                        # #Search
                        # #Followed by query string or some form of search regex

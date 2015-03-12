@@ -128,10 +128,6 @@ def populate():
     addTags()
     addPosts()
 
-    #for u in User.objects.all():
-    #    print u
-
-# Start execution here!
 if __name__ == '__main__':
     print "Starting Bark population script..."
     populate()
