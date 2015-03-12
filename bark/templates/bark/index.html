@@ -1,13 +1,9 @@
-<html>
-<head>
-  <title> Bark Index </title>
-</head>
-<body>
-  {% if user.is_authenticated %}
-<h1>Welcome to Bark {{ user.username }}!</h1>
-{% else %}
-<h1>Welcome to Bark!</h1>
-{% endif %}
-</body>
+{% extends 'base.html' %}
 
-</html>
+{% block body_block %}
+<ol>
+    {% for topPost in topPosts %}
+    <li><b><a href="#">{{ topPost.title }}</a></b></li>
+    {% endfor %}
+</ol>
+{% endblock %}
