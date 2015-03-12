@@ -38,11 +38,11 @@
                     <li><a href="#">About</a></li>
                     <li><a href="#">Help</a></li>
                     {% if user.is_authenticated %}
-                        <li><a href="#">{{ user.username }}</a></li>
-                        <li><a href="signout/">Logout</a></li>
+                    <li><a href="#">{{ user.username }}</a></li>
+                    <li><a href="signout/">Logout</a></li>
                     {% else %}
-                        <li><a href="signin/">Login</a></li>
-                        <li><a href="signup/">Register</a></li>
+                    <li><a href="signin/">Login</a></li>
+                    <li><a href="signup/">Register</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -51,16 +51,19 @@
 
     <div class="container">
         <div class="Brand">
-            <img src="{% static 'images/akita.png' %}" alt="Bark Logo" width="96" height="96" />
-            &nbsp;&nbsp;<h1>Bark!</h1> &nbsp;&nbsp; <h3>Search, post, bark!</h3> <small>Q&amp;A discussion site for Students</small>
+            <a href="{% url 'index' %}">
+                <img src="{% static 'images/akita.png' %}" alt="Bark Logo" width="96" height="96" />
+                &nbsp;&nbsp;<h1>Bark!</h1>
+            </a>
+            &nbsp;&nbsp; <h3>Search, post, bark!</h3> <small>Q&amp;A discussion site for Students</small>
         </div>
-            <div class="col-sm-10">
-                <h3>Begin Body block...</h3>
-               <!-- Coolest Posts, central post view -->
-                {% block body_block %}
-                {% endblock %}
-                <h3>... end body block</h3>
-            </div>
+        <div class="col-sm-10">
+            <h3>Begin Body block...</h3>
+            <!-- Coolest posts, central post view -->
+            {% block body_block %}
+            {% endblock %}
+            <h3>... end body block</h3>
         </div>
+    </div>
 </body>
 </html>

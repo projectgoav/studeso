@@ -39,6 +39,8 @@ institutionTags = [
             "@cityofglasgowcollege.ac.uk",
         ]
 
+numberOfDefaultPosts = 150
+
 defaultPostData = [
     ["C++ Help"],
     ["Python Stuck"],
@@ -110,11 +112,13 @@ def addPosts():
     allUsers = UserProfile.objects.all()
     userIndex = 0
 
-    for postData in defaultPostData:
+    for postIndex in range(0, numberOfDefaultPosts):
+        postData = defaultPostData[postIndex % len(defaultPostData)]
+
         post = Post.objects.get_or_create(
-            title = postData[0],
+            title = postData[0] + " Number: " + str(postIndex),
             author = allUsers[userIndex % len(allUsers)],
-            content = "Test post... Hello C++ Python Hello"
+            content = "Test post... Hello C++ Python Hello Django Java Test Hello Test World Java"
             )
         
         userIndex += 1
