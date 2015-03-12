@@ -21,8 +21,16 @@ def viewPosts(request):
     return render(request, 'bark/posts.html', contextDictionary)
 
 # View a specific bark
-def viewPost(request):
-    contextDictionary = {}
+def viewPost(request, post_id, post_slug):
+    try:
+        post = Post.objects.get(id = post_id)
+    except Post.DoesNotExist:
+        pass
+
+    contextDictionary = {
+        'post' : post
+        }
+
     return render(request, 'bark/post.html', contextDictionary)
 
 def addPost(request):

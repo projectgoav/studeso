@@ -1,5 +1,20 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-<h2>View post.</h2>
+<h2>{{ post.title }}</h2>
+<br />
+Content: <i>{{ post.content }}</i>
+
+<br />
+Created by: <i>{{ post.author }}</i> on <i>{{ post.creation_date }}</i>
+<br />
+Views, Rating: <i>{{ post.views }}</i>, <i>{{ post.rating }}</i>
+<br />
+Tags:
+<br />
+<ul>
+    {% for postTag in post.tags.all %}
+    <li><i>{{ postTag.name }}</i></li>
+    {% endfor %}
+</ul>
 {% endblock %}

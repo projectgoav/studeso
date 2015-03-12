@@ -25,7 +25,7 @@ urlpatterns = patterns('',
                        url(r'^barks/', views.viewPosts, name = 'viewPosts'),
                        #
                        # #Specific Bark view
-                       url(r'^<post_id>/', views.viewPost, name = 'viewPost'),
+                       url(r'^(?P<post_id>[\w-]+)/(?P<post_slug>[\w-]+)/', views.viewPost, name = 'viewPost'),
                        #
                        # #Add new Bark
                        url(r'^new/', views.addPost, name = 'addPost'),
