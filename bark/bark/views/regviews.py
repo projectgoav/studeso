@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth import authenticate, login
-
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 from bark.forms import UserForm, UserProfileForm
 from bark.email import sendWelcomeEmail
@@ -107,8 +107,10 @@ def signin(request):
 
 
 #User can sign out
+@login_required
 def signout(request):
-    return HttpResponse("Be off with you!")
+    logout(request)
+    return HttpResponseRedirect('/')
 
 #Password option menu, just to fill a url!
 def passwordMenu(request):
