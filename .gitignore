@@ -35,5 +35,4 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
-*.name
-*.iml
+/.idea/
