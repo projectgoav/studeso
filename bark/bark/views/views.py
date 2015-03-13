@@ -33,6 +33,8 @@ def viewPost(request, post_id, post_slug):
 
     return render(request, 'bark/post.html', contextDictionary)
 
+# TODO: Bark doesn't like it when you try and add a post when not logged in.
+# TODO: The tags selected in the form don't get copied over into the post view.
 def addPost(request):
     contextDictionary = {}
 
@@ -45,9 +47,9 @@ def addPost(request):
             authorProfile = None
             # Try and get the user profile.
             try:
-                authorProfile = UserProfile.objects.get(user=request.user)
+                authorProfile = UserProfile.objects.get(user = request.user)
             except UserProfile.DoesNotExist:
-                print 'User doesn\'t exist?'
+                # TODO: Redirect the user to a meaningful "Not logged in" page?
                 return redirect('index')
 
             newPost.author = authorProfile

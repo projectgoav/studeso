@@ -38,7 +38,7 @@ institutionTags = [
             "cityofglasgowcollege.ac.uk",
         ]
 
-numberOfDefaultPosts = 150
+numberOfDefaultPosts = 5
 
 defaultPostData = [
     ["C++ Help"],
