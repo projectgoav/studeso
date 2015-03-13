@@ -1,6 +1,7 @@
-from bark.models import Post,Tag
+from bark.models import Post, Tag, UserProfile
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from bark.forms import PostForm
 
 numberOfTopPosts = 10
 
@@ -34,6 +35,33 @@ def viewPost(request, post_id, post_slug):
 
 def addPost(request):
     contextDictionary = {}
+
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+
+        if form.is_valid():
+            newPost = form.save(commit = False)
+
+            authorProfile = None
+            # Try and get the user profile.
+            try:
+                authorProfile = UserProfile.objects.get(user=request.user)
+            except UserProfile.DoesNotExist:
+                print 'User doesn\'t exist?'
+                return redirect('index')
+
+            newPost.author = authorProfile
+            newPost.save()
+
+            return viewPost(request, newPost.id, newPost.slug)
+        else:
+            print form.errors
+
+    else:
+        form = PostForm()
+
+    contextDictionary['form'] = form
+
     return render(request, 'bark/addPost.html', contextDictionary)
 
 # Search view

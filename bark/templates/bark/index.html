@@ -3,7 +3,9 @@
 {% block body_block %}
 <ol>
     {% for topPost in topPosts %}
-    <li><b><a href="{% url 'viewPost' topPost.id topPost.slug %}">{{ topPost.title }}</a></b></li>
+    <li><b><a href="{% url 'view_post' topPost.id topPost.slug %}">{{ topPost.title }}</a></b></li>
     {% endfor %}
 </ol>
+<br />
+<b><a href="{% url 'add_post' %}">New Bark!!</a></b>
 {% endblock %}
