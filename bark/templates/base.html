@@ -30,8 +30,9 @@
                 <ul class="nav navbar-nav navbar-left">
                     <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
+                            <input type="text" name="Search" id = "Search" class="form-control" placeholder="Search">
                             <button type="submit" class="btn btn-warning">Go fetch!</button>
+                            <div id="tags"></div>
                         </div>
                     </form>
                 </ul>
@@ -77,6 +78,7 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="{% static 'js/jquery1.11.1.min.js' %}"></script>
+<script src="{% static "js/ajax.js" %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="{% static 'js/ie10.workaround.js' %}"></script>

@@ -33,6 +33,8 @@ urlpatterns = patterns('',
                        # #Search
                        # #Followed by query string or some form of search regex
                        url(r'^search/', views.search, name = 'search'),
+
+                       url(r'^suggest_tags/$', views.suggest_tags, name='suggest_tags'),
                        #
                        # #REGISTRATION VIEWS
                        # #---------
