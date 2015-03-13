@@ -47,7 +47,7 @@ def addPost(request):
             try:
                 authorProfile = UserProfile.objects.get(user=request.user)
             except UserProfile.DoesNotExist:
-                print 'User doesn\'t exist?'
+                # TODO: Redirect the user to a meaningful "Not logged in" page?
                 return redirect('index')
 
             newPost.author = authorProfile
