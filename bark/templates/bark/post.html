@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
+{% if post %}
 <h2>{{ post.title }}</h2>
 <br />
 Content: <i>{{ post.content }}</i>
@@ -17,4 +18,7 @@ Tags:
     <li><i>{{ postTag.name }}</i></li>
     {% endfor %}
 </ul>
+{% else %}
+<h2>No post exists!</h2>
+{% endif %}
 {% endblock %}
