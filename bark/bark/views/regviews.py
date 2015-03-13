@@ -103,7 +103,7 @@ def signin(request):
 @login_required
 def signout(request):
     logout(request)
-    return HttpResponseRedirect('/')
+    return render(request, 'auth/logout.html', {} )
 
 #Password option menu, just to fill a url!
 def passwordMenu(request):
@@ -123,7 +123,7 @@ def passwordChange(request):
 
         #Check the existing password is correct.
         if not request.user.check_password(oldpass):
-            contect_dic['errors'] = "Your current password is incorrect"
+            context_dic['errors'] = "Your current password is incorrect"
         else:
 
             #If we, check the 2 new passwords and then set the new password.
@@ -138,7 +138,7 @@ def passwordChange(request):
                 # TODO was getting errors. Perhaps it was on Free WIFI?
                 #sendChangeEmail(request.user)
 
-                return HttpResponse("You've changed your password!")
+                return render(request, 'auth/password-change-done.html', {})
 
         return render(request, 'auth/password-change.html', context_dic)
     else:
