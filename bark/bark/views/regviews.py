@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.views import password_change
 from django.contrib.auth.decorators import login_required
 
 from bark.forms import UserForm, UserProfileForm
-from bark.email import sendWelcomeEmail
+from bark.email import sendWelcomeEmail, sendChangeEmail
 
 #View a list of people on the site
 def users(request):
@@ -111,9 +112,38 @@ def passwordMenu(request):
 #Password change
 @login_required
 def passwordChange(request):
+    # Try and change password
+    context_dic = { }
 
-    # TODO read more about the docs on this and reset
-    return HttpResponse("You can change you password")
+    #If Post, get the data we need from the User
+    if request.method == 'POST':
+        oldpass = request.POST.get('old_password')
+        password = request.POST.get('new_password1')
+        password2 = request.POST.get('new_password2')
+
+        #Check the existing password is correct.
+        if not request.user.check_password(oldpass):
+            contect_dic['errors'] = "Your current password is incorrect"
+        else:
+
+            #If we, check the 2 new passwords and then set the new password.
+            #Remembering to save the new password to the user!
+            if password != password2:
+                context_dic['errors'] = "Your new passwords didn't match"
+            else:
+                request.user.set_password(password)
+                request.user.save()
+                update_session_auth_hash(request, request.user)
+
+                # TODO was getting errors. Perhaps it was on Free WIFI?
+                #sendChangeEmail(request.user)
+
+                return HttpResponse("You've changed your password!")
+
+        return render(request, 'auth/password-change.html', context_dic)
+    else:
+        #Show the change form
+        return render(request, 'auth/password-change.html', {})
 
 #Password Reset
 def passwordReset(request):

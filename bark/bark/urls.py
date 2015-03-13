@@ -44,8 +44,8 @@ urlpatterns = patterns('',
                        url(r'^signout/', regviews.signout, name = 'signout'),
                        #
                        # url(r'^password/', regviews.passwordMenu, name = 'passwordMenu'),
-                       url(r'^password/change/', regviews.passwordChange, name = 'passwordChange'),
-                       url(r'^password/reset/', regviews.passwordReset, name = 'passwordReset'),
+                       url(r'^password-change/', regviews.passwordChange, name = 'passwordChange'),
+                       url(r'^password-reset/', regviews.passwordReset, name = 'passwordReset'),
                        )
 
 # Temp bit for uploading profile images during developement
