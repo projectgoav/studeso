@@ -5,7 +5,7 @@
 $('#suggestion').keyup(function(){
         var query;
         query = $(this).val();
-        $.get('/bark/suggest_category/', {suggestion: query}, function(data){
+        $.get('/bark/suggest_tags/', {suggestion: query}, function(data){
          $('#tags').html(data);
         });
 });
