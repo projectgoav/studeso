@@ -51,7 +51,11 @@ def signup(request):
                 profile.picture = request.FILES['picture']
 
             profile.save()
-            sendWelcomeEmail(user)
+
+            try:
+                sendWelcomeEmail(user)
+            except:
+                print "Unable to send welcome email :("
 
             registered = True
 
@@ -136,7 +140,10 @@ def passwordChange(request):
                 update_session_auth_hash(request, request.user)
 
                 # TODO was getting errors. Perhaps it was on Free WIFI?
-                #sendChangeEmail(request.user)
+                try:
+                    sendChangeEmail(request.user)
+                except:
+                    print "Unable to send password change email :("
 
                 return render(request, 'auth/password-change-done.html', {})
 
