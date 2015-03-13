@@ -47,10 +47,10 @@
                           {% endif %}
                           {{ user.username }}</a>
                         </li>
-                    <li><a href="signout/">Logout</a></li>
+                    <li><a href="{% url 'signout' %}">Logout</a></li>
                     {% else %}
-                    <li><a href="signin/">Login</a></li>
-                    <li><a href="signup/">Register</a></li>
+                    <li><a href="{% url 'signin' %}">Login</a></li>
+                    <li><a href="{% url 'signup' %}">Register</a></li>
                     {% endif %}
                 </ul>
             </div>
