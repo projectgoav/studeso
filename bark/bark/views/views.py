@@ -1,5 +1,5 @@
 from bark.models import Post
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 numberOfTopPosts = 10
@@ -15,21 +15,29 @@ def index(request):
 
     return render(request, 'bark/index.html', contextDictionary)
 
-# Redirect index page
-def barkIndex(request):
-    return HttpResponse("Welcome to Bark!<br><br>Woof <br><br>We need to put a redirect here")
-
 # Bark Tag listing
-def barks(request):
-    return HttpResponse("Random Bark 1<br>Random Bark 2<br>Random Bark 3<br>")
+def viewPosts(request):
+    contextDictionary = {}
+    return render(request, 'bark/posts.html', contextDictionary)
 
 # View a specific bark
-def barkview(request):
-    return HttpResponse("Random Bark 1<br><br>Blah. Blah. Blah. Blah.<br><b>Author:</b>Blah.")
+def viewPost(request, post_id, post_slug):
+    try:
+        post = Post.objects.get(id = post_id)
+    except Post.DoesNotExist:
+        pass
 
-def addbark(request):
-    return HttpResponse("Add some new bark")
+    contextDictionary = {
+        'post' : post
+        }
+
+    return render(request, 'bark/post.html', contextDictionary)
+
+def addPost(request):
+    contextDictionary = {}
+    return render(request, 'bark/addPost.html', contextDictionary)
 
 # Search view
 def search(request):
-    return HttpResponse("Perform a fantastic search!")
+    contextDictionary = {}
+    return render(request, 'bark/search.html', contextDictionary)

@@ -109,8 +109,10 @@ def passwordMenu(request):
     return HttpResponse("You can do password stuff here")
 
 #Password change
-#MUST BE LOGGED IN
+@login_required
 def passwordChange(request):
+
+    # TODO read more about the docs on this and reset
     return HttpResponse("You can change you password")
 
 #Password Reset
