@@ -52,6 +52,9 @@ class Like(models.Model):
     def __unicode__(self):
         return str(self.author)
 
+    class Meta:
+        abstract = True
+
 
 class PostLike(Like):
     post = models.ForeignKey('Post')
@@ -59,12 +62,18 @@ class PostLike(Like):
     def __unicode__(self):
         return str(self.author) + " liked " + str(self.post)
 
+    class Meta:
+        unique_together = ('author', 'post',)
+
 
 class CommentLike(Like):
     comment = models.ForeignKey('Comment')
 
     def __unicode__(self):
         return str(self.author) + " liked " + str(self.comment)
+
+    class Meta:
+        unique_together = ('author', 'comment',)
 
 
 # Post Models

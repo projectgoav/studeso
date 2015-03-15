@@ -1,4 +1,5 @@
-from models import UserProfile, InstitutionTag, UserTag, Post, PostTagging, Tag
+from django.db import IntegrityError
+from models import UserProfile, InstitutionTag, UserTag, Post, PostTagging, Tag, Comment, PostLike, CommentLike
 from django.contrib.auth.models import User
 from django.test import TestCase
 
@@ -81,3 +82,65 @@ class PostTest(TestCase):
             PostTagging.objects.get(post=post, tag=tag)
         except Tag.DoesNotExist:
             self.fail("Post not tagged correctly")
+
+
+class CommentTest(TestCase):
+    def setUp(self):
+        test_user = User.objects.create(username='test_student', password='test', email='test@student.gla.ac.uk')
+        commenter = User.objects.create(username='commenter', password='test', email='commenter@bristol.ac.uk')
+        test_user_profile = UserProfile.objects.create(user=test_user)
+        UserProfile.objects.create(user=commenter)
+        Post.objects.create(author=test_user_profile, title="Testing in Django", content="Test content here")
+
+    def test_adding_comment(self):
+        commenter = User.objects.get(username='commenter')
+        commenter_profile = UserProfile.objects.get(user=commenter)
+        post = Post.objects.get(title="Testing in Django")
+
+        Comment.objects.create(author=commenter_profile, post=post, content="Great post!")
+        self.assertEquals(post.comment_set.get(author=commenter_profile).content, "Great post!")
+
+
+class LikeTest(TestCase):
+    def setUp(self):
+        test_user = User.objects.create(username='test_student', password='test', email='test@student.gla.ac.uk')
+        commenter = User.objects.create(username='commenter', password='test', email='commenter@bristol.ac.uk')
+        test_user_profile = UserProfile.objects.create(user=test_user)
+        UserProfile.objects.create(user=commenter)
+        Post.objects.create(author=test_user_profile, title="Testing in Django", content="Test content here")
+
+    def test_like_post(self):
+        commenter = User.objects.get(username='commenter')
+        commenter_profile = UserProfile.objects.get(user=commenter)
+        post = Post.objects.get(title="Testing in Django")
+        post_like = PostLike.objects.create(author=commenter_profile, post=post)
+
+        self.assertEquals(str(post.postlike_set.get(author=commenter_profile)), str(post_like))
+        self.assertEquals(str(post_like), "commenter liked Testing in Django")
+
+    def test_like_comment(self):
+        commenter = User.objects.get(username='commenter')
+        commenter_profile = UserProfile.objects.get(user=commenter)
+        post = Post.objects.get(title="Testing in Django")
+        comment = Comment.objects.create(author=commenter_profile, post=post, content="Great post!")
+        comment_like = CommentLike.objects.create(author=post.author, comment=comment)
+
+        self.assertEquals(str(comment.commentlike_set.get(author=post.author)), str(comment_like))
+        self.assertEquals(str(comment_like), "test_student liked Great post!")
+
+    def test_duplicate_post_like_fails(self):
+        commenter = User.objects.get(username='commenter')
+        commenter_profile = UserProfile.objects.get(user=commenter)
+        post = Post.objects.get(title="Testing in Django")
+
+        PostLike.objects.create(author=commenter_profile, post=post)
+        self.assertRaises(IntegrityError, PostLike.objects.create, author=commenter_profile, post=post)
+
+    def test_duplicate_comment_like_fails(self):
+        commenter = User.objects.get(username='commenter')
+        commenter_profile = UserProfile.objects.get(user=commenter)
+        post = Post.objects.get(title="Testing in Django")
+        comment = Comment.objects.create(author=commenter_profile, post=post, content="Great post!")
+
+        CommentLike.objects.create(author=post.author, comment=comment)
+        self.assertRaises(IntegrityError, CommentLike.objects.create, author=post.author, comment=comment)
