@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+
+<p>
+
+<strong id="rating_count">{{ Post.rating }}</strong> people found this helpful
+
+{% if user.is_authenticated %}
+        <button id="rating" data-catid="{{category.id}}" class="btn btn-primary" type="button">
+        <span class="glyphicon glyphicon-thumbs-up"></span>
+        Like
+        </button>
+{% endif %}
+
+</p>
