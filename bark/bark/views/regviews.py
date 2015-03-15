@@ -3,9 +3,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.views import password_change
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 from bark.forms import UserForm, UserProfileForm
-from bark.email import sendWelcomeEmail, sendChangeEmail
+from bark.email import sendWelcomeEmail, sendChangeEmail, sendResetEmail
+from bark.models import UserReset, UserProfile
 
 #View a list of people on the site
 def users(request):
@@ -154,4 +156,73 @@ def passwordChange(request):
 
 #Password Reset
 def passwordReset(request):
-    return HttpResponse("You can reset you password. You twit. You much have forgotten it")
+    context_dic = { }
+
+    #If Post, get the data we need from the User
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+
+        #Try and find a matching User in the Bark database
+        try:
+            user = User.objects.get(username=username)
+        except:
+            context_dic['errors'] = "No User with that username found."
+            return render(request, 'auth/password-reset.html', context_dic)
+
+        #Check their email against they one they have given
+        user_email = user.email
+
+        if user_email != email:
+            context_dic['errors'] = "The email matching username was wrong."
+        else:
+            #Give them a nice wee code then email it to them
+            # TODO randomly give a code to users
+            # TODO check for existing code and remove before giving a new one.
+            u = UserReset.objects.create(username=username, code=123456)
+
+            try:
+                sendResetEmail(user, u.code)
+            except:
+                print "ERROR sending reset request. What do I do now? :("
+
+        return render(request, 'auth/password-reset.html', context_dic)
+    else:
+        #Show the reset form
+        return render(request, 'auth/password-reset.html', {})
+
+def passwordResetCode(request):
+    context_dic = { }
+
+    #If Post, get the data we need from the User
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+
+        #Try and find a matching User in the Bark database
+        try:
+            user = User.objects.get(username=username)
+        except:
+            context_dic['errors'] = "No User with that username found."
+            return render(request, 'auth/password-reset.html', context_dic)
+
+        #Check their email against they one they have given
+        user_email = user.email
+
+        if user_email != email:
+            context_dic['errors'] = "The email matching username was wrong."
+        else:
+            #Give them a nice wee code then email it to them
+            # TODO randomly give a code to users
+            # TODO check for existing code and remove before giving a new one.
+            u = UserReset.objects.create(username=username, code=123456)
+
+            try:
+                sendResetEmail(user, u.code)
+            except:
+                print "ERROR sending reset request. What do I do now? :("
+
+        return render(request, 'auth/password-reset.html', context_dic)
+    else:
+        #Show the reset form
+        return render(request, 'auth/password-reset.html', {})

@@ -29,6 +29,13 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return self.user.username
 
+class UserReset(models.Model):
+    username = models.CharField(max_length=100)
+    code = models.IntegerField(blank=False, default=99999)
+    
+    def __unicode__(self):
+        return str(self.code)
+
 
 # Comment Models
 
