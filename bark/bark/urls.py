@@ -35,6 +35,8 @@ urlpatterns = patterns('',
                        url(r'^search/', views.search, name = 'search'),
 
                        url(r'^suggest_tags/$', views.suggest_tags, name='suggest_tags'),
+
+                       url(r'^like_post/$', views.like_post, name='like_post'),
                        #
                        # #REGISTRATION VIEWS
                        # #---------
