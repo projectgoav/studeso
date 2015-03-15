@@ -196,33 +196,49 @@ def passwordResetCode(request):
 
     #If Post, get the data we need from the User
     if request.method == 'POST':
-        username = request.POST.get('username')
-        email = request.POST.get('email')
+        usern = request.POST.get('username')
+        code = request.POST.get('code')
+        new_password1 = request.POST.get('new_password1')
+        new_password2 = request.POST.get('new_password2')
 
         #Try and find a matching User in the Bark database
         try:
-            user = User.objects.get(username=username)
+            user = User.objects.get(username=usern)
         except:
             context_dic['errors'] = "No User with that username found."
-            return render(request, 'auth/password-reset.html', context_dic)
+            return render(request, 'auth/reset-code.html', context_dic)
 
-        #Check their email against they one they have given
-        user_email = user.email
+        #Check they've been given a reset code
+        try:
+            userReset = UserReset.objects.get(username=usern)
+        except:
+            context_dic['errors'] = "Given username has not requested a password reset."
+            return render(request, 'auth/reset-code.html', context_dic)
 
-        if user_email != email:
-            context_dic['errors'] = "The email matching username was wrong."
-        else:
-            #Give them a nice wee code then email it to them
-            # TODO randomly give a code to users
-            # TODO check for existing code and remove before giving a new one.
-            u = UserReset.objects.create(username=username, code=123456)
+        #Check the 2 passwords equal
+        if new_password1 != new_password2:
+            context_dic['errors'] = "New passwords didn't macth"
+            return render(request, 'auth/reset-code.html', context_dic)
 
-            try:
-                sendResetEmail(user, u.code)
-            except:
-                print "ERROR sending reset request. What do I do now? :("
+        if int(code) != userReset.code:
+            context_dic['errors'] = "Reset code was wrong"
+            return render(request, 'auth/reset-code.html', context_dic)
 
-        return render(request, 'auth/password-reset.html', context_dic)
+        #Once the checking is done, actually carry out the reset for them.
+        user.set_password(new_password1)
+        user.save()
+
+        #Remember and remove reset from database, as it's no longer needed
+        userReset.delete()
+
+        try:
+            sendChangeEmail(user)
+        except:
+            print "Could not send Reset complete email to user"
+
+        # TODO put in one of those timeout pages
+        return render(request, 'auth/reset-done.html',  {})
     else:
+
         #Show the reset form
-        return render(request, 'auth/password-reset.html', {})
+        return render(request, 'auth/reset-code.html', {})

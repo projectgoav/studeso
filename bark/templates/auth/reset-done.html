@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Password Reset</title>
+        <script type="text/javascript">
+    setTimeout(function() {
+        window.location.href = "{% url 'index' %}";
+    }, 2000);</script>
+    </head>
+
+    <body>
+        <h1>Your password has been reset!</h1>
+        <h4>You should be auto-directed to Bark Homepage after 2 seconds. If not, please <a href="{% url 'index' %}">Click Here</a></h4>
+    </body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Reset your Password</title>
+    </head>
+
+    <body>
+
+        {{ errors }}
+
+        <h1>Enter Reset Code</h1>
+        <h3>You should have been send a Password reset code to your email. Use this code and enter your new password to reset it.</h3>
+
+        <form id="PassReset_Form" method="post" action="{% url 'passwordResetCode' %}">
+            {% csrf_token %}
+            Username: <input type="username" name="username" value="" size="50" />
+            <br />
+            Code: <input type="numeric" name="code" value="" size="8" />
+            <br />
+            New Password: <input type="password" name="new_password1" value="" size="50" />
+            <br />
+            New Password Again: <input type="password" name="new_password2" value="" size="50" />
+            <br />
+            <input type="submit" value="submit" />
+        </form>
+
+    </body>
+</html>
