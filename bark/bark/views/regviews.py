@@ -14,7 +14,7 @@ def users(request):
     return HttpResponse("Person 1<br>Person 2<br>Person 3<br>Person 4")
 
 #View specific user profile
-def viewuser(reequest):
+def view_user(request):
     return HttpResponse("Person 1<br><br>Sample information<br>Sample information<br>More sample information")
 
 #View the current user profile
@@ -24,7 +24,7 @@ def profile(request):
 
 #Update your current profile
 #MUST BE LOGGED IN
-def profileUpdate(request):
+def profile_update(request):
     return HttpResponse("You wish to update your profile!?!?!?")
 
 #User can sign up. Once done, they'll get a nice welcome email :)
@@ -49,8 +49,8 @@ def signup(request):
             profile.user = user
 
             # Did the user provide a profile picture?
-            if 'picture' in request.FILES:
-                profile.picture = request.FILES['picture']
+            if 'profile_picture' in request.FILES:
+                profile.profile_picture = request.FILES['profile_picture']
 
             profile.save()
 

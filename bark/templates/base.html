@@ -41,9 +41,8 @@
                     <li><a href="#">Help</a></li>
                     {% if user.is_authenticated %}
                         <li><a href="#">
-                          {% if user.profile_picutre %}
-                              <!-- TODO : Fix Profile pictures being uploaded and displayed. -->
-                              <img src="{{ user.profile_picture }}" alt="Profile Image" height="28px" width="28px"/>
+                          {% if user.userprofile.profile_picture %}
+                              <img src="{{ MEDIA_URL }}{{ user.userprofile.profile_picture }}" alt="Profile Image" height="28px" width="28px"/>
                           {% endif %}
                           {{ user.username }}</a>
                         </li>

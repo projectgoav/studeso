@@ -25,7 +25,7 @@ urlpatterns = patterns('',
                        url(r'^barks/', views.viewPosts, name = 'view_posts'),
                        #
                        # #Specific Bark view
-                       url(r'^(?P<post_id>[\w-]+)/(?P<post_slug>[\w-]+)/', views.viewPost, name = 'view_post'),
+                       url(r'^bark/(?P<post_id>[\w-]+)/(?P<post_slug>[\w-]+)/', views.viewPost, name='view_post'),
                        #
                        # #Add new Bark
                        url(r'^new/', views.addPost, name = 'add_post'),
@@ -35,6 +35,8 @@ urlpatterns = patterns('',
                        url(r'^search/', views.search, name = 'search'),
 
                        url(r'^suggest_tags/$', views.suggest_tags, name='suggest_tags'),
+
+                       url(r'^like_post/$', views.like_post, name='like_post'),
                        #
                        # #REGISTRATION VIEWS
                        # #---------
@@ -48,7 +50,7 @@ urlpatterns = patterns('',
                        url(r'^password-reset/', regviews.passwordReset, name = 'passwordReset'),
                        )
 
-# Temp bit for uploading profile images during developement
+# Temp bit for uploading profile images during development
 if settings.DEBUG:
     urlpatterns += patterns(
         'django.views.static',

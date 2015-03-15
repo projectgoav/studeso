@@ -18,8 +18,8 @@ class UserProfileForm(forms.ModelForm):
         fields = ('profile_picture',)
 
 class PostForm(forms.ModelForm):
-    title = forms.CharField(max_length = 128, help_text = "Please enter the title of the new post.")
-    content = forms.CharField(max_length = 1000, help_text = "Please enter the post content.")
+    title = forms.CharField(max_length=128, help_text="Please enter the title of the new post.")
+    content = forms.CharField(max_length=1000, help_text="Please enter the post content.")
 
     class Meta:
         # Provide an association between PostForm and Post.

@@ -2,6 +2,7 @@ from bark.models import Post, Tag, UserProfile
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from bark.forms import PostForm
+from django.contrib.auth.decorators import login_required
 
 numberOfTopPosts = 10
 
@@ -97,3 +98,20 @@ def suggest_tags(request):
         tag_list = get_tag_list(8, starts_with)
 
         return render(request, 'bark/tag_list.html', {'tag_list': tag_list })
+
+@login_required
+def like_post(request):
+
+    Post_slug = None
+    if request.method == 'GET':
+        Post_slug = request.GET['Post.slug']
+
+    rating = 0
+    if Post_slug:
+        post = Post.objects.get(id=int(Post_slug))
+        if post:
+            rating = Post.rating + 1
+            Post.rating =  rating
+            rating.save()
+
+    return HttpResponse(rating)

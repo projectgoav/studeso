@@ -59,12 +59,18 @@ class Like(models.Model):
     def __unicode__(self):
         return str(self.author)
 
+    class Meta:
+        abstract = True
+
 
 class PostLike(Like):
     post = models.ForeignKey('Post')
 
     def __unicode__(self):
         return str(self.author) + " liked " + str(self.post)
+
+    class Meta:
+        unique_together = ('author', 'post',)
 
 
 class CommentLike(Like):
@@ -73,13 +79,16 @@ class CommentLike(Like):
     def __unicode__(self):
         return str(self.author) + " liked " + str(self.comment)
 
+    class Meta:
+        unique_together = ('author', 'comment',)
+
 
 # Post Models
 
 class Post(models.Model):
     author = models.ForeignKey('UserProfile')
     creation_date = models.DateTimeField(auto_now_add=True)
-    views = models.IntegerField(default=0)
+    views = models.PositiveIntegerField(default=0)
     tags = models.ManyToManyField('Tag', through="PostTagging", null=False, blank=False)
     rating = models.FloatField(default=0)
 
