@@ -1,16 +1,16 @@
 <!DOCTYPE html>
+<!-- Provides a basic page for operations given a success message and then will timeout back to the Index Page -->
 <html>
     <head>
-        <title>Logout</title>
+        <title>{{ TITLE }}</title>
         <script type="text/javascript">
     setTimeout(function() {
         window.location.href = "{% url 'index' %}";
-    }, 2000);
-    </script>
+    }, 2000);</script>
     </head>
 
     <body>
-        <h1>You've been logged out</h1>
+        <h1>{{ MESSAGE }}</h1>
         <h4>You should be auto-directed to Bark Homepage after 2 seconds. If not, please <a href="{% url 'index' %}">Click Here</a></h4>
     </body>
 </html>

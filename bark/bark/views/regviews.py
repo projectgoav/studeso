@@ -109,7 +109,7 @@ def signin(request):
 @login_required
 def signout(request):
     logout(request)
-    return render(request, 'auth/logout.html', {} )
+    return render(request, 'auth/timeout-page.html', {'TITLE' : "Logout", 'MESSAGE' : "You've logged out."} )
 
 #Password option menu, just to fill a url!
 def passwordMenu(request):
@@ -147,7 +147,7 @@ def passwordChange(request):
                 except:
                     print "Unable to send password change email :("
 
-                return render(request, 'auth/password-change-done.html', {})
+                return render(request, 'auth/timeout-page.html', {'TITLE' : 'Password Changed', 'MESSAGE' : "You've changed your passowrd"})
 
         return render(request, 'auth/password-change.html', context_dic)
     else:
@@ -186,6 +186,8 @@ def passwordReset(request):
             except:
                 print "ERROR sending reset request. What do I do now? :("
 
+            return redirect('/password-reset-do/')
+
         return render(request, 'auth/password-reset.html', context_dic)
     else:
         #Show the reset form
@@ -218,7 +220,7 @@ def passwordResetCode(request):
         #Check the 2 passwords equal
         if new_password1 != new_password2:
             context_dic['errors'] = "New passwords didn't macth"
-            return render(request, 'auth/reset-code.html', context_dic)
+            return render(reiquest, 'auth/reset-code.html', context_dic)
 
         if int(code) != userReset.code:
             context_dic['errors'] = "Reset code was wrong"
@@ -237,7 +239,7 @@ def passwordResetCode(request):
             print "Could not send Reset complete email to user"
 
         # TODO put in one of those timeout pages
-        return render(request, 'auth/reset-done.html',  {})
+        return render(request, 'auth/timeout-page.html',  {'TITLE' : "Password Reset Complete", 'MESSAGE' : "Your password has been reset."})
     else:
 
         #Show the reset form
