@@ -2,6 +2,7 @@ from django.db import IntegrityError
 from models import UserProfile, InstitutionTag, UserTag, Post, PostTagging, Tag, Comment, PostLike, CommentLike
 from django.contrib.auth.models import User
 from django.test import TestCase
+from django.core.exceptions import ValidationError
 
 
 # Model tests
@@ -54,8 +55,20 @@ class PostTest(TestCase):
         test_user = User.objects.get(username='test_student')
         test_user_profile = UserProfile.objects.get(user=test_user)
 
-        post = Post.objects.create(author=test_user_profile, title='Django Testing', content='hello world', views=-10)
-        self.assertEquals(post.views, 0)
+
+        post = Post(author=test_user_profile, title='Django Testing',content='hello world', views=int(-10))
+
+        # TODO - Perhaps there is an easier way to do this?
+        # Attempt a clean and if we get the right error, just continue (thus test passes)
+        # If we get any other errors, we fail the test.
+        try:
+            post.full_clean()
+        except ValidationError as e:
+            pass
+        except Exception as e:
+            self.fail('Unexpected exception thrown:', e)
+        else:
+            self.fail('ExpectedException not thrown')
 
     def test_slug_creation(self):
         post = Post.objects.get(title='Testing in Django')

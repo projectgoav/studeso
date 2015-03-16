@@ -179,7 +179,7 @@ def passwordReset(request):
             #Give them a nice wee code then email it to them
             # TODO randomly give a code to users
             # TODO check for existing code and remove before giving a new one.
-            u = UserReset.objects.create(username=username, code=123456)
+            u = UserReset.objects.get_or_create(username=username, code=123456)[0]
 
             try:
                 sendResetEmail(user, u.code)

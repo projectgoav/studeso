@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.core.validators import MinValueValidator
 
 import random
 
@@ -32,7 +33,7 @@ class UserProfile(models.Model):
 class UserReset(models.Model):
     username = models.CharField(max_length=100)
     code = models.IntegerField(blank=False, default=99999)
-    
+
     def __unicode__(self):
         return str(self.code)
 
@@ -88,7 +89,7 @@ class CommentLike(Like):
 class Post(models.Model):
     author = models.ForeignKey('UserProfile')
     creation_date = models.DateTimeField(auto_now_add=True)
-    views = models.PositiveIntegerField(default=0)
+    views = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0)])
     tags = models.ManyToManyField('Tag', through="PostTagging", null=False, blank=False)
     rating = models.FloatField(default=0)
 
