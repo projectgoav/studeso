@@ -1,17 +1,16 @@
 {% extends 'base.html' %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% block title %}Add a Bark!{% endblock %}
 
 {% block body_block %}
 <h2>Add post.</h2>
 
-<form id="post_form" method="post" action="/new/">
-    {% csrf_token %}
-    {% for field in form.visible_fields %}
-    {{ field.errors }}
-    {{ field.help_text }}
-    {{ field }}
-    <br />
-    {% endfor %}
+    <form id="post_form" method="post" action="/new/">
+        {% csrf_token %}
+        {% bootstrap_form form %}
 
-    <input type="submit" name="submit" value="Create New Bark!" />
-</form>
+        <input class="btn btn-primary" type="submit" name="submit" value="Create New Bark!" />
+    </form>
 {% endblock %}
