@@ -1,20 +1,36 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Signin to Bark</title>
-    </head>
+{% extends 'base.html' %}
 
-    <body>
-        <h1>Login to Bark</h1>
+{% load staticfiles %}
 
-        <form id="login_form" method="post" action="/signin/">
-            {% csrf_token %}
-            Username: <input type="text" name="username" value="" size="50" />
-            <br />
-            Password: <input type="password" name="password" value="" size="50" />
-            <br />
-            <input type="submit" value="submit" />
-        </form>
+{% block title %}Signin{% endblock %}
 
-    </body>
-</html>
+{% block body_block %}
+<h1>Login to Bark</h1>
+
+<form class="form-horizontal" id="login_form" method="post" action"{% url 'signin' %}">
+
+  {% if error %}
+    <p class="text-danger"> {{ error }}</p>
+  {% else %}
+    <p class="text-muted"> Please enter your Bark Username and Password</p>
+  {% endif %}
+
+  <div class="form-group">
+    {% csrf_token %}
+    <label for="userInput" class="col-sm-2 control-label">Username</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name="username" id="userInput" placeholder="Username" size="50">
+    </div>
+    <label for="passInput" class="col-sm-2 control-label">Password</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" name="password" id="passInput" placeholder="" size="50">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Sign in</button>
+    </div>
+  </div>
+</form>
+
+{% endblock %}

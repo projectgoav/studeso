@@ -1,6 +1,17 @@
 {% extends 'base.html' %}
 
+{% load staticfiles %}
+
 {% block body_block %}
+
+{% if user.is_authenticated %}
+  <h1>Welcome back to Bark {{ user.username }}</h1>
+{% else %}
+  <h1>Welcome to Bark!</h1>
+  <h3>A Student Q&amp;A discussion Site</h3>
+{% endif %}
+
+
 <ol>
     {% for topPost in topPosts %}
     <li><b><a href="{% url 'view_post' topPost.id topPost.slug %}">{{ topPost.title }}</a></b></li>

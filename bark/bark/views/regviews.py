@@ -98,6 +98,9 @@ def signup(request):
 def signin(request):
     # Try and login
     if request.method == 'POST':
+
+        context_dic = { }
+
         username = request.POST.get('username')
         password = request.POST.get('password')
 
@@ -110,13 +113,12 @@ def signin(request):
                 login(request, user)
                 return HttpResponseRedirect('/')
             else:
-                # TODO get some form of error page here.
-                return HttpResponse("Your Bark account is disabled.")
+                context_dic['error'] = "Your Bark accound has been disabled."
         else:
-            # TODO get some form of error page here.
             print "Invalid login details: {0}, {1}".format(username, password)
-            return HttpResponse("Invalid login details supplied.")
-
+            context_dic['error'] = "Invalid username and password."
+            
+        return render(request, 'auth/signin.html', context_dic)
     else:
         #Show the login form
         return render(request, 'auth/signin.html', {})
