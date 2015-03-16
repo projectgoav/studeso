@@ -115,3 +115,16 @@ def like_post(request):
             rating.save()
 
     return HttpResponse(rating)
+
+@login_required
+def auto_add_page(request):
+    tag_name = None
+    url = None
+    context_dict = {}
+    if request.method == 'GET':
+        tag_name = request.GET['Tag.name']
+        url = request.GET['url']
+        if tag_name:
+            tag = Tag.objects.get(id=tag_name)
+            tag.followers += 1
+    return render(request, 'bark/follow.html', context_dict)
