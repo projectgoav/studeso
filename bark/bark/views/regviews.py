@@ -117,7 +117,7 @@ def signin(request):
         else:
             print "Invalid login details: {0}, {1}".format(username, password)
             context_dic['error'] = "Invalid username and password."
-            
+
         return render(request, 'auth/signin.html', context_dic)
     else:
         #Show the login form
@@ -187,15 +187,16 @@ def passwordReset(request):
         #Try and find a matching User in the Bark database
         try:
             user = User.objects.get(username=username)
+
+            #Check their email against they one they have given
+            user_email = user.email
+            if user_email != email:
+                context_dic['errors'] += ["The email matching username was wrong."]
+
         except:
             context_dic['errors'] += ["No User with that username found."]
 
-        #Check their email against they one they have given
-        user_email = user.email
-        if user_email != email:
-            context_dic['errors'] = "The email matching username was wrong."
-
-        if len(context_dic['errors']> 0):
+        if len(context_dic['errors']) > 0:
             return render(request, 'auth/password-reset.html', context_dic)
 
         #Give them a nice wee code then email it to them
@@ -235,6 +236,8 @@ def passwordResetCode(request):
         #Check they've been given a reset code
         try:
             userReset = UserReset.objects.get(username=usern)
+            if int(code) != userReset.code:
+                context_dic['errors'] = "Reset code was wrong"
         except:
             context_dic['errors'] += ["Given username has not requested a password reset."]
 
@@ -242,10 +245,8 @@ def passwordResetCode(request):
             context_dic['errors'] += ["New password(s) can't be blank"]
         if new_password1 != new_password2 and new_password1 != "" and new_password2 != "":
             context_dic['errors'] += ["New passwords didn't macth"]
-        if int(code) != userReset.code:
-            context_dic['errors'] = "Reset code was wrong"
 
-        if len(context_dic['errors'] > 0):
+        if len(context_dic['errors']) > 0:
             return render(request, 'auth/reset-code.html', context_dic)
 
         #Once the checking is done, actually carry out the reset for them.
