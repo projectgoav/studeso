@@ -1,16 +1,15 @@
-<!DOCTYPE html>
-<!-- Provides a basic page for operations given a success message and then will timeout back to the Index Page -->
-<html>
-    <head>
-        <title>{{ TITLE }}</title>
-        <script type="text/javascript">
-    setTimeout(function() {
-        window.location.href = "{% url 'index' %}";
-    }, 2000);</script>
-    </head>
+{% extends 'base.html' %}
 
-    <body>
+{% block title %}{{ TITLE }}{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+setTimeout(function() {
+window.location.href = "{% url 'index' %}";
+}, 2000);</script>
+{% endblock %}
+
+{% block body_block %}
         <h1>{{ MESSAGE }}</h1>
         <h4>You should be auto-directed to Bark Homepage after 2 seconds. If not, please <a href="{% url 'index' %}">Click Here</a></h4>
-    </body>
-</html>
+{% endblock %}
