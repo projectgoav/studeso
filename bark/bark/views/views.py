@@ -128,3 +128,11 @@ def auto_add_page(request):
             tag = Tag.objects.get(id=tag_name)
             tag.followers += 1
     return render(request, 'bark/follow.html', context_dict)
+
+def about(request):
+    context_dict={}
+    return render(request,'bark/about.html',context_dict)
+
+def help(request):
+    context_dict={}
+    return render(request,'bark/help.html',context_dict)

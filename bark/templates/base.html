@@ -37,8 +37,8 @@
                     </form>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Help</a></li>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="{% url 'help' %}">Help</a></li>
                     {% if user.is_authenticated %}
                         <li><a href="#">
                           {% if user.userprofile.profile_picture %}
