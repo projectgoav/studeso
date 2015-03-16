@@ -120,6 +120,7 @@ def passwordMenu(request):
 def passwordChange(request):
     # Try and change password
     context_dic = { }
+    context_dic['errors'] = []
 
     #If Post, get the data we need from the User
     if request.method == 'POST':
@@ -127,33 +128,29 @@ def passwordChange(request):
         password = request.POST.get('new_password1')
         password2 = request.POST.get('new_password2')
 
-        #Check the existing password is correct.
+        #CFor error checking
         if not request.user.check_password(oldpass):
-            context_dic['errors'] = "Your current password is incorrect"
-        else:
-            #If we, check the 2 new passwords and then set the new password and that they are not-NULL
-            # Remembering to save the new password to the user!
-            if not password or not password2:
-                context_dic['errors'] = "New passsword(s) can't be blank!"
-            else:
-                if password != password2 :
-                    context_dic['errors'] = "Your new passwords didn't match"
-                else:
-                    request.user.set_password(password)
-                    request.user.save()
+            context_dic['errors'] += ["Your current password is incorrect"]
+        if (not password or not password2):
+            context_dic['errors'] += ["New passsword(s) can't be blank!"]
+        if password != password2 :
+            context_dic['errors'] += ["Your new passwords didn't match"]
 
-                    # REQUIRED TO KEEP USER LOGGED IN WHEN THEY CHANGE PASSWORD
-                    update_session_auth_hash(request, request.user)
+        #If error was found....
+        if len(context_dic['errors']) > 0:
+            #Otherwise, we return the errors from the form
+            return render(request, 'auth/password-change.html', context_dic)
 
-                    #Once all is complete, we try and send an email then let them know of change
-                    try:
-                        sendChangeEmail(request.user)
-                    except:
-                        print "Unable to send password change email :("
-                    return render(request, 'auth/timeout-page.html', {'TITLE' : 'Password Changed', 'MESSAGE' : "You've changed your passowrd"})
+        request.user.set_password(password)
+        request.user.save()
+        update_session_auth_hash(request, request.user) # REQUIRED TO KEEP USER LOGGED IN WHEN THEY CHANGE PASSWORD
 
-        #Otherwise, we return the errors from the form
-        return render(request, 'auth/password-change.html', context_dic)
+        #Once all is complete, we try and send an email then let them know of change
+        try:
+            sendChangeEmail(request.user)
+        except:
+            print "Unable to send password change email :("
+        return render(request, 'auth/timeout-page.html', {'TITLE' : 'Password Changed', 'MESSAGE' : "You've changed your passowrd"})
     else:
         #Show the change form if no details given
         return render(request, 'auth/password-change.html', {})
@@ -161,6 +158,7 @@ def passwordChange(request):
 #Password Reset
 def passwordReset(request):
     context_dic = { }
+    context_dic['errors'] = []
 
     #If Post, get the data we need from the User
     if request.method == 'POST':
@@ -171,32 +169,34 @@ def passwordReset(request):
         try:
             user = User.objects.get(username=username)
         except:
-            context_dic['errors'] = "No User with that username found."
+            context_dic['errors'] += ["No User with that username found."]
 
         #Check their email against they one they have given
         user_email = user.email
         if user_email != email:
             context_dic['errors'] = "The email matching username was wrong."
-        else:
-            #Give them a nice wee code then email it to them
-            # TODO randomly give a code to users
-            # TODO check for existing code and remove before giving a new one.
-            u = UserReset.objects.get_or_create(username=username, code=123456)[0]
 
-            try:
-                sendResetEmail(user, u.code)
-            except:
-                print "ERROR sending reset request. What do I do now? :("
+        if len(context_dic['errors']> 0):
+            return render(request, 'auth/password-reset.html', context_dic)
 
-            return redirect('/password-reset-do/')
+        #Give them a nice wee code then email it to them
+        # TODO randomly give a code to users
+        # TODO check for existing code and remove before giving a new one.
+        u = UserReset.objects.get_or_create(username=username, code=123456)[0]
 
-        return render(request, 'auth/password-reset.html', context_dic)
+        try:
+            sendResetEmail(user, u.code)
+        except:
+            #If a problem,print the code to the terminal
+            print "ERROR sending reset request. The code is" + str(u.code)
+        return redirect('/password-reset-do/')
     else:
         #Show the reset form
         return render(request, 'auth/password-reset.html', {})
 
 def passwordResetCode(request):
     context_dic = { }
+    context_dic['errors'] = []
 
     #If Post, get the data we need from the User
     if request.method == 'POST':
@@ -205,30 +205,28 @@ def passwordResetCode(request):
         new_password1 = request.POST.get('new_password1')
         new_password2 = request.POST.get('new_password2')
 
+        #Form Error checking
         #Try and find a matching User in the Bark database
         try:
             user = User.objects.get(username=usern)
         except:
-            context_dic['errors'] = "No User with that username found."
+            context_dic['errors'] += ["No User with that username found."]
             return render(request, 'auth/reset-code.html', context_dic)
 
         #Check they've been given a reset code
         try:
             userReset = UserReset.objects.get(username=usern)
         except:
-            context_dic['errors'] = "Given username has not requested a password reset."
-            return render(request, 'auth/reset-code.html', context_dic)
+            context_dic['errors'] += ["Given username has not requested a password reset."]
 
-        #Check the 2 passwords equal
         if not new_password1 or not new_password2:
-            context_dic['errors'] = "New password(s) can't be blank"
-
+            context_dic['errors'] += ["New password(s) can't be blank"]
         if new_password1 != new_password2 and new_password1 != "" and new_password2 != "":
-            context_dic['errors'] = "New passwords didn't macth"
-            return render(reiquest, 'auth/reset-code.html', context_dic)
-
+            context_dic['errors'] += ["New passwords didn't macth"]
         if int(code) != userReset.code:
             context_dic['errors'] = "Reset code was wrong"
+
+        if len(context_dic['errors'] > 0):
             return render(request, 'auth/reset-code.html', context_dic)
 
         #Once the checking is done, actually carry out the reset for them.
@@ -243,7 +241,6 @@ def passwordResetCode(request):
         except:
             print "Could not send Reset complete email to user"
 
-        # TODO put in one of those timeout pages
         return render(request, 'auth/timeout-page.html',  {'TITLE' : "Password Reset Complete", 'MESSAGE' : "Your password has been reset."})
     else:
 
