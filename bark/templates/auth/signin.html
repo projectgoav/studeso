@@ -1,20 +1,22 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Signin to Bark</title>
-    </head>
+{% extends 'base.html' %}
+{% block title %}Sign In{% endblock %}
+{% block body_block %}
+    <h1>Login to Bark</h1>
 
-    <body>
-        <h1>Login to Bark</h1>
+    <form class="form form-horizontal" id="login_form" method="post" action="{% url 'signin' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_username">Username</label>
+            <input class="form-control" type="text" id="id_username" name="username" value="" placeholder="Username" size="50" />
+        </div>
 
-        <form id="login_form" method="post" action="/signin/">
-            {% csrf_token %}
-            Username: <input type="text" name="username" value="" size="50" />
-            <br />
-            Password: <input type="password" name="password" value="" size="50" />
-            <br />
-            <input type="submit" value="submit" />
-        </form>
+        <div class="form-group">
+            <label for="id_password">Password</label>
+            <input class="form-control" type="password" id="id_password" name="password" placeholder="Password" value="" size="50" />
+        </div>
 
-    </body>
-</html>
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="submit" />
+        </div>
+    </form>
+{% endblock %}

@@ -1,31 +1,25 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Bark - Signup</title>
-    </head>
+{% extends 'base.html' %}
+{% block title %}Sign Up{% endblock %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 
-    <body>
-        <h1>Register with Bark</h1>
+{% block body_block %}
+    {% if registered %}
+        <h2>Bark Welcomes You!</h2>
+    {% else %}
 
-        {% if registered %}
-        <h2> Bark Welcomes you! </h2>
-        {% else %}
+    <h3>Sign Up</h3>
 
-        <h3>Signup</h3>
-
-        <form id="user_form" method="post" action="/signup/"
+    <form id="user_form" method="post" action="{% url 'signup' %}"
                 enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form user_form %}
+        {% bootstrap_form profile_form %}
 
-            {% csrf_token %}
+        <!-- Provide a button to click to submit the form. -->
+        <input class="btn btn-primary" type="submit" name="submit" value="Signup!" />
 
-            <!-- COMMENT -->
-            {{ user_form.as_p }}
-            {{ profile_form.as_p }}
-
-            <!-- Provide a button to click to submit the form. -->
-            <input type="submit" name="submit" value="Signup!" />
-        </form>
-
-        {% endif %}
-    </body>
-</html>
+    </form>
+    {% endif %}
+{% endblock %}

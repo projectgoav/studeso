@@ -1,9 +1,13 @@
 Django==1.7
+Pillow==2.7.0
+argparse==1.2.1
+coverage==3.7.1
+django-bootstrap3==5.1.1
 django-registration-redux==1.1
 pbr==0.10.7
-Pillow==2.7.0
 six==1.9.0
 stevedore==1.2.0
 virtualenv==12.0.5
 virtualenv-clone==0.2.5
 virtualenvwrapper==4.3.2
+wsgiref==0.1.2
