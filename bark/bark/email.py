@@ -6,7 +6,7 @@ WELC_EMAIL_CONT = "Welcome to Bark!\n\nYour account is now active and ready-to-u
 
 CHANGE_EMAIL_SUB = "Bark Account : Password Change"
 CHANGE_EMAIL_CONT1 = "Your Bark Account: "
-CHANGE_EMAIL_CONT2 = " reccently changed your password. If this was you, please contact the Bark Team!. If it was, please just ignore this email.\n\n"
+CHANGE_EMAIL_CONT2 = " reccently changed your password. If this wasn't you, please contact the Bark Team!. If it was, please just ignore this email.\n\n"
 
 RESET_EMAIL_SUB = "Bark Account : Password Reset"
 RESET_EMAIL_CONT = "Your Bark account reset code: "

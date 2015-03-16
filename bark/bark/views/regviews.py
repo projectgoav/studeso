@@ -131,27 +131,31 @@ def passwordChange(request):
         if not request.user.check_password(oldpass):
             context_dic['errors'] = "Your current password is incorrect"
         else:
-
-            #If we, check the 2 new passwords and then set the new password.
-            #Remembering to save the new password to the user!
-            if password != password2:
-                context_dic['errors'] = "Your new passwords didn't match"
+            #If we, check the 2 new passwords and then set the new password and that they are not-NULL
+            # Remembering to save the new password to the user!
+            if not password or not password2:
+                context_dic['errors'] = "New passsword(s) can't be blank!"
             else:
-                request.user.set_password(password)
-                request.user.save()
-                update_session_auth_hash(request, request.user)
+                if password != password2 :
+                    context_dic['errors'] = "Your new passwords didn't match"
+                else:
+                    request.user.set_password(password)
+                    request.user.save()
 
-                # TODO was getting errors. Perhaps it was on Free WIFI?
-                try:
-                    sendChangeEmail(request.user)
-                except:
-                    print "Unable to send password change email :("
+                    # REQUIRED TO KEEP USER LOGGED IN WHEN THEY CHANGE PASSWORD
+                    update_session_auth_hash(request, request.user)
 
-                return render(request, 'auth/timeout-page.html', {'TITLE' : 'Password Changed', 'MESSAGE' : "You've changed your passowrd"})
+                    #Once all is complete, we try and send an email then let them know of change
+                    try:
+                        sendChangeEmail(request.user)
+                    except:
+                        print "Unable to send password change email :("
+                    return render(request, 'auth/timeout-page.html', {'TITLE' : 'Password Changed', 'MESSAGE' : "You've changed your passowrd"})
 
+        #Otherwise, we return the errors from the form
         return render(request, 'auth/password-change.html', context_dic)
     else:
-        #Show the change form
+        #Show the change form if no details given
         return render(request, 'auth/password-change.html', {})
 
 #Password Reset
@@ -168,11 +172,9 @@ def passwordReset(request):
             user = User.objects.get(username=username)
         except:
             context_dic['errors'] = "No User with that username found."
-            return render(request, 'auth/password-reset.html', context_dic)
 
         #Check their email against they one they have given
         user_email = user.email
-
         if user_email != email:
             context_dic['errors'] = "The email matching username was wrong."
         else:
@@ -218,7 +220,10 @@ def passwordResetCode(request):
             return render(request, 'auth/reset-code.html', context_dic)
 
         #Check the 2 passwords equal
-        if new_password1 != new_password2:
+        if not new_password1 or not new_password2:
+            context_dic['errors'] = "New password(s) can't be blank"
+
+        if new_password1 != new_password2 and new_password1 != "" and new_password2 != "":
             context_dic['errors'] = "New passwords didn't macth"
             return render(reiquest, 'auth/reset-code.html', context_dic)
 
