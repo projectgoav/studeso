@@ -1,0 +1,10 @@
+body{
+    font-family: 'Oxygen', sans-serif;
+}
+
+/* Class for special tag, making it italic */
+.special-tag { font-style:italic; }
+
+/* Color Options for special Tags */
+.user a{ color: green; }
+.inst a{ color:red; }
