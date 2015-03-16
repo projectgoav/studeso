@@ -12,10 +12,12 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, unique=True)
     followed_tags = models.ManyToManyField('Tag', through="TagFollowing")
 
-    profile_picture = models.ImageField(upload_to='profile_images', blank=True, editable=True)
+    profile_picture = models.ImageField(upload_to='profile_images', editable=True, default="profile_images/Bone.png")
 
     user_tag = models.OneToOneField('UserTag', related_name="userprofile_user_tag", editable=False)
     institution_tag = models.ForeignKey('InstitutionTag', related_name='userprofile_institution_tag', editable=False)
+
+    bio = models.TextField(blank=True)
 
     def canPostToTag(self, instTag):
         # Checks if a user can post to an InstitutionTag

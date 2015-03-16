@@ -64,11 +64,13 @@ def addUsers():
 
     for userName in userNames:
         print "\t> " + userName
-        
+
         email = userName + "@" + institutionTags[selectedUserInstitution % len(institutionTags)]
         selectedUserInstitution += 1
 
-        User.objects.get_or_create(username=userName, password="test", email=email)
+        u = User.objects.get_or_create(username=userName, email=email)[0]
+        u.set_password("test")
+        u.save()
     print str(len(userNames)) + " users added!\n"
 
 # Adds some basic information to the users and their profiles.
