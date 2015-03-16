@@ -17,10 +17,27 @@ def users(request):
 def view_user(request):
     return HttpResponse("Person 1<br><br>Sample information<br>Sample information<br>More sample information")
 
-#View the current user profile
+#Update User Profile
 #MUST BE LOGGED IN
-def profile(request):
-    return HttpResponse("You are person 1. Here is your information:<Br>Sample Info<br>Sample info<br>Sample info")
+@login_required
+def profileUpdate(request):
+
+    if request.method == 'POST':
+            bio_text = request.POST.get('bio_data')
+            request.user.userprofile.bio = bio_text
+            request.user.save()
+
+            if 'profile_picture' in request.FILES:
+                request.user.userprofile.profile_picture = request.FILES['profile_picture']
+                request.user.userprofile.save()
+
+            return render(request, 'auth/timeout-page.html', { 'TITLE' : "Profile Updated", 'MESSAGE' : "Your profile has been updated"})
+
+    else:
+        user = request.user
+        tags = user.userprofile.followed_tags.all()
+        context_dic = { 'BIO' : user.userprofile.bio, 'tags' : tags }
+        return render(request, "auth/profile-form.html", context_dic)
 
 #Update your current profile
 #MUST BE LOGGED IN

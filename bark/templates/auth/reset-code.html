@@ -6,7 +6,14 @@
 
     <body>
 
-        {{ errors }}
+      <!-- Displays the list of errors with the form -->
+        {% if errors %}
+          <ul>
+          {% for error in errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
 
         <h1>Enter Reset Code</h1>
         <h3>You should have been send a Password reset code to your email. Use this code and enter your new password to reset it.</h3>

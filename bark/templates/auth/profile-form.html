@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Reset your Password</title>
+    </head>
+
+    <body>
+
+      <!-- Displays the list of errors with the form -->
+        {% if errors %}
+          <ul>
+          {% for error in errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+        <h1>Update your profile</h1>
+        <h3>This is the information that appears when other users click your name tag.</h3>
+
+        <form id="Profile_FORM" method="post" action="{% url 'profile' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            Bio: <textarea  rows="5" cols="75" name="bio_data">{{ BIO }}</textarea>
+            <br />
+            Current Profile Image:
+            <img src="{{ MEDIA_URL }}{{ user.userprofile.profile_picture }}" alt="Profile Image" height="48px" width="48px"/>
+            Profile picture:</label> <input id="id_profile_picture" name="profile_picture" type="file" />
+            <input type="submit" value="submit" />
+        </form>
+
+
+        <h3> Tags your subscribed to </h3>
+        {% if tags %}
+          {% for tag in tags.tag.all %}
+            <p>{{ tag.tag }}</p>
+          {% endfor %}
+        {% else %}
+          <p> You don't follow any tags </p>
+        {% endif %}
+
+    </body>
+</html>
