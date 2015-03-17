@@ -29,3 +29,18 @@ class PostForm(forms.ModelForm):
         def form_valid(self, form):
             form.instance.author = self.request.user
             return super(Meta, self).form_valid(form)
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(label='Username', max_length=50)
+    password = forms.CharField(label='Password', max_length=50, widget=forms.PasswordInput())
+
+    # TODO -> FINISH THIS.
+
+    def clean(self):
+        try:
+            user = User.objects.get(username=self.username)
+            if not request.user.check_password(oldpass):
+                break
+        except:
+             raise forms.ValidationError("Given username and password is invalid.")

@@ -5,7 +5,7 @@ from django.contrib.auth.views import password_change
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-from bark.forms import UserForm, UserProfileForm
+from bark.forms import UserForm, UserProfileForm, LoginForm
 from bark.email import sendWelcomeEmail, sendChangeEmail, sendResetEmail
 from bark.models import UserReset, UserProfile
 
@@ -104,32 +104,33 @@ def signup(request):
 
 #User can sign in
 def signin(request):
-    # Try and login
+    # if this is a POST request we need to process the form data
     if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = LoginForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
 
-        context_dic = { }
+            # Attempt to login
+            user = authenticate(username=username, password=password)
+            # If we've made it
+            if user:
+                if user.is_active:
+                    login(request, user)
+                    return HttpResponseRedirect('/')
 
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        # Attempt to login
-        user = authenticate(username=username, password=password)
-
-        # If we've made it
-        if user:
-            if user.is_active:
-                login(request, user)
-                return HttpResponseRedirect('/')
             else:
-                context_dic['error'] = "Your Bark accound has been disabled."
+                print form.errors
         else:
-            print "Invalid login details: {0}, {1}".format(username, password)
-            context_dic['error'] = "Invalid username and password."
+            print form.errors
 
-        return render(request, 'auth/signin.html', context_dic)
+    # if a GET (or any other method) we'll create a blank form
     else:
-        #Show the login form
-        return render(request, 'auth/signin.html', {})
+        form = LoginForm()
+
+    return render(request, 'auth/signin.html', {'login_form': form})
 
 
 #User can sign out
