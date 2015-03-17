@@ -78,9 +78,17 @@ def signup(request):
 
             registered = True
 
-            #We re-direct home!
-            # TODO Auto log in users here so they're all logged in and ready to roll.
-            redirect('/')
+            # Auto login the user to their new account!
+            # MAKE SURE TO USE THE GIVEN USR AND PWD FROM POST
+            if registered == True:
+                nuser = authenticate(username=request.POST.get('username'), password=request.POST.get('password'))
+                # If we've made it
+                if nuser:
+                    if nuser.is_active:
+                        login(request, nuser)
+                        return HttpResponseRedirect('/')
+                else:
+                    print "Something went wrong, logging in...."
 
         # If something went wrong, it goes to terminal and to the template.
         else:
@@ -91,7 +99,7 @@ def signup(request):
         user_form = UserForm()
         profile_form = UserProfileForm()
 
-    return render(request, 'auth/signup.html', {'user_form': user_form, 'profile_form': profile_form, 'registered': registered} )
+    return render(request, 'auth/signup.html', {'user_form': user_form, 'profile_form': profile_form} )
 
 
 #User can sign in
