@@ -37,7 +37,7 @@
     {% for comment in post.comment_set.all %}
         <div class="panel panel-default">
             <div class="panel-body">{{ comment.content }}</div>
-            <div class="panel-footer" class="bark-tags">
+            <div class="panel-footer bark-tags">
                 <a href="#" class="commenter_tag">@{{ comment.author }}</a>
                     <span class="pull-right small">{{ comment.like_set.all|length }} found this helpful
                         <div class="pull-right small" id="like">
