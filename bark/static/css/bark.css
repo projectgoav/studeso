@@ -6,5 +6,5 @@ body{
 .special-tag { font-style:italic; }
 
 /* Color Options for special Tags */
-.user a{ color: green; }
-.inst a{ color:red; }
+.user { color: green; }
+.inst { color:red; }

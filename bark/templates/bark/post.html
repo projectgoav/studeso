@@ -1,27 +1,30 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
+{% load staticfiles %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 
 {% block body_block %}
 {% if post %}
-    <h2 class="page-header col-sm-10">{{ post.title }} <small>View{{ post.views|pluralize }}: {{ post.views }} </small><small class="pull-right smalll">{{ post.like_set|length }} found this interesting</small></h2>
+    <h2 class="page-header col-sm-10">{{ post.title }} <small>Views: {{ post.views }}, {{ post.like_set|length }} found this interesting</small></h2>
 
     <div class="col-sm-10">
     <div class="panel panel-default">
         <div class="panel-body">{{ post.content }}</div>
         <div class="panel-footer" class="bark-tags">
             <b>Tags: </b>
-            {% for post_tag in post.tags.all %}
+            <a class="user" href="#">@{{ post.author.user_tag }}</a><span> | </span>
+            {% for post_tag in post_tags %}
                 {% if forloop.first %}
-                    <a class="author_tag" href="#">@{{ post_tag }}</a>
-                {% elif forloop.last %}
                     <a class="tag" href="#">@{{ post_tag }}</a>
+                {% elif forloop.last %}
+                    <span> | </span><a class="tag" href="#">@{{ post_tag }}</a><span> | </span>
                 {% else %}
                     <span> | </span><a class="tag" href="#">@{{ post_tag }}</a>
                 {% endif %}
             {% endfor %}
 
+        {% if user.is_authenticated %}
         <div class="pull-right" id="like">
             {% buttons %}
                 <button type="submit">
@@ -29,6 +32,7 @@
                 </button>
             {% endbuttons %}
         </div>
+        {% endif %}
 
         </div>
     </div>
@@ -38,14 +42,16 @@
         <div class="panel panel-default">
             <div class="panel-body">{{ comment.content }}</div>
             <div class="panel-footer bark-tags">
-                <a href="#" class="commenter_tag">@{{ comment.author }}</a>
+                <a href="#" class="user">@{{ comment.author }}</a>
                     <span class="pull-right small">{{ comment.like_set.all|length }} found this helpful
                         <div class="pull-right small" id="like">
+                        {% if user.is_authenticated %}
                             {% buttons %}
                                 <button type="submit">
                                     {% bootstrap_icon "thumbs-up" %}
                                 </button>
                             {% endbuttons %}
+                        {% endif %}
                         </div>
                     </span>
             </div>

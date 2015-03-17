@@ -5,7 +5,7 @@ import django
 import random
 
 #TODO import correct models here.
-from bark.models import UserProfile, Post, User, Tag
+from bark.models import UserProfile, Post, User, Tag, PostTagging, Comment
 
 django.setup()
 
@@ -38,7 +38,7 @@ institutionTags = [
             "cityofglasgowcollege.ac.uk",
         ]
 
-numberOfDefaultPosts = 5
+numberOfDefaultPosts = 10
 
 defaultPostData = [
     ["C++ Help"],
@@ -111,9 +111,15 @@ def addPosts():
             author=allUsers[userIndex % len(allUsers)],
             content="Test post... Hello C++ Python Hello Django Java Test Hello Test World Java",
             views=random.randint(0, 100)
-            )
+            )[0]
         print "\t > " + str(post)
         userIndex += 1
+
+        for i in range(random.randint(0, len(tags)-1)):
+            PostTagging.objects.create(post=post, tag=Tag.objects.get(name=tags[i]))
+
+        Comment.objects.create(author=allUsers[userIndex % len(allUsers)], post=post, content="This is a great post!")
+        Comment.objects.create(author=allUsers[(userIndex + 1) % len(allUsers)], post=post, content="Agreed!")
 
     print str(numberOfDefaultPosts) + " posts added!\n"
 

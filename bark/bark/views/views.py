@@ -32,8 +32,10 @@ def viewPost(request, post_id, post_slug):
     contextDictionary = {}
 
     try:
-        post = Post.objects.get(id = post_id)
+        post = Post.objects.get(id=post_id)
         contextDictionary['post'] = post
+        contextDictionary['post_tags'] = post.tags.all().exclude(name=post.author.user_tag)
+        post.views += 1
     except Post.DoesNotExist:
         pass
 
