@@ -81,7 +81,7 @@ def search(request):
     else:
         query = ''
 
-    posts = Post.objects.filter(tags__icontains=query).order_by('-ranking')[:10]
+    posts = Post.objects.filter(tag__name__contains=query).order_by('-rating')[:10]
 
     return render(request,'bark/search.html', {'posts':posts})
 
