@@ -41,8 +41,8 @@ def viewPost(request, post_id, post_slug):
 
     return render(request, 'bark/post.html', contextDictionary)
 
-# TODO: Bark doesn't like it when you try and add a post when not logged in.
-# TODO: The tags selected in the form don't get copied over into the post view.
+
+@login_required
 def addPost(request):
     contextDictionary = {}
 
