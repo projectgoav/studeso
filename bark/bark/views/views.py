@@ -18,8 +18,13 @@ def index(request):
     return render(request, 'bark/index.html', contextDictionary)
 
 # Bark Tag listing
-def viewPosts(request):
+def viewPosts(request, tag_id):
     contextDictionary = {}
+
+    print tag_id
+
+    # TODO get the posts with the tag with the given id(s)
+    # contextDictionary['posts'] = Post.objects.get(tags.id=tag_id)
     return render(request, 'bark/posts.html', contextDictionary)
 
 # View a specific bark

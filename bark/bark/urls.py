@@ -28,7 +28,7 @@ urlpatterns = patterns('',
                        # #Generic Post list
                        # TODO
                        # Add tags as /TAG/TAG/TAG to filter depending on the tags
-                       url(r'^barks/', views.viewPosts, name = 'view_posts'),
+                       url(r'^barks/(?P<tag_id>[\w-]+)', views.viewPosts, name = 'view_posts'),
                        #
                        # #Specific Bark view
                        url(r'^bark/(?P<post_id>[\w-]+)/(?P<post_slug>[\w-]+)/', views.viewPost, name='view_post'),

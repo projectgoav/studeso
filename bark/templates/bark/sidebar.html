@@ -3,7 +3,7 @@
 {% if U %}
     <li><b>User Tags</b></li>
     {% for t in U %}
-        <li class="special-tag user"><a href="#">{{ t.name }}</a></li>
+        <li class="special-tag user"><a href="{% url 'view_posts' t.id %}">{{ t.name }}</a></li>
     {% endfor %}
 {% else %}
     <li> <strong >There are no User Tags</strong></li>
@@ -12,7 +12,7 @@
 {% if I %}
     <li><b>Institution Tags</b></li>
     {% for t in I %}
-        <li class="special-tag inst"><a href="#">{{ t.name }}</a></li>
+        <li class="special-tag inst"><a href="{% url 'view_posts' t.id %}">{{ t.name }}</a></li>
     {% endfor %}
 {% else %}
     <li> <strong >There are no institution Tags</strong></li>
@@ -21,7 +21,7 @@
 {% if A %}
     <li><b>Tags</b></li>
     {% for t in A %}
-        <li><a href="#">{{ t.name }}</a></li>
+        <li><a href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
     {% endfor %}
 {% else %}
     <li> <strong >There are no Tags</strong></li>

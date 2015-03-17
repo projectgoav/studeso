@@ -12,7 +12,6 @@ def get_sidebar():
 
     tags = Tag.objects.all()
     for t in tags:
-
         if t not in user_tags and t not in inst_tags:
             other_tags += [t]
 

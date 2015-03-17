@@ -5,7 +5,7 @@ from django.contrib.auth.views import password_change
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-from bark.forms import UserForm, UserProfileForm, LoginForm
+from bark.forms import *
 from bark.email import sendWelcomeEmail, sendChangeEmail, sendResetEmail
 from bark.models import UserReset, UserProfile
 
@@ -185,93 +185,65 @@ def passwordChange(request):
 
 #Password Reset
 def passwordReset(request):
-    context_dic = { }
-    context_dic['errors'] = []
-
-    #If Post, get the data we need from the User
+    # if this is a POST request we need to process the form data
     if request.method == 'POST':
-        username = request.POST.get('username')
-        email = request.POST.get('email')
+        # create a form instance and populate it with data from the request:
+        form = PasswordResetForm1(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
 
-        #Try and find a matching User in the Bark database
-        try:
-            user = User.objects.get(username=username)
+            u = UserReset.objects.get_or_create(username=username, code=123456)[0]
 
-            #Check their email against they one they have given
-            user_email = user.email
-            if user_email != email:
-                context_dic['errors'] += ["The email matching username was wrong."]
+            try:
+                sendResetEmail(email, u.code)
+            except:
+                #If a problem,print the code to the terminal
+                print "ERROR sending reset request. The code is" + str(u.code)
+            return redirect('/password-reset-do/')
 
-        except:
-            context_dic['errors'] += ["No User with that username found."]
+        else:
+            print form.errors
 
-        if len(context_dic['errors']) > 0:
-            return render(request, 'auth/password-reset.html', context_dic)
-
-        #Give them a nice wee code then email it to them
-        # TODO randomly give a code to users
-        # TODO check for existing code and remove before giving a new one.
-        u = UserReset.objects.get_or_create(username=username, code=123456)[0]
-
-        try:
-            sendResetEmail(user, u.code)
-        except:
-            #If a problem,print the code to the terminal
-            print "ERROR sending reset request. The code is" + str(u.code)
-        return redirect('/password-reset-do/')
+    # if a GET (or any other method) we'll create a blank form
     else:
-        #Show the reset form
-        return render(request, 'auth/password-reset.html', {})
+        form = PasswordResetForm1()
+
+    return render(request, 'auth/password-reset.html', {'reset_form': form})
 
 def passwordResetCode(request):
-    context_dic = { }
-    context_dic['errors'] = []
-
-    #If Post, get the data we need from the User
+    # if this is a POST request we need to process the form data
     if request.method == 'POST':
-        usern = request.POST.get('username')
-        code = request.POST.get('code')
-        new_password1 = request.POST.get('new_password1')
-        new_password2 = request.POST.get('new_password2')
+        # create a form instance and populate it with data from the request:
+        form = PasswordResetForm2(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            new_password = form.cleaned_data['new_pass1']
 
-        #Form Error checking
-        #Try and find a matching User in the Bark database
-        try:
-            user = User.objects.get(username=usern)
-        except:
-            context_dic['errors'] += ["No User with that username found."]
-            return render(request, 'auth/reset-code.html', context_dic)
+            user = User.objects.get(username=username)
+            userReset = UserReset.objects.get(username=username)
 
-        #Check they've been given a reset code
-        try:
-            userReset = UserReset.objects.get(username=usern)
-            if int(code) != userReset.code:
-                context_dic['errors'] = "Reset code was wrong"
-        except:
-            context_dic['errors'] += ["Given username has not requested a password reset."]
+            #Once the checking is done, actually carry out the reset for them.
+            user.set_password(new_password)
+            user.save()
 
-        if not new_password1 or not new_password2:
-            context_dic['errors'] += ["New password(s) can't be blank"]
-        if new_password1 != new_password2 and new_password1 != "" and new_password2 != "":
-            context_dic['errors'] += ["New passwords didn't macth"]
+            #Remember and remove reset from database, as it's no longer needed
+            userReset.delete()
 
-        if len(context_dic['errors']) > 0:
-            return render(request, 'auth/reset-code.html', context_dic)
+            try:
+                sendChangeEmail(user)
+            except:
+                print "Could not send Reset complete email to user"
 
-        #Once the checking is done, actually carry out the reset for them.
-        user.set_password(new_password1)
-        user.save()
+            return render(request, 'auth/timeout-page.html',  {'TITLE' : "Password Reset Complete", 'MESSAGE' : "Your password has been reset."})
 
-        #Remember and remove reset from database, as it's no longer needed
-        userReset.delete()
+        else:
+            print form.errors
 
-        try:
-            sendChangeEmail(user)
-        except:
-            print "Could not send Reset complete email to user"
-
-        return render(request, 'auth/timeout-page.html',  {'TITLE' : "Password Reset Complete", 'MESSAGE' : "Your password has been reset."})
+    # if a GET (or any other method) we'll create a blank form
     else:
+        form = PasswordResetForm2()
 
-        #Show the reset form
-        return render(request, 'auth/reset-code.html', {})
+    return render(request, 'auth/reset-code.html', {'reset_form': form})

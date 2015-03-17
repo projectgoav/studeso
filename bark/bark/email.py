@@ -23,6 +23,6 @@ def sendChangeEmail(user):
     email = EmailMessage(CHANGE_EMAIL_SUB, CHANGE_EMAIL_CONT1 + user.username + CHANGE_EMAIL_CONT2 + EMAIL_FOOT, to=[user.email])
     email.send()
 
-def sendResetEmail(user, code):
-    email = EmailMessage(RESET_EMAIL_SUB, RESET_EMAIL_CONT + str(code), to=[user.email])
+def sendResetEmail(email, code):
+    email = EmailMessage(RESET_EMAIL_SUB, RESET_EMAIL_CONT + str(code), to=[email])
     email.send()
