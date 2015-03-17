@@ -146,42 +146,33 @@ def passwordMenu(request):
 #Password change
 @login_required
 def passwordChange(request):
-    # Try and change password
-    context_dic = { }
-    context_dic['errors'] = []
-
-    #If Post, get the data we need from the User
+    # if this is a POST request we need to process the form data
     if request.method == 'POST':
-        oldpass = request.POST.get('old_password')
-        password = request.POST.get('new_password1')
-        password2 = request.POST.get('new_password2')
+        # create a form instance and populate it with data from the request:
+        form = PasswordChangeForm(request.POST, request=request)
+        # check whether it's valid:
+        if form.is_valid():
+            newpass = form.cleaned_data['new_pass1']
 
-        #CFor error checking
-        if not request.user.check_password(oldpass):
-            context_dic['errors'] += ["Your current password is incorrect"]
-        if (not password or not password2):
-            context_dic['errors'] += ["New passsword(s) can't be blank!"]
-        if password != password2 :
-            context_dic['errors'] += ["Your new passwords didn't match"]
+            request.user.set_password(newpass)
+            request.user.save()
+            update_session_auth_hash(request, request.user)
 
-        #If error was found....
-        if len(context_dic['errors']) > 0:
-            #Otherwise, we return the errors from the form
-            return render(request, 'auth/password-change.html', context_dic)
+            try:
+                sendChangeEmail(request.user)
+            except:
+                print "Unable to send password change email :("
 
-        request.user.set_password(password)
-        request.user.save()
-        update_session_auth_hash(request, request.user) # REQUIRED TO KEEP USER LOGGED IN WHEN THEY CHANGE PASSWORD
 
-        #Once all is complete, we try and send an email then let them know of change
-        try:
-            sendChangeEmail(request.user)
-        except:
-            print "Unable to send password change email :("
-        return render(request, 'auth/timeout-page.html', {'TITLE' : 'Password Changed', 'MESSAGE' : "You've changed your passowrd"})
+            return render(request, 'auth/timeout-page.html', {'TITLE' : 'Password Changed', 'MESSAGE' : "You've changed your password"})
+        else:
+            print form.errors
+
+    # if a GET (or any other method) we'll create a blank form
     else:
-        #Show the change form if no details given
-        return render(request, 'auth/password-change.html', {})
+        form = PasswordChangeForm(request=request)
+
+    return render(request, 'auth/password-change.html', {'change_form': form})
 
 #Password Reset
 def passwordReset(request):

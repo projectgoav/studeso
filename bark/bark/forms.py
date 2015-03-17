@@ -30,7 +30,7 @@ class PostForm(forms.ModelForm):
             form.instance.author = self.request.user
             return super(Meta, self).form_valid(form)
 
-
+# Login Form (as name suggests)
 class LoginForm(forms.Form):
     username = forms.CharField(label='Username', max_length=50, required=True)
     password = forms.CharField(label='Password', max_length=50, widget=forms.PasswordInput(), required=True)
@@ -50,7 +50,8 @@ class LoginForm(forms.Form):
             self.add_error('password', "Invalid Username and Password")
             return
 
-
+# Shows the form for users requesting a reset code
+# Checks the data they enter is valid
 class PasswordResetForm1(forms.Form):
     username = forms.CharField(label='Username', max_length=50, required=True)
     email = forms.EmailField(label='Account Email', max_length=50, required=True)
@@ -70,7 +71,8 @@ class PasswordResetForm1(forms.Form):
         if user.email != email:
             self.add_error('email', 'Account email is incorrect.')
 
-
+# Shows form to users for resetting password
+# Performs a lot of the validation
 class PasswordResetForm2(forms.Form):
     username = forms.CharField(label='Username', max_length=50, required=True)
     code = forms.CharField(label='Reset Code', required=True)
@@ -106,3 +108,27 @@ class PasswordResetForm2(forms.Form):
         if new_pass1 != new_pass2:
             self.add_error('new_pass1', "Passwords didn't match")
             self.add_error('new_pass2', "Passwords didn't match")
+
+
+
+class PasswordChangeForm(forms.Form):
+    old_pass = forms.CharField(label='Old Password', max_length=50, widget=forms.PasswordInput(), required=True)
+    new_pass1 = forms.CharField(label='New Password', max_length=50, widget=forms.PasswordInput(), required=True)
+    new_pass2 = forms.CharField(label='New Passowrd (Again)', max_length=50, widget=forms.PasswordInput(), required=True)
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super(PasswordChangeForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super(PasswordChangeForm, self).clean()
+        old_pass = cleaned_data.get('old_pass')
+        new_pass1 = cleaned_data.get('new_pass1')
+        new_pass2 = cleaned_data.get('new_pass2')
+
+        if not self.request.user.check_password(old_pass):
+            self.add_error('old_pass', "Your current password is incorrect")
+
+        if new_pass1 != new_pass2:
+            self.add_error('new_pass1', "Your passwords didn't match.")
+            self.add_error('new_pass2', "Your passwords didn't match.")
