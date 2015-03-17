@@ -1,4 +1,5 @@
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage, send_mail
+from bark.keys import USERNAME
 
 #Constants
 WELC_EMAIL_SUB = "Welcome to Bark!"
