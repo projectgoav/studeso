@@ -1,24 +1,58 @@
 {% extends 'base.html' %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 
 {% block body_block %}
 {% if post %}
-<h2>{{ post.title }}</h2>
-<br />
-Content: <i>{{ post.content }}</i>
+    <h2 class="page-header col-sm-10">{{ post.title }} <small>View{{ post.views|pluralize }}: {{ post.views }} </small><small class="pull-right smalll">{{ post.like_set|length }} found this interesting</small></h2>
 
-<br />
-Created by: <i>{{ post.author }}</i> on <i>{{ post.creation_date }}</i>
-<br />
-Views, Rating: <i>{{ post.views }}</i>, <i>{{ post.rating }}</i>
-<br />
-Tags:
-<br />
-<ul>
-    {% for postTag in post.tags.all %}
-    <li><i>{{ postTag.name }}</i></li>
+    <div class="col-sm-10">
+    <div class="panel panel-default">
+        <div class="panel-body">{{ post.content }}</div>
+        <div class="panel-footer" class="bark-tags">
+            <b>Tags: </b>
+            {% for post_tag in post.tags.all %}
+                {% if forloop.first %}
+                    <a class="author_tag" href="#">@{{ post_tag }}</a>
+                {% elif forloop.last %}
+                    <a class="tag" href="#">@{{ post_tag }}</a>
+                {% else %}
+                    <span> | </span><a class="tag" href="#">@{{ post_tag }}</a>
+                {% endif %}
+            {% endfor %}
+
+        <div class="pull-right" id="like">
+            {% buttons %}
+                <button type="submit">
+                    {% bootstrap_icon "thumbs-up" %}
+                </button>
+            {% endbuttons %}
+        </div>
+
+        </div>
+    </div>
+    <h3 class="page-header">Comments ({{ post.comment_set.all|length }})</h3>
+
+    {% for comment in post.comment_set.all %}
+        <div class="panel panel-default">
+            <div class="panel-body">{{ comment.content }}</div>
+            <div class="panel-footer bark-tags">
+                <a href="#" class="commenter_tag">@{{ comment.author }}</a>
+                    <span class="pull-right small">{{ comment.like_set.all|length }} found this helpful
+                        <div class="pull-right small" id="like">
+                            {% buttons %}
+                                <button type="submit">
+                                    {% bootstrap_icon "thumbs-up" %}
+                                </button>
+                            {% endbuttons %}
+                        </div>
+                    </span>
+            </div>
+        </div>
     {% endfor %}
-</ul>
 {% else %}
-<h2>No post exists!</h2>
+    <h2>No post exists!</h2>
 {% endif %}
 {% endblock %}
+
