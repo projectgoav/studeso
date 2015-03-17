@@ -109,8 +109,8 @@ class PasswordResetForm2(forms.Form):
             self.add_error('new_pass1', "Passwords didn't match")
             self.add_error('new_pass2', "Passwords didn't match")
 
-
-
+# Allows user to change their password
+# On creation MUST be passed with request=request as for cleaning.
 class PasswordChangeForm(forms.Form):
     old_pass = forms.CharField(label='Old Password', max_length=50, widget=forms.PasswordInput(), required=True)
     new_pass1 = forms.CharField(label='New Password', max_length=50, widget=forms.PasswordInput(), required=True)
@@ -132,3 +132,11 @@ class PasswordChangeForm(forms.Form):
         if new_pass1 != new_pass2:
             self.add_error('new_pass1', "Your passwords didn't match.")
             self.add_error('new_pass2', "Your passwords didn't match.")
+
+class UserProfileUpdateForm(forms.Form):
+    profile_picture = forms.ImageField(label='Profile Picture', required=False)
+    bio = forms.CharField(label='About Me', initial='All about you', widget=forms.Textarea())
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super(UserProfileUpdateForm, self).__init__(*args, **kwargs)

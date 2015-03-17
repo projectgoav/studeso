@@ -17,8 +17,6 @@ class UserProfile(models.Model):
     user_tag = models.OneToOneField('UserTag', related_name="userprofile_user_tag", editable=False)
     institution_tag = models.ForeignKey('InstitutionTag', related_name='userprofile_institution_tag', editable=False)
 
-    bio = models.TextField(default="A Bark User")
-
     def canPostToTag(self, instTag):
         # Checks if a user can post to an InstitutionTag
         return instTag == self.institution_tag
@@ -130,7 +128,13 @@ class Tag(models.Model):
     def save(self, *args, **kwargs):
         # Run clean()
         self.full_clean()
-        self.genDescription()
+
+        # Custom arg, that if we've updated the description, it's not given a default one...
+        # This was a pain in the @ss
+        update = kwargs.pop('update', None)
+        if not update:
+            self.genDescription()
+
         super(Tag, self).save(*args, **kwargs)
 
     def genDescription(self):

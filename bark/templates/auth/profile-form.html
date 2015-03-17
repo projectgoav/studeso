@@ -1,42 +1,28 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Reset your Password</title>
-    </head>
+{% extends 'base.html' %}
 
-    <body>
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 
-      <!-- Displays the list of errors with the form -->
-        {% if errors %}
-          <ul>
-          {% for error in errors %}
-            <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
-        {% endif %}
+{% block title %}Password Reset{% endblock %}
 
-        <h1>Update your profile</h1>
-        <h3>This is the information that appears when other users click your name tag.</h3>
+{% block body_block %}
+<h1>Update your profile</h1>
+        <p class="text-muted">This is some of the personal information we've got about you.<br>
+          You're welcome to change anything at any time!<br><br>
+          <b>Your 'About Me' appears when users click on your name tag. It's a post always at the top of the page, showing you off in all your glory!</b></p>
 
-        <form id="Profile_FORM" method="post" action="{% url 'profile' %}" enctype="multipart/form-data">
-            {% csrf_token %}
-            Bio: <textarea  rows="5" cols="75" name="bio_data">{{ BIO }}</textarea>
-            <br />
-            Current Profile Image:
-            <img src="{{ MEDIA_URL }}{{ user.userprofile.profile_picture }}" alt="Profile Image" height="48px" width="48px"/>
-            Profile picture:</label> <input id="id_profile_picture" name="profile_picture" type="file" />
-            <input type="submit" value="submit" />
-        </form>
+            <p class="text-muted"> Your current Profile Image is: <img src="{{ MEDIA_URL }}{{ img }}" width="32px" height="32px"  alt="Profile Image"/></p>
 
+<form class="form form-horizontal" id="profile_form" method="post" action="{% url 'profile' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+  {% bootstrap_form profile_form layout='horizontal' %}
+  <!-- Provide a button to click to submit the form. -->
+  {% buttons %}
+  <div class="col-sm-offset-2 col-sm-10">
+    <button type="submit" class="btn btn-default">Update Profile</button>
+  </div>
+  {% endbuttons %}
+</form>
 
-        <h3> Tags your subscribed to </h3>
-        {% if tags %}
-          {% for tag in tags.tag.all %}
-            <p>{{ tag.tag }}</p>
-          {% endfor %}
-        {% else %}
-          <p> You don't follow any tags </p>
-        {% endif %}
-
-    </body>
-</html>
+{% endblock %}

@@ -17,32 +17,32 @@ def users(request):
 def view_user(request):
     return HttpResponse("Person 1<br><br>Sample information<br>Sample information<br>More sample information")
 
-#Update User Profile
+#Update User Profile with given data
 #MUST BE LOGGED IN
 @login_required
 def profileUpdate(request):
 
     if request.method == 'POST':
-            bio_text = request.POST.get('bio_data')
-            request.user.userprofile.bio = bio_text
-            request.user.save()
+        #Get form data
+        form = UserProfileUpdateForm(data=request.POST)
+        if form.is_valid():
+            bio = form.cleaned_data['bio']
 
+            #Check if they have a new Profile Image
             if 'profile_picture' in request.FILES:
                 request.user.userprofile.profile_picture = request.FILES['profile_picture']
                 request.user.userprofile.save()
 
+            #Update their tag description with their about-me text
+            request.user.userprofile.user_tag.description = bio
+            request.user.userprofile.user_tag.save(update=True)
+
             return render(request, 'auth/timeout-page.html', { 'TITLE' : "Profile Updated", 'MESSAGE' : "Your profile has been updated"})
-
     else:
-        user = request.user
-        tags = user.userprofile.followed_tags.all()
-        context_dic = { 'BIO' : user.userprofile.bio, 'tags' : tags }
-        return render(request, "auth/profile-form.html", context_dic)
 
-#Update your current profile
-#MUST BE LOGGED IN
-def profile_update(request):
-    return HttpResponse("You wish to update your profile!?!?!?")
+        form = UserProfileUpdateForm(request=request, initial={ 'bio' : request.user.userprofile.user_tag.description})
+
+    return render(request, "auth/profile-form.html", {'profile_form' : form, 'img' :request.user.userprofile.profile_picture})
 
 #User can sign up. Once done, they'll get a nice welcome email :)
 def signup(request):
@@ -139,10 +139,6 @@ def signout(request):
     logout(request)
     return render(request, 'auth/timeout-page.html', {'TITLE' : "Logout", 'MESSAGE' : "You've logged out."} )
 
-#Password option menu, just to fill a url!
-def passwordMenu(request):
-    return HttpResponse("You can do password stuff here")
-
 #Password change
 @login_required
 def passwordChange(request):
@@ -162,7 +158,6 @@ def passwordChange(request):
                 sendChangeEmail(request.user)
             except:
                 print "Unable to send password change email :("
-
 
             return render(request, 'auth/timeout-page.html', {'TITLE' : 'Password Changed', 'MESSAGE' : "You've changed your password"})
         else:

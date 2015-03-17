@@ -51,7 +51,6 @@ urlpatterns = patterns('',
                        url(r'^signin/', regviews.signin, name = 'signin'),
                        url(r'^signout/', regviews.signout, name = 'signout'),
                        #
-                       # url(r'^password/', regviews.passwordMenu, name = 'passwordMenu'),
                        url(r'^password-change/', regviews.passwordChange, name = 'passwordChange'),
                        url(r'^password-reset/', regviews.passwordReset, name = 'passwordReset'),
                        url(r'^password-reset-do/', regviews.passwordResetCode, name='passwordResetCode'),
