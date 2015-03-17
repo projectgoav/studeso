@@ -24,7 +24,7 @@ class PostForm(forms.ModelForm):
     class Meta:
         # Provide an association between PostForm and Post.
         model = Post
-        exclude = ('slug', 'views', 'author', 'creation_date', 'rating',)
+        exclude = ('slug', 'views', 'author', 'creation_date', 'rating', 'tags')
 
         def form_valid(self, form):
             form.instance.author = self.request.user

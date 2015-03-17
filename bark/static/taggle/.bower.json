@@ -1,0 +1,35 @@
+{
+  "name": "taggle",
+  "version": "1.5.1",
+  "homepage": "http://sean.is/poppin/tags",
+  "authors": [
+    "Sean Coker <sean@seancoker.com>"
+  ],
+  "description": "Taggle is a dependency-less tagging library",
+  "main": "src/taggle.js",
+  "keywords": [
+    "tags",
+    "tagging",
+    "standalone",
+    "micro",
+    "library"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "1.5.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.5.1",
+    "commit": "4af9e4d45b55a136c7fdf32673a98361aaa4ce0a"
+  },
+  "_source": "git://github.com/okcoker/taggle.js.git",
+  "_target": "~1.5.1",
+  "_originalSource": "git://github.com/okcoker/taggle.js.git",
+  "_direct": true
+}

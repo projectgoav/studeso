@@ -1,4 +1,4 @@
-from bark.models import Post, Tag, UserProfile
+from bark.models import Post, Tag, UserProfile, PostTagging
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from bark.forms import PostForm
@@ -47,6 +47,7 @@ def addPost(request):
     contextDictionary = {}
 
     if request.method == 'POST':
+        print request.POST
         form = PostForm(request.POST)
 
         if form.is_valid():
@@ -62,6 +63,11 @@ def addPost(request):
 
             newPost.author = authorProfile
             newPost.save()
+            tags = request.POST.getlist('taggles[]')
+
+            for tag in tags:
+                post_tag = Tag.objects.get_or_create(name=tag)[0]
+                PostTagging.objects.get_or_create(post=newPost, tag=post_tag)
 
             return viewPost(request, newPost.id, newPost.slug)
         else:

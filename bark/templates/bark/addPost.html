@@ -1,15 +1,26 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
+{% load staticfiles %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
+{% block script %}
+    <script src="{% static 'js/jquery1.11.1.min.js' %}"></script>
+    <script src="{% static 'taggle/assets/js/taggle.min.js' %}"></script>
+    <link href="{% static 'taggle/assets/css/taggle.min.css' %}" rel="stylesheet"/>
+    <script src="{% static 'js/add_post.js' %}"></script>
+{% endblock %}
 {% block title %}Add a Bark!{% endblock %}
 
 {% block body_block %}
 <h2>Add post.</h2>
 
-    <form id="post_form" method="post" action="/new/">
+    <form id="post_form" method="post" action="{% url 'add_post' %}">
         {% csrf_token %}
         {% bootstrap_form form %}
+        <div class="form-group">
+            <label class="control-label" for="tags">Tags</label>
+            <div class="input textarea clearfix" id="tags"></div>
+        </div>
 
         <input class="btn btn-primary" type="submit" name="submit" value="Create New Bark!" />
     </form>
