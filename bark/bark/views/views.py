@@ -1,7 +1,7 @@
-from bark.models import Post, Tag, UserProfile, PostTagging, PostLike
+from bark.models import Post, Tag, UserProfile, PostTagging, PostLike, Comment
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from bark.forms import PostForm
+from django.http import HttpResponse, HttpResponseRedirect
+from bark.forms import PostForm, CommentForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -102,21 +102,44 @@ def viewPosts(request, url_extra):
 def viewPost(request, post_id, post_slug):
     contextDictionary = {}
 
-    try:
-        post = Post.objects.get(id=post_id)
-        contextDictionary['post'] = post
-        contextDictionary['post_tags'] = post.tags.all().exclude(name=post.author.user_tag)
-        contextDictionary['post_likes'] = post.postlike_set.count()
-        post.views += 1
+    if request.method == "GET":
+        try:
+            post = Post.objects.get(id=post_id)
+            contextDictionary['post'] = post
+            contextDictionary['post_tags'] = post.tags.all().exclude(name=post.author.user_tag)
+            contextDictionary['post_likes'] = post.postlike_set.count()
+            post.views += 1
+            post.save()
 
-        post_liked = False
-        if post.postlike_set.filter(author=request.user).exists():
-            post_liked = True
+            post_liked = False
+            if post.postlike_set.filter(author=request.user).exists():
+                post_liked = True
 
-        contextDictionary['post_liked'] = post_liked
-    except Post.DoesNotExist:
-        pass
+            contextDictionary['post_liked'] = post_liked
+        except Post.DoesNotExist:
+            pass
 
+        form = CommentForm()
+
+    elif request.method == "POST":
+        form = CommentForm(request.POST)
+
+        if form.is_valid and request.user.is_authenticated:
+            try:
+                comment = form.save(commit=False)
+                comment.author = UserProfile.objects.get(user=request.user)
+                comment.post = Post.objects.get(id=post_id)
+                comment.save()
+
+            except Post.DoesNotExist:
+                pass
+            except UserProfile.DoesNotExist:
+                pass
+
+            return HttpResponseRedirect(request.get_full_path())
+
+
+    contextDictionary['form'] = form
     return render(request, 'bark/post.html', contextDictionary)
 
 
