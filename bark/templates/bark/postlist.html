@@ -1,0 +1,18 @@
+{% load staticfiles %}
+<div class="panel panel-default">
+  <div class="panel-heading"><p class="panel-title">{{ post.title }}</p></div>
+  <div class="panel-body">{{ post.content }}</div>
+  <div class="panel-footer" class="bark-tags">
+    <b>Tags: </b>
+      <a class="user" href="{% url 'user_profile' post.author.user.username %}">@{{ post.author.user_tag }}</a><span> | </span>
+        {% for post_tag in post.tags.all %}
+            {% if forloop.first %}
+                <a class="tag" href="#">@{{ post_tag }}</a>
+            {% elif forloop.last %}
+                <span> | </span><a class="tag" href="#">@{{ post_tag }}</a><span> | </span>
+            {% else %}
+                <span> | </span><a class="tag" href="#">@{{ post_tag }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+  </div>
