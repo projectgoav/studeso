@@ -4,9 +4,14 @@
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 
+{% block endscript %}
+    <script src="{% static 'js/jquery.cookie.js' %}"></script>
+    <script src="{% static 'js/like.js' %}"></script>
+{% endblock %}
+
 {% block body_block %}
 {% if post %}
-    <h2 class="page-header col-sm-10">{{ post.title }} <small>Views: {{ post.views }}, {{ post.like_set|length }} found this interesting</small></h2>
+    <h2 class="page-header col-sm-10">{{ post.title }} <small>Views: {{ post.views }}, <span class="post-like-num">{{ post_likes }}</span> found this interesting</small></h2>
 
     <div class="col-sm-10">
     <div class="panel panel-default">
@@ -25,13 +30,18 @@
             {% endfor %}
 
         {% if user.is_authenticated %}
-        <div class="pull-right" id="like">
-            {% buttons %}
-                <button type="submit">
-                    {% bootstrap_icon "thumbs-up" %}
-                </button>
-            {% endbuttons %}
-        </div>
+            {% csrf_token %}
+                <div class="pull-right" id="like">
+                {% buttons %}
+                    <button class="like-post-btn" type="submit">
+                        {% if post_liked %}
+                            {% bootstrap_icon "ok" %}
+                        {% else %}
+                            {% bootstrap_icon "thumbs-up" %}
+                        {% endif %}
+                    </button>
+                {% endbuttons %}
+                </div>
         {% endif %}
 
         </div>
@@ -47,7 +57,7 @@
                         <div class="pull-right small" id="like">
                         {% if user.is_authenticated %}
                             {% buttons %}
-                                <button type="submit">
+                                <button class="like-btn" type="submit">
                                     {% bootstrap_icon "thumbs-up" %}
                                 </button>
                             {% endbuttons %}

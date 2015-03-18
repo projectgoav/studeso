@@ -1,10 +1,9 @@
-from bark.models import Post, Tag, UserProfile, PostTagging
+from bark.models import Post, Tag, UserProfile, PostTagging, PostLike
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from bark.forms import PostForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-
 
 numberOfTopPosts = 10
 
@@ -81,8 +80,15 @@ def viewPost(request, post_id, post_slug):
     try:
         post = Post.objects.get(id=post_id)
         contextDictionary['post'] = post
-        contextDictionary['post'].tags.all().exclude(name=post.author.user_tag)
+        contextDictionary['post_tags'] = post.tags.all().exclude(name=post.author.user_tag)
+        contextDictionary['post_likes'] = post.postlike_set.count()
+        post.views += 1
 
+        post_liked = False
+        if post.postlike_set.filter(author=request.user).exists():
+            post_liked = True
+
+        contextDictionary['post_liked'] = post_liked
     except Post.DoesNotExist:
         pass
 
@@ -170,20 +176,18 @@ def suggest_tags(request):
 
 @login_required
 def like_post(request):
+    if request.method == "POST":
+        try:
+            post_id = int(request.POST['post_id'])
+            author = UserProfile.objects.get(user=request.user)
+            post = Post.objects.get(pk=post_id)
+            PostLike.objects.get_or_create(author=author, post=post)
 
-    Post_slug = None
-    if request.method == 'GET':
-        Post_slug = request.GET['Post.slug']
+            return HttpResponse(post.postlike_set.count())
+        except Post.DoesNotExist:
+            pass
+            return HttpResponse("Failed")
 
-    rating = 0
-    if Post_slug:
-        post = Post.objects.get(id=int(Post_slug))
-        if post:
-            rating = Post.rating + 1
-            Post.rating =  rating
-            rating.save()
-
-    return HttpResponse(rating)
 
 @login_required
 def auto_add_page(request):
