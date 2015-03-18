@@ -5,7 +5,6 @@ register = template.Library()
 
 @register.inclusion_tag('bark/sidebar.html')
 def get_sidebar():
-
     user_tags = UserTag.objects.all()
     inst_tags = InstitutionTag.objects.all()
     other_tags = []
