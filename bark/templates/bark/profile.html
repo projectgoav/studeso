@@ -37,6 +37,7 @@
           <div class="col-sm-5">
             <p><a href="{% url 'profile' %}">Update Profile</a></p>
           </div>
+        </div>
       {% endif %}
     </div>
       <div class="panel-footer" class="bark-tags">
@@ -47,9 +48,40 @@
     </div>
   </div>
   <br>
-  <h2 class="page-heading"> Posts by User </h2><small><a href="{% url ' ' }"
+  <h2 class="page-heading"> Posts by User <small><a href="#">See more...</a></small></h2>
   {% if posts %}
-  <p class="text-danger">This is woop</p>
+
+    {% for p in posts %}
+    <div class="panel panel-default">
+        <div class="panel-heading"><p class="panel-title">{{ p.title }}</p></div>
+        <div class="panel-body">{{ p.content }}</div>
+        <div class="panel-footer" class="bark-tags">
+            <b>Tags: </b>
+            <a class="user" href="#">@{{ p.author.user_tag }}</a><span> | </span>
+            {% for post_tag in p.tags.all %}
+                {% if forloop.first %}
+                    <a class="tag" href="#">@{{ post_tag }}</a>
+                {% elif forloop.last %}
+                    <span> | </span><a class="tag" href="#">@{{ post_tag }}</a><span> | </span>
+                {% else %}
+                    <span> | </span><a class="tag" href="#">@{{ post_tag }}</a>
+                {% endif %}
+            {% endfor %}
+
+
+        {% if user.is_authenticated %}
+        <div class="pull-right" id="like">
+            {% buttons %}
+                <button type="submit">
+                    {% bootstrap_icon "thumbs-up" %}
+                </button>
+            {% endbuttons %}
+        </div>
+        {% endif %}
+    {% endfor %}
+
+
+
   {% else %}
   <p class="text-muted">This user has not made any posts</p>
   </div>

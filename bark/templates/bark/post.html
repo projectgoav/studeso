@@ -14,14 +14,14 @@
         <div class="panel-footer" class="bark-tags">
             <b>Tags: </b>
             <a class="user" href="#">@{{ post.author.user_tag }}</a><span> | </span>
-            {% for post_tag in post_tags %}
-                {% if forloop.first %}
-                    <a class="tag" href="#">@{{ post_tag }}</a>
-                {% elif forloop.last %}
-                    <span> | </span><a class="tag" href="#">@{{ post_tag }}</a><span> | </span>
-                {% else %}
-                    <span> | </span><a class="tag" href="#">@{{ post_tag }}</a>
-                {% endif %}
+            {% for post_tag in post.tags.all %}
+              {% if forloop.first %}
+                <a class="tag" href="#">@{{ post_tag }}</a>
+              {% elif forloop.last %}
+                <span> | </span><a class="tag" href="#">@{{ post_tag }}</a><span> | </span>
+              {% else %}
+                <span> | </span><a class="tag" href="#">@{{ post_tag }}</a>
+              {% endif %}
             {% endfor %}
 
         {% if user.is_authenticated %}
@@ -61,4 +61,3 @@
     <h2>No post exists!</h2>
 {% endif %}
 {% endblock %}
-

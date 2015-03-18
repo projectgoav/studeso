@@ -38,10 +38,10 @@ def userprofile(request, username):
     context_dic['img'] = user.userprofile.profile_picture
     context_dic['username'] = username
 
-    posts = Post.objects.all().filter(author=user.userprofile)
+    posts = Post.objects.all().filter(author=user.userprofile)[:5]
 
     context_dic['posts'] = posts
-
+    context_dic['post_tags'] = { }
     rating = 0
     views = 0
 
@@ -49,6 +49,7 @@ def userprofile(request, username):
     for p in posts:
         rating += p.rating
         views += p.views
+        context_dic['post_tags'][p.title] = p.tags
 
     context_dic['bark_count'] = posts.count()
 
@@ -80,8 +81,8 @@ def viewPost(request, post_id, post_slug):
     try:
         post = Post.objects.get(id=post_id)
         contextDictionary['post'] = post
-        contextDictionary['post_tags'] = post.tags.all().exclude(name=post.author.user_tag)
-        post.views += 1
+        contextDictionary['post'].tags.all().exclude(name=post.author.user_tag)
+
     except Post.DoesNotExist:
         pass
 
