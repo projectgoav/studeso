@@ -138,10 +138,13 @@ def search(request):
 
     posts = Post.objects.filter(tag__name__contains=query)
     content = Post.objects.filter(content__contains=query)
+    content = content.exclude(tag__name__contains=query) # excludes duplicates
     titles = Post.objects.filter(title__contains=query)
+    titles = titles.exclude(tag__name__contains=query) # same here
+    titles = titles.exclude(content__contains=query) # and here
 
     all = {'posts':posts, 'content':content, 'titles':titles}
-
+    
     return render(request,'bark/search.html', all)
 
 def get_tag_list(max_results=0, starts_with=''):
