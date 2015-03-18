@@ -68,11 +68,16 @@ def viewPosts(request, url_extra):
     contextDictionary = {}
 
     tag_names = url_extra.split('/')
+    if tag_names[-1] == '':
+        tag_names = tag_names[:-1]
+
     contextDictionary['tagNames'] = tag_names
 
     queryResults = []
 
-    if tag_names == ['']:
+    print tag_names
+
+    if tag_names == []:
         queryResults = Post.objects.all()
     else:
         # The django.db.models.Q class is an object used
