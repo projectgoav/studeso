@@ -1,0 +1,37 @@
+{"success":true,"result":
+  [{"selector":".help",
+    "title":"A Little Help from A Friend",
+    "content":"Here's a little tour of the features on the current page you're viewing!<br><br><b>Click </b> the handy link below, press <b>ESC</b> or <b>Click</b> anywhere outside this popover  to exit the tutorial.<br><br>Click <b>Help</b> at anytime to view this tutorial again!<br><br>Nagivate using the <b>Next</b> and <b>Prev</b> buttons or <b>Left</b> and <b>Right</b> arrow keys.",
+    "width":"500px",
+    "placement":"left",
+    "step" : "0"},
+
+    {"selector": ".help-s1",
+      "title":"Personalize the Experience",
+      "content":"Get more out of Bark by logging in to your account!",
+      "width":"400px",
+      "placement": "bottom",
+      "step" : "1"},
+
+
+    {"selector": ".help-s2",
+      "title":"But...",
+      "content":"Don't worry if you don't have an account! You can register with <a href='/signup/'>this link</a>!",
+      "width":"400px",
+      "placement":"bottom",
+      "step" : "2"},
+
+    {"selector": ".help-s3",
+      "title":"Erm...",
+      "content":"Don't worry if you've forgotten your password, we all do that sometimes. You can <a href='/password-reset/'>reset your password here</a>",
+      "width":"400px",
+      "placement":"bottom",
+      "step" : "3"},
+
+    {"selector": "#user_form",
+      "title":"Where do I Login?",
+      "content":"Enter your username and password here to login to your Bark account!",
+      "width":"800px",
+      "placement":"top",
+      "step" : "4"}
+  ]}

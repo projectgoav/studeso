@@ -6,6 +6,8 @@
 
 {% block body_block %}
 
+<span class="help-s1"></span>
+
 {% if NOT_FOUND %}
 <h1> Username Not Found </h1>
 
@@ -14,7 +16,7 @@
 
   <h1>{{ username }}'s Profile</h1>
   <div class="col-sm-10">
-  <div class="panel panel-default">
+  <div class="panel panel-default help-s2">
       <div class="panel-body">
       <div class="row">
         <div class="col-sm-5">
@@ -25,7 +27,7 @@
         </div>
       </div>
       {% if current %}
-        <h3 class="page-heading"> Account Options </h3>
+        <h3 class="page-heading help-s3"> Account Options </h3>
         <div class="row">
           <div class="col-sm-5">
             <p><a href="{% url 'passwordChange' %}">Change Password</a></p>
@@ -54,4 +56,14 @@
   {% endif %}
 {% endif %}
 </div>
+{% endblock %}
+
+{% block js %}
+<script>
+$(".help").click(function(){
+    bootstro.start('', {
+        url : "{% static 'json/profile.json' %}",
+    });
+});
+</script>
 {% endblock %}

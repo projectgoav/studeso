@@ -1,0 +1,16 @@
+{"success":true,"result":
+  [{"selector":".help",
+    "title":"A Little Help from A Friend",
+    "content":"Here's a little tour of the features on the current page you're viewing!<br><br><b>Click </b> the handy link below, press <b>ESC</b> or <b>Click</b> anywhere outside this popover  to exit the tutorial.<br><br>Click <b>Help</b> at anytime to view this tutorial again!<br><br>Nagivate using the <b>Next</b> and <b>Prev</b> buttons or <b>Left</b> and <b>Right</b> arrow keys.",
+    "width":"500px",
+    "placement":"left",
+    "step" : "0"},
+
+    {"selector": ".help-s1",
+      "title":"Covering your Tracks",
+      "content":"Changing your password is quick and easy. Enter your old password and the new one and you'll be ready to use it the next time you login!<br><b>After changing it, there is no need to re-login. Bark does all that for you!",
+      "width":"400px",
+      "placement": "bottom",
+      "step" : "1"}
+
+  ]}

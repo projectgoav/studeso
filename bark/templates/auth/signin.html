@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% load staticfiles %}
 {% load bootstrap3 %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
@@ -7,10 +8,10 @@
 {% block title %}Sign In{% endblock %}
 
 {% block body_block %}
-<h3>Sign In</h3>
+<h3 class="help-s1">Sign In</h3>
 
-<p class="text-muted">Sign in to Bark!<br><b>Don't have an account?</b> <a href="{% url 'signup' %}">Sign up here!</a></p>
-<p class="text-muted">Forgot your password? Reset it <a href="{% url 'passwordReset' %}">here</a></p>
+<p class="text-muted help-s2">Sign in to Bark!<br><b>Don't have an account?</b> <a href="{% url 'signup' %}">Sign up here!</a></p>
+<p class="text-muted help-s3">Forgot your password? Reset it <a href="{% url 'passwordReset' %}">here</a></p>
 
 <form class="form form-horizontal" id="user_form" method="post" action="{% url 'signin' %}">
     {% csrf_token %}
@@ -22,4 +23,14 @@
         </div>
     {% endbuttons %}
 </form>
+{% endblock %}
+
+{% block js %}
+<script>
+$(".help").click(function(){
+    bootstro.start('', {
+        url : "{% static 'json/signin.json' %}",
+    });
+});
+</script>
 {% endblock %}

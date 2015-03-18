@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load staticfiles %}
+
 {% load bootstrap3 %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
@@ -14,7 +16,7 @@
 
 {% else %}
 
-  <h1>Reset your Password</h1>
+  <h1 class="help-s1">Reset your Password</h1>
 
   <p class="text-muted">You should have recieved your reset code via email. If not TODO <a href="{% url 'passwordReset' %}">Click here</a><br>
   Please re-enter your username, reset code and your new password to reset it!<br>Once you've reset your password, you'll need to login with your new details!</p>
@@ -32,4 +34,14 @@
 
 {% endif %}
 
+{% endblock %}
+
+{% block js %}
+<script>
+$(".help").click(function(){
+    bootstro.start('', {
+        url : "{% static 'json/resetCode.json' %}",
+    });
+});
+</script>
 {% endblock %}

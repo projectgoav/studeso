@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
-{% block title %}Sign Up{% endblock %}
+
+{% load staticfiles %}
 {% load bootstrap3 %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 
+{% block title %}Sign Up{% endblock %}
+
 {% block body_block %}
-        <h3>Sign Up</h3>
+        <h3 class="help-s1">Sign Up</h3>
 
         <p class="text-muted">Sign up to Bark here to enjoy the full range of features Bark has to offer.<br>You aren't required to upload a profile image, but it might be nice to let others who you really are.<br><b>Don't worry if you forget, you can always update it later!</b></p>
 
@@ -22,4 +25,14 @@
                 </div>
             {% endbuttons %}
         </form>
+{% endblock %}
+
+{% block js %}
+<script>
+$(".help").click(function(){
+    bootstro.start('', {
+        url : "{% static 'json/signup.json' %}",
+    });
+});
+</script>
 {% endblock %}

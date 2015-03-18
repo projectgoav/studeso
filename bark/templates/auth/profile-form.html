@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load staticfiles %}
+
 {% load bootstrap3 %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
@@ -7,7 +9,7 @@
 {% block title %}Password Reset{% endblock %}
 
 {% block body_block %}
-<h1>Update your profile</h1>
+<h1 class="help-s1">Update your profile</h1>
         <p class="text-muted">This is some of the personal information we've got about you.<br>
           You're welcome to change anything at any time!<br><br>
           <b>Your 'About Me' appears when users click on your name tag. It's a post always at the top of the page, showing you off in all your glory!</b></p>
@@ -25,4 +27,14 @@
   {% endbuttons %}
 </form>
 
+{% endblock %}
+
+{% block js %}
+<script>
+$(".help").click(function(){
+    bootstro.start('', {
+        url : "{% static 'json/profile_form.json' %}",
+    });
+});
+</script>
 {% endblock %}
