@@ -2,6 +2,7 @@ from bark.models import Post, Tag, UserProfile, PostTagging
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from bark.forms import PostForm
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 numberOfTopPosts = 10
@@ -17,11 +18,55 @@ def index(request):
 
     return render(request, 'bark/index.html', contextDictionary)
 
+def userprofile(request, username):
+    try:
+        print username
+        user = User.objects.get(username=username)
+        print user
+    except:
+        return render(request, 'bark/profile.html', {'NOT_FOUND' : True})
+
+    context_dic = { }
+
+    #Show extra options if it's the current user
+    if request.user.username == username:
+        context_dic['current'] =  True
+
+    #Get all user info for the Template
+    context_dic['bio'] = user.userprofile.user_tag.description
+    context_dic['img'] = user.userprofile.profile_picture
+    context_dic['username'] = username
+
+    posts = Post.objects.all().filter(author=user.userprofile)
+
+    context_dic['posts'] = posts
+
+    rating = 0
+    views = 0
+
+    #Calculating total views and rating for the user
+    for p in posts:
+        rating += p.rating
+        views += p.views
+
+    context_dic['bark_count'] = posts.count()
+
+    if rating == 0:
+        context_dic['bark_rating'] = 0
+    else:
+        context_dic['bark_rating'] = rating / posts.count()
+
+    context_dic['bark_views'] = views
+
+    return render(request, 'bark/profile.html', context_dic)
+
+
 # Bark Tag listing
-def viewPosts(request, tag_id):
+def viewPosts(request, url_extra):
     contextDictionary = {}
 
-    print tag_id
+    tag_names = url_extra.split('/')
+    print tag_names
 
     # TODO get the posts with the tag with the given id(s)
     # contextDictionary['posts'] = Post.objects.get(tags.id=tag_id)

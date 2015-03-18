@@ -26,9 +26,11 @@ urlpatterns = patterns('',
                        url(r'^help/', views.help, name = 'help'),
                        #
                        # #Generic Post list
-                       # TODO
-                       # Add tags as /TAG/TAG/TAG to filter depending on the tags
-                       url(r'^barks/(?P<tag_id>[\w-]+)', views.viewPosts, name = 'view_posts'),
+                       # Search with tags after, seperated by slashes
+                       url(r'^barks/(.*)/$', views.viewPosts, name = 'view_posts'),
+
+                       #User Profile View
+                       url(r'^users/(?P<username>[\w-]+)', views.userprofile, name="user_profile"),
                        #
                        # #Specific Bark view
                        url(r'^bark/(?P<post_id>[\w-]+)/(?P<post_slug>[\w-]+)/', views.viewPost, name='view_post'),
@@ -55,7 +57,7 @@ urlpatterns = patterns('',
                        url(r'^password-reset/', regviews.passwordReset, name = 'passwordReset'),
                        url(r'^password-reset-do/', regviews.passwordResetCode, name='passwordResetCode'),
 
-                       url(r'^profile/', regviews.profileUpdate, name='profile'),
+                       url(r'^update-profile/', regviews.profileUpdate, name='profile'),
                        )
 
 # Temp bit for uploading profile images during development
