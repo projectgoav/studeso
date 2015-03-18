@@ -128,11 +128,12 @@ def addPost(request):
 # Search view
 def search(request):
     if request.method=="POST":
-        query = request.POST['query']
+        query = request.POST.get('query',None)
     else:
         query = ''
 
-    posts = Post.objects.filter(tag__name__contains=query).order_by('-rating')[:10]
+    posts = Post.objects.filter(tag__name__contains=query.strip()).order_by('-rating')[:10]
+    print query
 
     return render(request,'bark/search.html', {'posts':posts})
 
