@@ -46,7 +46,7 @@
     </div>
   </div>
   <br>
-  <h2 class="page-heading"> Posts by User <small><a href="#">See more...</a></small></h2>
+  <h2 class="page-heading"> Posts by User <small><a href="{% url 'view_posts' username %}">See more...</a></small></h2>
   {% if posts %}
     {% for p in posts %}
       {% get_view p %}
