@@ -30,8 +30,13 @@
       </div>
       {% if current %}
         <h3 class="page-heading"> Account Options </h3>
-        <p><a href="{% url 'passwordChange' %}">Change Password</a></p>
-        <p><a href="{% url 'profile' %}">Update Profile</a></p>
+        <div class="row">
+          <div class="col-sm-5">
+            <p><a href="{% url 'passwordChange' %}">Change Password</a></p>
+          </div>
+          <div class="col-sm-5">
+            <p><a href="{% url 'profile' %}">Update Profile</a></p>
+          </div>
       {% endif %}
     </div>
       <div class="panel-footer" class="bark-tags">

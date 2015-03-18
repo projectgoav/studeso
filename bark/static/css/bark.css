@@ -2,6 +2,8 @@ body{
     font-family: 'Oxygen', sans-serif;
 }
 
+.navbar-brand > img { display:block; }
+
 /* Class for special tag, making it italic */
 .special-tag { font-style:italic; }
 
