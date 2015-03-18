@@ -1,0 +1,51 @@
+{"success":true,"result":
+  [{"selector":".help",
+    "title":"A Little Help from A Friend",
+    "content":"Here's a little tour of the features on the current page you're viewing!<br><br><b>Click </b> the handy link below, press <b>ESC</b> or <b>Click</b> anywhere outside this popover  to exit the tutorial.<br><br>Click <b>Help</b> at anytime to view this tutorial again!<br><br>Nagivate using the <b>Next</b> and <b>Prev</b> buttons or <b>Left</b> and <b>Right</b> arrow keys.",
+    "width":"500px",
+    "placement":"left",
+    "step" : "0"},
+
+    {"selector": "#help-2",
+      "title":"Lost &amp; Found",
+      "content":"If you ever get lost, click the little dog logo in the top-left to return to our <b>homepage</b> which you are currently on!",
+      "width":"400px",
+      "placement":"right",
+      "step" : "1"},
+
+
+    {"selector": "#query",
+      "title":"Search Anywhere",
+      "content":"Can't find what you are looking for?<br><br>Our quick search feature allows you to search <b>Tags</b> &amp; <b>Posts</b> making it easier to get the content <b>you</b> want!",
+      "width":"400px",
+      "placement":"right",
+      "step" : "2"},
+
+    {"selector": "#help-4",
+      "title":"Coolest Barks",
+      "content":"The <b>homepage</b> of Bark displays the <b>newest &amp; coolest</b> Barks on the site.<br>If you create an account you'll see more of the Barks you're interested in!",
+      "width":"400px",
+      "placement":"top",
+      "step" : "3"},
+
+    {"selector": "#help-3",
+      "title":"What is a Bark?",
+      "content":"A Bark can be anything you want it to be! A question, something you found interesting or even a joke.<br><br>Barks are assigned <b>Tags</b> which define who will hear you Bark. <b>Tags</b> allow you and others to search for content in a particular content in the site.<br><br><b><u>Please Note</u>: Plese be mindful and only tag your Bark where you want it to be heard. There's no point in Barking about <i>your tastiest steak yet</i> under the tag <i>vegitarian</i><br><br>At Bark we promote a positive atmosphere. Please keep this in mind when barking.</b>",
+      "width":"800px",
+      "placement":"bottom",
+      "step" : "4"},
+
+    {"selector": "#help-5",
+      "title":"Viewing a Bark",
+      "content":"To view a Bark, simple click it's title",
+      "width":"200px",
+      "placement":"bottom",
+      "step" : "5"},
+
+    {"selector": "#help-side",
+      "title":"What's this for?'",
+      "content":"The lefthand protion of the screen shows a list of all tags in Bark. Clicking one displays a list of all posts in that Tag",
+      "width":"200px",
+      "placement":"right",
+      "step" : "6"}
+  ]}

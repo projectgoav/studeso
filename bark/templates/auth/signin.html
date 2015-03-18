@@ -10,6 +10,7 @@
 <h3>Sign In</h3>
 
 <p class="text-muted">Sign in to Bark!<br><b>Don't have an account?</b> <a href="{% url 'signup' %}">Sign up here!</a></p>
+<p class="text-muted">Forgot your password? Reset it <a href="{% url 'passwordReset' %}">here</a></p>
 
 <form class="form form-horizontal" id="user_form" method="post" action="{% url 'signin' %}">
     {% csrf_token %}

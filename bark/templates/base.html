@@ -19,6 +19,7 @@
 
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstro.css' %}" rel="stylesheet">
     <link href="{% static 'css/bark.css' %}" rel="stylesheet">
 
 </head>
@@ -34,7 +35,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'images/a_logo.png' %}" height="32px" width="71px"/></a>
+        <a class="navbar-brand" href="{% url 'index' %}" id="help-2"><img src="{% static 'images/a_logo.png' %}" height="32px" width="71px"/></a>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -45,7 +46,7 @@
           <div class="form-group">
             <input type="text" name = "query" id="query" value="" class="form-control" placeholder="Search Bark"/>
           </div>
-          <button type="submit" class="btn btn-default btn-warning">Go Fetch!</button>
+          <button type="submit" class="btn btn-default btn-warning" id="help_Search">Go Fetch!</button>
         </form>
       </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -57,7 +58,7 @@
             <li><a href="{% url 'signup' %}">Register</a></li>
           {% endif %}
           <li class="divider"></li>
-          <li><a href="{% url 'help' %}">Help</a></li>
+          <li><a href="#" class="help">Help</a></li>
           <li><a href="{% url 'about' %}">About</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
@@ -73,7 +74,7 @@
     </div>
   </div>
 
-<div class="col-sm-3 col-md-2 sidebar">
+<div class="col-sm-3 col-md-2 sidebar" id="help-side">
       {% block side_block %}
         {% get_sidebar %} <!-- Load Category Data -->
       {% endblock %}
@@ -86,8 +87,12 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="{% static 'js/jquery1.11.1.min.js' %}"></script>
-<script src="{% static "js/ajax.js" %}"></script>
+<script src="{% static 'js/ajax.js' %}"></script>
+<script src="{% static 'js/bootstro.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="{% static 'js/ie10.workaround.js' %}"></script>
+
+{% block js %}{% endblock %}
+
 </html>

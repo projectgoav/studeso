@@ -1,22 +1,33 @@
 {% extends 'base.html' %}
 
 {% load staticfiles %}
+{% load postlist %}
 
 {% block body_block %}
 
 {% if user.is_authenticated %}
-  <h1>Welcome back to Bark {{ user.username }}</h1>
+  <h2 id="help-3">Welcome back to Bark {{ user.username }}</h2>
 {% else %}
-  <h1>Welcome to Bark!</h1>
+  <h2 id="help-3">Welcome to Bark!</h2>
   <h3>A Student Q&amp;A discussion Site</h3>
 {% endif %}
 
-
-<ol>
+<h4 id="help-5"> Here are the Newest, Coolest Barks out there right now!</h4>
+<ol id="help-4">
     {% for topPost in topPosts %}
-    <li><b><a href="{% url 'view_post' topPost.id topPost.slug %}">{{ topPost.title }}</a></b></li>
+      {% get_view topPost %}
     {% endfor %}
 </ol>
 <br />
 <b><a href="{% url 'add_post' %}">New Bark!!</a></b>
+{% endblock %}
+
+{% block js %}
+<script>
+$(".help").click(function(){
+    bootstro.start('', {
+        url : "{% static 'json/index.json' %}",
+    });
+});
+</script>
 {% endblock %}
