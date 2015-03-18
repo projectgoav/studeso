@@ -5,6 +5,7 @@ from bark.forms import PostForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
+
 numberOfTopPosts = 10
 
 # Index Page
@@ -128,13 +129,15 @@ def addPost(request):
 # Search view
 def search(request):
     if request.method=="POST":
-        query = request.POST['query']
+        query = request.POST.get('query',None)
     else:
         query = ''
 
-    posts = Post.objects.filter(tag__name__contains=query).order_by('-rating')[:10]
+    query=query.strip()
+    posts = Post.objects.filter(tag__name__contains=query)
+    content = Post.objects.filter(content__contains=query)
 
-    return render(request,'bark/search.html', {'posts':posts})
+    return render(request,'bark/search.html', {'posts':posts, 'content':content})
 
 def get_tag_list(max_results=0, starts_with=''):
         tag_list = []
