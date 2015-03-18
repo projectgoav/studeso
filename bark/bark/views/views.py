@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from bark.forms import PostForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 numberOfTopPosts = 10
 
@@ -67,10 +68,29 @@ def viewPosts(request, url_extra):
     contextDictionary = {}
 
     tag_names = url_extra.split('/')
-    print tag_names
+    contextDictionary['tagNames'] = tag_names
 
-    # TODO get the posts with the tag with the given id(s)
-    # contextDictionary['posts'] = Post.objects.get(tags.id=tag_id)
+    queryResults = []
+
+    if tag_names == ['']:
+        queryResults = Post.objects.all()
+    else:
+        # The django.db.models.Q class is an object used
+        # to encapsulate a collection of field lookups,
+        # a more complex query object than a basic query.
+        qObjectSet = Q()
+        for tag_name in tag_names:
+                if tag_name == '':
+                    continue
+
+                # Q queries can be combined using & (for "and") or | (for "or").
+                qObjectSet |= Q(tag__name__contains=tag_name)
+
+        print Post.objects.filter(qObjectSet).query
+        queryResults = Post.objects.filter(qObjectSet)
+
+    contextDictionary['posts'] = queryResults
+
     return render(request, 'bark/posts.html', contextDictionary)
 
 # View a specific bark
