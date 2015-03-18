@@ -67,6 +67,14 @@
             </div>
         </div>
     {% endfor %}
+
+    {% if user.is_authenticated %}
+        <form id="comment_form" method="post" action=".">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input class="btn btn-primary" type="submit" name="submit" value="Add Comment" />
+    </form>
+    {% endif %}
 {% else %}
     <h2>No post exists!</h2>
 {% endif %}

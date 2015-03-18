@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from bark.models import UserProfile, Post, UserReset
+from bark.models import UserProfile, Post, UserReset, Comment
 from django.views.generic.edit import CreateView
 
 
@@ -29,6 +29,13 @@ class PostForm(forms.ModelForm):
         def form_valid(self, form):
             form.instance.author = self.request.user
             return super(Meta, self).form_valid(form)
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        exclude = ('author', 'post')
+
 
 # Login Form (as name suggests)
 class LoginForm(forms.Form):
