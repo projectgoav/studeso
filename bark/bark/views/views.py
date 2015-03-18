@@ -144,8 +144,7 @@ def search(request):
     titles = titles.exclude(content__contains=query) # and here
 
     all = {'posts':posts, 'content':content, 'titles':titles}
-    print all
-
+    
     return render(request,'bark/search.html', all)
 
 def get_tag_list(max_results=0, starts_with=''):
