@@ -27,7 +27,7 @@ urlpatterns = patterns('',
                        #
                        # #Generic Post list
                        # Search with tags after, seperated by slashes
-                       url(r'^barks/(.*)/$', views.viewPosts, name = 'view_posts'),
+                       url(r'^barks/(.*)$', views.viewPosts, name = 'view_posts'),
 
                        #User Profile View
                        url(r'^users/(?P<username>[\w-]+)', views.userprofile, name="user_profile"),
