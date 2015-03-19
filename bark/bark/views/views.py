@@ -170,7 +170,7 @@ def addPost(request):
                 post_tag = Tag.objects.get_or_create(name=tag)[0]
                 PostTagging.objects.get_or_create(post=newPost, tag=post_tag)
 
-            return viewPost(request, newPost.id, newPost.slug)
+            return redirect(viewPost, post_id=newPost.id, post_slug=newPost.slug)
         else:
             print form.errors
 
