@@ -172,7 +172,7 @@ def addPost(request):
             newPost.save()
 
             tags = request.POST.getlist('taggles[]')
-
+            
             if newPost.anonymous:
                 tags += ['anonymous']
 
