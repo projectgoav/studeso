@@ -17,7 +17,7 @@ class UserProfile(models.Model):
     user_tag = models.OneToOneField('UserTag', related_name="userprofile_user_tag", editable=False)
     institution_tag = models.ForeignKey('InstitutionTag', related_name='userprofile_institution_tag', editable=False)
 
-    def canPostToTag(self, instTag):
+    def can_post_to_inst_tag(self, instTag):
         # Checks if a user can post to an InstitutionTag
         return instTag == self.institution_tag
 
