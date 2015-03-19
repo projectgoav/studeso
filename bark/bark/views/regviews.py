@@ -21,7 +21,7 @@ def view_user(request):
 #MUST BE LOGGED IN
 @login_required
 def profileUpdate(request):
-
+    context_dic = { }
     if request.method == 'POST':
         #Get form data
         form = UserProfileUpdateForm(data=request.POST)
@@ -42,11 +42,19 @@ def profileUpdate(request):
 
         form = UserProfileUpdateForm(request=request, initial={ 'bio' : request.user.userprofile.user_tag.description})
 
-    return render(request, "auth/profile-form.html", {'profile_form' : form, 'img' :request.user.userprofile.profile_picture})
+    context_dic['form'] = form
+    context_dic['page_head'] = "Update Profile"
+    context_dic['help_text_2'] = """This is some of the personal information we've got about you.<br>You're welcome to change anything at any time!<br><br><b>Your 'About Me' appears when users click on your name tag. It's a post always at the top of the page, showing you off in all your glory!</b>"""
+    context_dic['help_text_3'] = """Your current Profile Image is: <img src=" """ + request.user.userprofile.profile_picture.url + """ "width="32px" height="32px"  alt="Profile Image"/>"""
+    context_dic['form_button'] = "Update your Profile"
+    context_dic['form_url'] = "profile"
+    context_dic['help_url'] = "json/profile_form.json"
+
+    return render(request, 'auth/form.html', context_dic)
 
 #User can sign up. Once done, they'll get a nice welcome email :)
 def signup(request):
-
+    context_dic = { }
     registered = False
 
     # If post, we want to sort out the form.
@@ -99,11 +107,20 @@ def signup(request):
         user_form = UserForm()
         profile_form = UserProfileForm()
 
-    return render(request, 'auth/signup.html', {'user_form': user_form, 'profile_form': profile_form} )
+    context_dic['form'] = user_form
+    context_dic['form2'] = profile_form
+    context_dic['page_head'] = "Sign Up"
+    context_dic['help_text_2'] = """Sign up to Bark here to enjoy the full range of features Bark has to offer.<br>You aren't required to upload a profile image, but it might be nice to let others who you really are.<br><b>Don't worry if you forget, you can always update it later!</b>"""
+    context_dic['help_text_3'] = """Already have an account? Sign in <a href="/signin/">here</a>"""
+    context_dic['form_button'] = "Sign Up"
+    context_dic['form_url'] = "signup"
+    context_dic['help_url'] = "json/signup.json"
 
+    return render(request, 'auth/form.html', context_dic)
 
 #User can sign in
 def signin(request):
+    context_dic = { }
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -130,7 +147,15 @@ def signin(request):
     else:
         form = LoginForm()
 
-    return render(request, 'auth/signin.html', {'login_form': form})
+    context_dic['form'] = form
+    context_dic['page_head'] = "Sign In"
+    context_dic['help_text_2'] = """Sign in to Bark!<br><b>Don't have an account?</b> <a href="/signin/">Sign up here!</a>"""
+    context_dic['help_text_3'] = """Forgot your password? Reset it <a href="/password-reset-do/">here</a>"""
+    context_dic['form_button'] = "Sign In"
+    context_dic['form_url'] = "signin"
+    context_dic['help_url'] = "json/signin.json"
+
+    return render(request, 'auth/form.html', context_dic)
 
 
 #User can sign out
@@ -142,6 +167,7 @@ def signout(request):
 #Password change
 @login_required
 def passwordChange(request):
+    context_dic = { }
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -167,10 +193,17 @@ def passwordChange(request):
     else:
         form = PasswordChangeForm(request=request)
 
-    return render(request, 'auth/password-change.html', {'change_form': form})
+    context_dic['form'] = form
+    context_dic['page_head'] = "Change your Password"
+    context_dic['form_button'] = "Change Password"
+    context_dic['form_url'] = "passwordChange"
+    context_dic['help_url'] = "json/change.json"
+
+    return render(request, 'auth/form.html', context_dic)
 
 #Password Reset
 def passwordReset(request):
+    context_dic = { }
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -196,9 +229,18 @@ def passwordReset(request):
     else:
         form = PasswordResetForm1()
 
-    return render(request, 'auth/password-reset.html', {'reset_form': form})
+    context_dic['form'] = form
+    context_dic['page_head'] = "Reset your Password"
+    context_dic['help_text_2'] = """To reset your password enter your account username and the email it was registered with<br>You'll be emailed a <b>reset code</b> which will allow you to reset you password!"""
+    context_dic['help_text_3'] = """Already got a code? <a href="/password-reset-do">Click here</a>"""
+    context_dic['form_button'] = "Send Reset Code"
+    context_dic['form_url'] = "passwordReset"
+    context_dic['help_url'] = "json/passwordReset.json"
+
+    return render(request, 'auth/form.html', context_dic)
 
 def passwordResetCode(request):
+    context_dic = { }
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -232,4 +274,11 @@ def passwordResetCode(request):
     else:
         form = PasswordResetForm2()
 
-    return render(request, 'auth/reset-code.html', {'reset_form': form})
+    context_dic['form'] = form
+    context_dic['page_head'] = "Reset your Password"
+    context_dic['help_text_2'] = """You should have recieved your reset code via email. If not <a href="/password-reset/">Click here to request another</a><br>Please re-enter your username, reset code and your new password to reset it!<br>Once you've reset your password, you'll need to login with your new details!"""
+    context_dic['form_button'] = "Reset Password"
+    context_dic['form_url'] = "passwordResetCode"
+    context_dic['help_url'] = "json/resetCode.json"
+
+    return render(request, 'auth/form.html', context_dic)
