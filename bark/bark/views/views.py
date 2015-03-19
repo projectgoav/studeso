@@ -111,11 +111,17 @@ def viewPost(request, post_id, post_slug):
             post.views += 1
             post.save()
 
-            post_liked = False
-            if post.postlike_set.filter(author=request.user).exists():
-                post_liked = True
+            if request.user.is_authenticated():
+                try:
+                    user_profile = UserProfile.objects.get(user=request.user)
+                    post_liked = False
+                    if post.postlike_set.filter(author=user_profile).exists():
+                        post_liked = True
 
-            contextDictionary['post_liked'] = post_liked
+                    contextDictionary['post_liked'] = post_liked
+                except UserProfile.DoesNotExist:
+                    pass
+
         except Post.DoesNotExist:
             pass
 
@@ -170,7 +176,7 @@ def addPost(request):
                 post_tag = Tag.objects.get_or_create(name=tag)[0]
                 PostTagging.objects.get_or_create(post=newPost, tag=post_tag)
 
-            return viewPost(request, newPost.id, newPost.slug)
+            return redirect(viewPost, post_id=newPost.id, post_slug=newPost.slug)
         else:
             print form.errors
 
