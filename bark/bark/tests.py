@@ -29,8 +29,8 @@ class UserProfileTest(TestCase):
         inst_tag = InstitutionTag.objects.get(name='student.gla.ac.uk')
         other_inst_tag = InstitutionTag.objects.create(name='uws.ac.uk')
 
-        self.assertTrue(test_user_profile.canPostToTag(inst_tag))
-        self.assertFalse(test_user_profile.canPostToTag(other_inst_tag))
+        self.assertTrue(test_user_profile.can_post_to_inst_tag(inst_tag))
+        self.assertFalse(test_user_profile.can_post_to_inst_tag(other_inst_tag))
 
     def test_user_tag_auto_creation(self):
         try:

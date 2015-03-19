@@ -18,15 +18,12 @@
         <div class="panel-body">{{ post.content }}</div>
         <div class="panel-footer" class="bark-tags">
             <b>Tags: </b>
-            <a class="user" href={% url 'view_posts' post.author.user_tag %}>@{{ post.author.user_tag }}</a><span> | </span>
+            <a class="user" href={% url 'view_posts' post.author.user_tag %}>@{{ post.author.user_tag }}</a>
+            {% if post_inst_tag %}
+                <span> | </span><a class="inst" href={% url 'view_posts' post_inst_tag %}>@{{ post_inst_tag }}</a>
+            {% endif %}
             {% for post_tag in post.tags.all %}
-              {% if forloop.first %}
-                <a class="tag" href={% url 'view_posts' post_tag%} >@{{ post_tag }}</a>
-              {% elif forloop.last %}
-                <span> | </span><a class="tag" href={% url 'view_posts' post_tag%}>@{{ post_tag }}</a><span> | </span>
-              {% else %}
-                <span> | </span><a class="tag" href={% url 'view_posts' post_tag%}>@{{ post_tag }}</a>
-              {% endif %}
+                <span> | </span><a class="tag" href={% url 'view_posts' post_tag %} >@{{ post_tag }}</a>
             {% endfor %}
 
         {% if user.is_authenticated %}

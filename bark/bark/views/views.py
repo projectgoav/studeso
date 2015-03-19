@@ -1,4 +1,4 @@
-from bark.models import Post, Tag, UserProfile, PostTagging, PostLike, Comment
+from bark.models import Post, Tag, UserProfile, PostTagging, PostLike, Comment, InstitutionTag, UserTag
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from bark.forms import PostForm, CommentForm
@@ -106,8 +106,12 @@ def viewPost(request, post_id, post_slug):
         try:
             post = Post.objects.get(id=post_id)
             contextDictionary['post'] = post
-            contextDictionary['post_tags'] = post.tags.all().exclude(name=post.author.user_tag)
+            contextDictionary['post_tags'] = post.tags.all().exclude(name=post.author.user_tag.name).exclude(name=post.author.institution_tag.name)
             contextDictionary['post_likes'] = post.postlike_set.count()
+
+            if post.tags.filter(name=post.author.institution_tag.name):
+                contextDictionary['post_inst_tag'] = post.author.institution_tag
+
             post.views += 1
             post.save()
 
@@ -158,7 +162,7 @@ def addPost(request):
         form = PostForm(request.POST)
 
         if form.is_valid():
-            newPost = form.save(commit = False)
+            newPost = form.save(commit=False)
 
             authorProfile = None
             # Try and get the user profile.
@@ -173,8 +177,21 @@ def addPost(request):
             tags = request.POST.getlist('taggles[]')
 
             for tag in tags:
-                post_tag = Tag.objects.get_or_create(name=tag)[0]
-                PostTagging.objects.get_or_create(post=newPost, tag=post_tag)
+                if tag[-5:] == "ac.uk":
+                    try:
+                        inst_tag = InstitutionTag.objects.get(name=tag)
+                        if authorProfile.can_post_to_inst_tag(inst_tag):
+                            PostTagging.objects.get_or_create(post=newPost, tag=inst_tag)
+                            contextDictionary['inst_tag'] = inst_tag
+                    except InstitutionTag.DoesNotExist:
+                        pass
+
+                elif UserTag.objects.filter(name__iexact=tag).exists():
+                    pass
+
+                else:
+                    post_tag = Tag.objects.get_or_create(name=tag)[0]
+                    PostTagging.objects.get_or_create(post=newPost, tag=post_tag)
 
             return redirect(viewPost, post_id=newPost.id, post_slug=newPost.slug)
         else:
