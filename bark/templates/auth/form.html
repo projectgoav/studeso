@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block title %}{{ page_head }}{% endblock %}
+
+{% block body_block %}
+<h3 class="help-s1">{{ page_head }}</h3>
+
+<p class="text-muted help-s2">{{ help_text_2|safe }}</p>
+<p class="text-muted help-s3">{{ help_text_3|safe }}</p>
+
+<form class="form form-horizontal" id="form" method="post" action="{% url form_url %}">
+    {% csrf_token %}
+    {% bootstrap_form form layout='horizontal' %}
+
+    {% if form2 %}
+      {% bootstrap_form form2 layout='horizontal' %}
+    {% endif %}
+    <!-- Provide a button to click to submit the form. -->
+    {% buttons %}
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">{{ form_button }}</button>
+        </div>
+    {% endbuttons %}
+</form>
+{% endblock %}
+
+{% block js %}
+<script>
+$(".help").click(function(){
+    bootstro.start('', {
+        url : "{% static help_url %}",
+    });
+});
+</script>
+{% endblock %}

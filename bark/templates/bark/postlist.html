@@ -7,11 +7,11 @@
       <a class="user" href="{% url 'user_profile' post.author.user.username %}">@{{ post.author.user_tag }}</a><span> | </span>
         {% for post_tag in post.tags.all %}
             {% if forloop.first %}
-                <a class="tag" href="#">@{{ post_tag }}</a>
+                <a class="tag" href="{% url 'view_posts' post_tag.name %}">@{{ post_tag }}</a>
             {% elif forloop.last %}
-                <span> | </span><a class="tag" href="#">@{{ post_tag }}</a><span> | </span>
+                <span> | </span><a class="tag" href="{% url 'view_posts' post_tag.name %}">@{{ post_tag }}</a><span> | </span>
             {% else %}
-                <span> | </span><a class="tag" href="#">@{{ post_tag }}</a>
+                <span> | </span><a class="tag" href="{% url 'view_posts' post_tag.name %}">@{{ post_tag }}</a>
             {% endif %}
         {% endfor %}
     </div>
