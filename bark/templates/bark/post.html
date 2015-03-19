@@ -25,11 +25,9 @@
             <b>Tags: </b>
             {% if not post.anonymous %}
                 <a class="user" href={% url 'view_posts' post.author.user_tag %}>@{{ post.author.user_tag }}</a>
-            {% else %}
-                <a class="user"= href={% url 'view_posts' 'anonymous' %}>@anonymous</a>
-            {% endif %}
             <span> | </span>
-            
+            {% endif %}
+
             {% if post_inst_tag %}
             <a class="inst" href={% url 'view_posts' post_inst_tag %}>@{{ post_inst_tag }}</a>
             <span> | </span>

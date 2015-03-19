@@ -105,7 +105,11 @@ class Post(models.Model):
         super(Post, self).save(*args, **kwargs)
 
         # Tag the user automatically
-        PostTagging.objects.get_or_create(post=self, tag=self.author.user_tag)
+        if not self.anonymous:
+            PostTagging.objects.get_or_create(post=self, tag=self.author.user_tag)
+        else:
+            anonymousTag = Tag.objects.get_or_create(name='anonymous')[0]
+            PostTagging.objects.get_or_create(post=self, tag=anonymousTag)
 
     def __unicode__(self):
         return self.title

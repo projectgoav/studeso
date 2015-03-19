@@ -173,9 +173,6 @@ def addPost(request):
 
             tags = request.POST.getlist('taggles[]')
             
-            if newPost.anonymous:
-                tags += ['anonymous']
-
             for tag in tags:
                 if tag[-5:] == "ac.uk":
                     try:
