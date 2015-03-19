@@ -11,10 +11,11 @@ numberOfTopPosts = 10
 # Index Page
 # Returns a welcome message
 def index(request):
+    posts = Post.objects.order_by('rating')[:numberOfTopPosts]
 
     # Create a context dictionary with the top posts.
     contextDictionary = {
-        'topPosts' : Post.objects.order_by('rating')[:numberOfTopPosts]
+        'topPosts': posts
         }
 
     return render(request, 'bark/index.html', contextDictionary)
@@ -106,10 +107,11 @@ def viewPost(request, post_id, post_slug):
         try:
             post = Post.objects.get(id=post_id)
             contextDictionary['post'] = post
-            contextDictionary['post_tags'] = post.tags.all().exclude(name=post.author.user_tag.name).exclude(name=post.author.institution_tag.name)
+            contextDictionary['post_tags'] = post.tags.exclude(name__iexact=post.author.user_tag.name
+                                                               ).exclude(name__iexact=post.author.institution_tag.name)
             contextDictionary['post_likes'] = post.postlike_set.count()
 
-            if post.tags.filter(name=post.author.institution_tag.name):
+            if post.tags.filter(name=post.author.institution_tag.name).exists():
                 contextDictionary['post_inst_tag'] = post.author.institution_tag
 
             post.views += 1
