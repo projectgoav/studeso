@@ -1,4 +1,4 @@
-from bark.models import Post, Tag, UserProfile, PostTagging, PostLike, Comment, InstitutionTag, UserTag
+from bark.models import Post, Tag, UserProfile, PostTagging, PostLike, Comment, InstitutionTag, UserTag, CommentLike
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from bark.forms import PostForm, CommentForm
@@ -250,7 +250,25 @@ def like_post(request):
             return HttpResponse(post.postlike_set.count())
         except Post.DoesNotExist:
             pass
-            return HttpResponse("Failed")
+        return HttpResponse("Failed")
+
+@login_required
+def like_comment(request):
+    if request.method == "POST":
+        try:
+            post_id = int(request.POST['post_id'])
+            comment_num = int(request.POST['comment_num']) - 1
+            author = UserProfile.objects.get(user=request.user)
+            post = Post.objects.get(pk=post_id)
+            comment = post.comment_set.all()[comment_num]
+            CommentLike.objects.get_or_create(author=author, comment=comment)
+
+            return HttpResponse(comment.commentlike_set.count())
+        except Post.DoesNotExist:
+            pass
+        except Comment.DoesNotExist:
+            pass
+    return HttpResponse("Failed")
 
 
 @login_required

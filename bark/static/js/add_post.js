@@ -4,6 +4,8 @@
 
 $(document).ready(function(){
     new Taggle('tags', {
-        duplicateTagClass: 'bounce'
+        placeholder: 'Press return to add tag...',
+        duplicateTagClass: 'bounce',
+        tabIndex: 1
     });
 });

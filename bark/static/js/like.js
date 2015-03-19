@@ -30,4 +30,24 @@ $(document).ready(function(){
             }
         });
     });
+
+    $('.comment-like').click(function(){
+            var commentNum = parseInt(this.className.split(' ')[1].split('-')[2]);
+            var button = this;
+
+            $.ajax({
+                type:"POST",
+                url:"/like_comment/",
+                data: {post_id: postID, comment_num:commentNum, csrfmiddlewaretoken:csrf_token},
+                success: function(data){
+                    $('.comment-like-counter-' + commentNum).html(data);
+                    $(button).children().removeClass('glyphicon-thumbs-up').addClass('glyphicon-ok');
+                },
+                error: function(data){
+                    alert("Like adding failed, try again");
+                }
+            });
+        }
+
+    );
 });
