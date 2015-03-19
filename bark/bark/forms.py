@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from bark.models import UserProfile, Post, UserReset, Comment
+from bark.models import UserProfile, Post, UserReset, Comment, getInstitution
 from django.views.generic.edit import CreateView
 
 
@@ -12,13 +12,18 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('username', 'email', 'password')
 
+    #Required to check if the user has an ac.uk domain!
+    def clean(self):
+        domain = getInstitution(self.cleaned_data.get('email'))
+        if "ac.uk" not in domain:
+            print "Invalid Education domain."
+            self.add_error('email', "Invalid institution email given. You'll need one with .ac.uk to signup with bark.")
 
 # Get data for the User Profile
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('profile_picture',)
-
 
 class PostForm(forms.ModelForm):
     class Meta:

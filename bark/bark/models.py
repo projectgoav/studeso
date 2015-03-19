@@ -166,7 +166,6 @@ class TagFollowing(models.Model):
 
 
 # Misc. Functions
-
 def getInstitution(email):
     # Could be changed to return domain.ac.uk instead of *.ac.uk
     return email.split("@")[1]
