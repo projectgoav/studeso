@@ -246,7 +246,3 @@ def auto_add_page(request):
 def about(request):
     context_dict={}
     return render(request,'bark/about.html',context_dict)
-
-def help(request):
-    context_dict={}
-    return render(request,'bark/help.html',context_dict)
