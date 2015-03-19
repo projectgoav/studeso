@@ -90,7 +90,7 @@ def viewPosts(request, url_extra):
                     continue
 
                 # Q queries can be combined using & (for "and") or | (for "or").
-                qObjectSet |= Q(tag__name__contains=tag_name)
+                qObjectSet &= Q(tag__name=tag_name)
 
         print Post.objects.filter(qObjectSet).query
         queryResults = Post.objects.filter(qObjectSet)
