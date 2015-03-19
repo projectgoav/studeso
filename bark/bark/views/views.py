@@ -89,6 +89,8 @@ def viewPosts(request, url_extra):
 
                 queryResults = queryResults.filter(tag__name=tag_name)
                 
+    contextDictionary['posts'] = queryResults
+
     return render(request, 'bark/posts.html', contextDictionary)
 
 # View a specific bark
