@@ -39,7 +39,7 @@ def userprofile(request, username):
     context_dic['img'] = user.userprofile.profile_picture
     context_dic['username'] = username
 
-    posts = Post.objects.all().filter(author=user.userprofile)[:5]
+    posts = Post.objects.all().filter(author=user.userprofile).exclude(anonymous=True)[:5]
 
     context_dic['posts'] = posts
     context_dic['post_tags'] = { }
@@ -73,6 +73,7 @@ def viewPosts(request, url_extra):
         tag_names = tag_names[:-1]
 
     contextDictionary['tagNames'] = tag_names
+   
     queryResults = []
     
     if tag_names == []:
@@ -87,9 +88,7 @@ def viewPosts(request, url_extra):
                     continue
 
                 queryResults = queryResults.filter(tag__name=tag_name)
-
-    contextDictionary['posts'] = queryResults
-
+                
     return render(request, 'bark/posts.html', contextDictionary)
 
 # View a specific bark
