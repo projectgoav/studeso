@@ -98,6 +98,7 @@ class Post(models.Model):
     content = models.TextField()
 
     slug = models.SlugField(editable=False)
+    anonymous = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -108,7 +109,6 @@ class Post(models.Model):
 
     def __unicode__(self):
         return self.title
-
 
 # Tag Models
 

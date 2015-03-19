@@ -169,6 +169,7 @@ def addPost(request):
 
             newPost.author = authorProfile
             newPost.save()
+
             tags = request.POST.getlist('taggles[]')
 
             for tag in tags:
