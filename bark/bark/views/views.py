@@ -190,16 +190,9 @@ def search(request):
 
     query=query.strip()
 
-    posts = Post.objects.filter(tag__name__contains=query)
-    content = Post.objects.filter(content__contains=query)
-    content = content.exclude(tag__name__contains=query) # excludes duplicates
-    titles = Post.objects.filter(title__contains=query)
-    titles = titles.exclude(tag__name__contains=query) # same here
-    titles = titles.exclude(content__contains=query) # and here
-
-    all = {'posts':posts, 'content':content, 'titles':titles}
+    posts = Post.objects.filter(Q(tag__name__contains=query) | Q(content__contains =query) | Q(title__contains = query)).distinct()
     
-    return render(request,'bark/search.html', all)
+    return render(request,'bark/search.html', {'posts':posts})
 
 def get_tag_list(max_results=0, starts_with=''):
         tag_list = []
@@ -253,7 +246,3 @@ def auto_add_page(request):
 def about(request):
     context_dict={}
     return render(request,'bark/about.html',context_dict)
-
-def help(request):
-    context_dict={}
-    return render(request,'bark/help.html',context_dict)

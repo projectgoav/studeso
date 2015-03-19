@@ -22,8 +22,6 @@ urlpatterns = patterns('',
                        # About page
                        url(r'^about/', views.about, name = 'about'),
                        #
-                       # Help page
-                       url(r'^help/', views.help, name = 'help'),
                        #
                        # #Generic Post list
                        # Search with tags after, seperated by slashes

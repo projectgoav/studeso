@@ -10,21 +10,9 @@
 	<li><a href='/bark/{{ post.id }}/{{ post.slug }}'>{{post.title}}</a></li>
 {% endfor %}
 
-{% endif %}
+{% else %}
 
-{% if content %}
-
-{% for c in content %}
-	<li><a href='/bark/{{ c.id }}/{{ c.slug }}'>{{c.title}}</a></li>
-{% endfor %}
-
-{% endif %}
-
-{% if titles %}
-
-{% for t in titles %}
-	<li><a href='/bark/{{ t.id }}/{{ t.slug }}'>{{t.title}}</a></li>
-{% endfor %}
+<b>Nothing found</b>
 
 {% endif %}
 
