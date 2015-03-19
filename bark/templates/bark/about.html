@@ -33,5 +33,15 @@
     <i>N-Tier the Matrix</i>
 </div>
 
+{% block js %}
+<script>
+$(".help").click(function(){
+    bootstro.start('', {
+        url : "{% static 'json/about.json' %}",
+    });
+});
+</script>
+{% endblock %}
+
 
 {% endblock %}
