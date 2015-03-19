@@ -11,7 +11,7 @@ numberOfTopPosts = 10
 # Index Page
 # Returns a welcome message
 def index(request):
-    posts = Post.objects.order_by('rating')[:numberOfTopPosts]
+    posts = Post.objects.order_by('-rating')[:numberOfTopPosts]
 
     # Create a context dictionary with the top posts.
     contextDictionary = {
