@@ -73,27 +73,20 @@ def viewPosts(request, url_extra):
         tag_names = tag_names[:-1]
 
     contextDictionary['tagNames'] = tag_names
-
     queryResults = []
-
-    print tag_names
-
+    
     if tag_names == []:
         queryResults = Post.objects.all()
     else:
         # The django.db.models.Q class is an object used
         # to encapsulate a collection of field lookups,
         # a more complex query object than a basic query.
-        qObjectSet = Q()
+        queryResults = Post.objects
         for tag_name in tag_names:
                 if tag_name == '':
                     continue
 
-                # Q queries can be combined using & (for "and") or | (for "or").
-                qObjectSet &= Q(tag__name=tag_name)
-
-        print Post.objects.filter(qObjectSet).query
-        queryResults = Post.objects.filter(qObjectSet)
+                queryResults = queryResults.filter(tag__name=tag_name)
 
     contextDictionary['posts'] = queryResults
 
