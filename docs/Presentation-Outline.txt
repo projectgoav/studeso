@@ -1,0 +1,31 @@
+This is just a rough idea as to how we can present the app on Monday/Wednesday. We also need to consider any lack of CPU
+time on PythonAnywhere or when it's uploaded to Leif's site.
+
+Monday:
+
+Duration: 6-7 minutes in room with Leif
+
+What to focus on: 	- index page (i.e. what the user sees straight away)
+			- login page (can briefly show registration page and explain email verification)
+			- viewing posts,tags,demo of liking posts/following tags
+			- searching content (explaining how it gets tags in post/content/titles)
+			- from here we can go to show how a new post is added if nothing found
+			- demo addition of tags, explain difference between user tags/institutuion tags/other tags,
+			 and how sidebar changes
+			- Ewan can demo help JSON functionality (if it works)
+
+
+
+Wednesday (Lewis won't be there :( ):
+
+Duration: about 3 minutes in lecture (needs to take care of main functionality due to time constraint)
+
+What to focus on:	- index page
+			- view posts
+			- search
+			- add post
+			- tags
+
+Really the same as Monday but need to keep it short and sweet!
+
+ 		

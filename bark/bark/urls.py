@@ -28,7 +28,7 @@ urlpatterns = patterns('',
                        url(r'^barks/(.*)$', views.viewPosts, name = 'view_posts'),
 
                        #User Profile View
-                       url(r'^users/(?P<username>[\w-]+)', views.userprofile, name="user_profile"),
+                       url(r'^users/(.*)', views.userprofile, name="user_profile"),
                        #
                        # #Specific Bark view
                        url(r'^bark/(?P<post_id>[\w-]+)/(?P<post_slug>[\w-]+)/', views.viewPost, name='view_post'),

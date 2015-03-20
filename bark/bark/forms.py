@@ -13,7 +13,7 @@ class UserForm(forms.ModelForm):
         fields = ('username', 'email', 'password')
 
     #Required to check if the user has an ac.uk domain
-    def clean(self):
+    def clean(self):    
         domain = getInstitution(self.cleaned_data.get('email'))
         if "ac.uk" not in domain:
             print "Invalid Education domain."
