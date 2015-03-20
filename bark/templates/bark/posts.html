@@ -7,7 +7,7 @@
 <h2>Tags:
 	{% for tag in tags %}
 		{{ tag.name }}
-        <form  id= "follow_tag" method="get" action="{% url 'follow_tag' tag.slug %}">
+        <form  id= "follow_tag" method="get" action="{% url 'follow_tag' tag.name %}">
             {% csrf_token %}
             <button class="btn btn-primary" id="follow_tag">Follow This Tag</button>
         </form>
@@ -23,4 +23,3 @@
     {% endif %}
 </ol>
 {% endblock %}
-
