@@ -267,7 +267,6 @@ def like_comment(request):
 
 @login_required
 def follow_tag(request,tagSlug):
-    context_dict = {}
     if request.method == 'GET':
         tag = Tag.objects.get(slug=tagSlug)
         userProfile = UserProfile.objects.get(user=request.user)
