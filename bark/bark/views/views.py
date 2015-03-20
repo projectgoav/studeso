@@ -5,6 +5,9 @@ from bark.forms import PostForm, CommentForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from functools import reduce
+
+import operator
 
 numberOfTopPosts = 10
 
@@ -225,10 +228,16 @@ def search(request):
     print query
     print query.strip()
 
-    query = query.strip()
-    posts = Post.objects.filter(Q(tag__name__contains=query) | Q(content__contains =query) | Q(title__contains = query)).distinct()
+    queryWords = query.strip().split(" ")
 
-    possibleMatchingTags = Tag.objects.filter(name__in=query.split(" "))
+    posts = Post.objects.filter( 
+        reduce(operator.or_, (Q(tag__name__contains = queryWord) for queryWord in queryWords)) |
+        reduce(operator.or_, (Q(content__contains = queryWord) for queryWord in queryWords)) |
+        reduce(operator.or_, (Q(title__contains = queryWord) for queryWord in queryWords))
+        ).distinct()
+
+ 
+    possibleMatchingTags = Tag.objects.filter(name__in=queryWords)
 
     contextDictionary = {
         'posts' : posts,
