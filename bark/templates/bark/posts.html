@@ -6,20 +6,20 @@
 
 <h2>Tags:
 	{% for tag in tags %}
+	<span>
 		{{ tag.name }}
-        <form  id= "follow_tag" method="get" action="{% url 'follow_tag' tag.name %}">
+        <form  id= "follow_tag" method="get" action="{% url 'follow_tag' tag %}">
             {% csrf_token %}
             <button class="btn btn-primary" id="follow_tag">Follow This Tag</button>
         </form>
+			</span>
 	{% endfor %}
 </h2>
 
-<ol>
     {% for post in posts %}
     {% get_view post %}
     {% endfor %}
     {% if posts.has_other_pages %}
         {% bootstrap_pagination posts %}
     {% endif %}
-</ol>
 {% endblock %}

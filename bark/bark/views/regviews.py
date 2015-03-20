@@ -120,6 +120,12 @@ def signup(request):
 
 #User can sign in
 def signin(request):
+
+    next_url = ""
+
+    if request.GET:
+        next_url = request.GET['next']
+
     context_dic = { }
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -136,7 +142,11 @@ def signin(request):
             if user:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponseRedirect('/')
+
+                    if next_url == "":
+                        return HttpResponseRedirect('/')
+                    else:
+                        return HttpResponseRedirect(next_url)
 
             else:
                 print form.errors
@@ -148,6 +158,7 @@ def signin(request):
         form = LoginForm()
 
     context_dic['form'] = form
+    context_dic['next'] = next_url
     context_dic['page_head'] = "Sign In"
     context_dic['help_text_2'] = """Sign in to Bark!<br><b>Don't have an account?</b> <a href="/signin/">Sign up here!</a>"""
     context_dic['help_text_3'] = """Forgot your password? Reset it <a href="/password-reset-do/">here</a>"""

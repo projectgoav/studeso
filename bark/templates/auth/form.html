@@ -13,14 +13,21 @@
 <p class="text-muted help-s2">{{ help_text_2|safe }}</p>
 <p class="text-muted help-s3">{{ help_text_3|safe }}</p>
 
-<form class="form form-horizontal" id="form" method="post" action="{% url form_url %}">
+<form class="form form-horizontal" id="form" method="post"
+
+{% if next %}
+ action="/signin/?next={{next}}" method="post" >
+{% else %}
+ action="{% url form_url %}}" method="post" >
+{% endif %}
+
     {% csrf_token %}
     {% bootstrap_form form layout='horizontal' %}
 
     {% if form2 %}
       {% bootstrap_form form2 layout='horizontal' %}
     {% endif %}
-    
+
     <!-- Provide a button to click to submit the form. -->
     {% buttons %}
         <div class="col-sm-offset-2 col-sm-10">
