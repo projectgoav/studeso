@@ -16,11 +16,11 @@
 
 <b><a href="{% url 'add_post' %}">New Bark!!</a></b>
 
-<ol id="help-4">
+<div id="help-4">
     {% for topPost in topPosts %}
       {% get_view topPost %}
     {% endfor %}
-</ol>
+</div>
 <br />
 {% endblock %}
 

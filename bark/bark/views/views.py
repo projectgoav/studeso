@@ -73,9 +73,9 @@ def viewPosts(request, url_extra):
         tag_names = tag_names[:-1]
 
     contextDictionary['tagNames'] = tag_names
-   
+
     queryResults = []
-    
+
     if tag_names == []:
         queryResults = Post.objects.all()
     else:
@@ -88,7 +88,7 @@ def viewPosts(request, url_extra):
                     continue
 
                 queryResults = queryResults.filter(tag__name=tag_name)
-                
+
     contextDictionary['posts'] = queryResults
 
     return render(request, 'bark/posts.html', contextDictionary)
@@ -172,7 +172,7 @@ def addPost(request):
             newPost.save()
 
             tags = request.POST.getlist('taggles[]')
-            
+
             for tag in tags:
                 if tag[-5:] == "ac.uk":
                     try:
@@ -211,7 +211,7 @@ def search(request):
     query=query.strip()
 
     posts = Post.objects.filter(Q(tag__name__contains=query) | Q(content__contains =query) | Q(title__contains = query)).distinct()
-    
+
     return render(request,'bark/search.html', {'posts':posts})
 
 def get_tag_list(max_results=0, starts_with=''):

@@ -1,53 +1,50 @@
 <h1> studeso <small> Bark</small></h1>
 
-<p>This directory contains all the project code</p>
+<p>The code powering Bark Website</p>
 
-<h2>Directories</h2>
+<h2>Requirements</h2>
 <ul>
-	<li> bark </li>
-		<ul> 
-			<li> Site Code </li>
-			<li> Models </li>
-				<ul>
-					<li> Databse Model Code</li>
-				</ul>
-			<li>views</li>
-				<ul>
-					<li> Main Bark View code </li>
-					<li> User Authentication code </li>
-				</ul>
-		</ul>
-	<li> media </li>
-		<ul>
-			<li> Uploaded files from users (profile images) </li>
-		</ul>
-	<li> static </li>
-		<ul>
-			<li> css </li>
-				<ul>
-					<li> Style sheet files </li>
-				</ul>
-			<li> js </li>
-				<ul>
-					<li> Javascript files </li>
-				</ul>
-			<li> img </li>
-				<ul>
-					<li> Image files </li>
-				</ul>
-		</ul>
-	<li>templates</li>
-		<ul>
-			<li> Base template code </li>
-			<li> Header template code </li>
-			<li> Footer template code </li>
-			<li> bark </li>
-				<ul>
-					<li> Bark template code </li>
-				</ul>
-			<li> auth </li>
-				<ul>
-					<li> User authentication template code </li>
-				</ul>
-		</ul>
+	<li> Django 1.7 <i>In requiremnets.txt</i> </li>
+	<li> Django-Bootstrap3 <i>In requirements.txt</i> </li>
+	<li> Pillow <i>In requirements.txt</i></li>
+	<li> Bootstrap CSS 3 <i>(provided)</i> </li>
+	<li> Bootstro <i>(provided)</i></li>
+	<li> Taggle <i>(provided)</i></li>
+</ul>
+
+<h2>Installation</h2>
+
+<p>Clone repo from git:<br>
+<code>git clone https://github.com/projectgoav/studeso</code></p>
+
+<p><i>Optional</i> - Create a virtual environment </p>
+
+<p>Install requirements with provided pip requirements file<br>
+<code>pip install requirements/requirements.txt</code></p>
+
+<p>After installing with pip, navigate to the Bark directory. </p>
+
+<p>Create and setup the database. <br>
+<code>python manage.py syncdb</code>
+<br><br>Create a superuser account, if you so wish.</p>
+
+<p>Fill the database with some sample data and user accounts.<br>
+<code>python populate.py</br></p>
+
+<p>Before running the server, navigate to the second Bark directory. You should see a lot of python files and 2 folders named <b>management</b> and <b>templatetags</b>. Create <b>keys.py</b> file here and enter this information:<br>
+<code>USERNAME=''</code><br>
+<code>Password=''</code>
+<br>
+<i>This allows bark to send email. You can put in your own email details here if you wish to test the email functions. <br>
+<b>Note</b>If you are using a provider other than Outlook, you'll need to change the EMAIL_HOST and EMAIL_PORT settings in bark.settings.py.
+<br>
+If you leave the USERNAME and PASSWORD blank Bark will still work. It is not required</i></p>
+
+<p>You're not ready to roll! Run the Django development server <br><code>python manage.py runserver</code></p>
+
+<h2>Test User Logins</h2>
+<ul>
+	<li> <b>Username</b> | <b>Password</b> </li>
+	<li> ghastly         | Test </li>
+	<li> stuck_student55 | Test </li>
 </ul>
