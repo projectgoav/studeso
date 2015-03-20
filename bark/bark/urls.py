@@ -40,11 +40,10 @@ urlpatterns = patterns('',
                        # #Followed by query string or some form of search regex
                        url(r'^search/', views.search, name = 'search'),
 
-                       url(r'^suggest_tags/$', views.suggest_tags, name='suggest_tags'),
-
                        url(r'^like_post/$', views.like_post, name='like_post'),
                        url(r'^like_comment/$', views.like_comment, name='like_comment'),
                        #
+                       url(r'^follow/(?P<tagName>[\w-]+)', views.follow_tag, name='follow_tag'),
                        # #REGISTRATION VIEWS
                        # #---------
                        #
