@@ -20,7 +20,6 @@ $(document).ready(function(){
             url:"/like_post/",
             data: {post_id: postID, csrfmiddlewaretoken:csrf_token},
             success: function(data){
-                console.log(data);
                 $('.post-like-num').html(data);
                 $('.like-post-btn').children().removeClass('glyphicon-thumbs-up').addClass('glyphicon-ok');
 

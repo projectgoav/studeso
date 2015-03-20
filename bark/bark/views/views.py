@@ -56,7 +56,7 @@ def userprofile(request, username):
     context_dic['img'] = user.userprofile.profile_picture
     context_dic['username'] = username
 
-    posts = Post.objects.all().filter(author=user.userprofile).exclude(anonymous=True)[:5]
+    posts = Post.objects.all().filter(author=user.userprofile).exclude(anonymous=True).order_by('-rating')[:numberOfTopPosts]
 
     context_dic['posts'] = posts
     context_dic['post_tags'] = { }
