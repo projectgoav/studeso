@@ -108,6 +108,7 @@ def viewPost(request, post_id, post_slug):
             if post.tags.filter(name=post.author.institution_tag.name).exists():
                 contextDictionary['post_inst_tag'] = post.author.institution_tag
 
+            comments = post.comment_set.all()
             post.views += 1
             post.save()
 
@@ -119,8 +120,18 @@ def viewPost(request, post_id, post_slug):
                         post_liked = True
 
                     contextDictionary['post_liked'] = post_liked
+
+                    comments = post.comment_set.all()
+                    for comment in comments:
+                        comment.liked_by_user = False
+                        if comment.commentlike_set.filter(author=user_profile).exists():
+                            comment.liked_by_user = True
                 except UserProfile.DoesNotExist:
                     pass
+                except Comment.DoesNotExist:
+                    pass
+
+            contextDictionary['comments'] = comments
 
         except Post.DoesNotExist:
             pass
