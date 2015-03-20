@@ -3,6 +3,8 @@
 {% load staticfiles %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
+{% load markdown_deux_tags %}
+
 {% block script %}
     <script src="{% static 'js/jquery1.11.1.min.js' %}"></script>
     <script src="{% static 'taggle/assets/js/taggle.min.js' %}"></script>
@@ -18,7 +20,10 @@
         <div class="panel-body">
             <form id="post_form" method="post" action="{% url 'add_post' %}">
                 {% csrf_token %}
-                {% bootstrap_form form %}
+                {% bootstrap_field form.title %}
+                {% bootstrap_field form.content %}
+                {% markdown_allowed %}
+                {% bootstrap_field form.anonymous %}
                 <div class="form-group">
                     <label class="control-label" for="tags">Tags</label>
                     <div class="input textarea" id="tags"></div>

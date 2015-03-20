@@ -3,6 +3,7 @@
 {% load staticfiles %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
+{% load markdown_deux_tags %}
 
 {% block js %}
     <script src="{% static 'js/jquery.cookie.js' %}"></script>
@@ -20,7 +21,7 @@
     <div class="col-sm-10">
     <div class="panel panel-primary">
         <div class="small panel-heading">{{ post.creation_date }}</div>
-        <div class="panel-body">{{ post.content }}</div>
+        <div class="panel-body">{{ post.content|markdown }}</div>
         <div class="panel-footer" class="bark-tags">
             <b>Tags: </b>
             {% if not post.anonymous %}
@@ -58,7 +59,7 @@
     {% for comment in comments %}
         <div class="panel panel-default">
             <div class="small panel-heading">{{ comment.creation_date }}</div>
-            <div class="panel-body">{{ comment.content }}</div>
+            <div class="panel-body">{{ comment.content|markdown }}</div>
             <div class="panel-footer bark-tags">
                 <a href="#" class="user">@{{ comment.author }}</a>
                     <span class="pull-right small"><span class="comment-like-counter-{{ forloop.counter }}">{{ comment.commentlike_set.all|length }}</span> found this helpful
@@ -87,6 +88,7 @@
                 <div class="panel-heading"><h3 class="panel-title">Add a comment</h3></div>
                 <div class="panel-body">
                     <div class="form-group">
+                        {% markdown_allowed %}
                         <textarea id="id_content" class="form-control" rows="4" required="required" placeholder="Comment here..." name="content" cols="40"></textarea>
                     </div>
                     <input class="btn btn-primary" type="submit" name="submit" value="Add Comment" />
