@@ -1,4 +1,5 @@
 from bark.models import Post, Tag, UserProfile, PostTagging, PostLike, Comment, InstitutionTag, UserTag, CommentLike, TagFollowing
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from bark.forms import PostForm, CommentForm
@@ -14,7 +15,20 @@ numberOfTopPosts = 10
 # Index Page
 # Returns a welcome message
 def index(request):
-    posts = Post.objects.order_by('-rating')[:numberOfTopPosts]
+    post_list = Post.objects.order_by('-rating')
+
+    paginator = Paginator(post_list, numberOfTopPosts)
+
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page not an integer, deliver first page
+        posts = paginator.page(1)
+    except EmptyPage:
+        # Page is out of range, deliver last page
+        posts = paginator.page(paginator.num_pages)
+
 
     # Create a context dictionary with the top posts.
     contextDictionary = {
@@ -81,7 +95,7 @@ def viewPosts(request, url_extra):
     tags = []
 
     if tag_names == []:
-        queryResults = Post.objects.all()
+        queryResults = Post.objects.order_by('-rating')
     else:
         tags = Tag.objects.filter(name__in=tag_names)
         # The django.db.models.Q class is an object used
@@ -92,9 +106,21 @@ def viewPosts(request, url_extra):
                 if tag_name == '':
                     continue
 
-                queryResults = queryResults.filter(tag__name=tag_name)
+                queryResults = queryResults.filter(tag__name=tag_name).order_by('-rating')
 
-    contextDictionary['posts'] = queryResults
+    paginator = Paginator(queryResults, numberOfTopPosts)
+
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page not an integer, deliver first page
+        posts = paginator.page(1)
+    except EmptyPage:
+        # Page is out of range, deliver last page
+        posts = paginator.page(paginator.num_pages)
+
+    contextDictionary['posts'] = posts
     contextDictionary['tags'] = tags
 
     return render(request, 'bark/posts.html', contextDictionary)
@@ -227,13 +253,13 @@ def search(request):
         
     queryWords = query.strip().split(" ")
 
-    posts = Post.objects.filter( 
+    posts = Post.objects.filter(
         reduce(operator.or_, (Q(tag__name__contains = queryWord) for queryWord in queryWords)) |
         reduce(operator.or_, (Q(content__contains = queryWord) for queryWord in queryWords)) |
         reduce(operator.or_, (Q(title__contains = queryWord) for queryWord in queryWords))
-        ).distinct()
+        ).distinct().order_by('-rating')
 
- 
+
     possibleMatchingTags = Tag.objects.filter(name__in=queryWords)
 
     contextDictionary = {

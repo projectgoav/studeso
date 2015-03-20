@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load postlist %}
+{% load bootstrap3 %}
 
 {% block body_block %}
 
@@ -17,6 +18,9 @@
     {% for post in posts %}
     {% get_view post %}
     {% endfor %}
+    {% if posts.has_other_pages %}
+        {% bootstrap_pagination posts %}
+    {% endif %}
 </ol>
 {% endblock %}
 

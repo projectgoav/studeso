@@ -19,9 +19,12 @@
 {% endif %}
 <br>
 <br>
-{% for post in posts %}
-	{% get_view post %}
-{% endfor %}
+<div>
+    {% for post in posts %}
+        {% get_view post %}
+    {% endfor %}
+</div>
+
 
 {% else %}
 <h2>No results for "{{ query }}"</h2>

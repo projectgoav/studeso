@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load bootstrap3 %}
 {% load staticfiles %}
 {% load postlist %}
 
@@ -21,6 +21,9 @@
       {% get_view topPost %}
     {% endfor %}
 </div>
+    {% if topPosts.has_other_pages %}
+        {% bootstrap_pagination topPosts %}
+    {% endif %}
 <br />
 {% endblock %}
 
