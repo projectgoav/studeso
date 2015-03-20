@@ -224,10 +224,7 @@ def search(request):
         query = request.POST.get('query',None)
     else:
         query = ''
-
-    print query
-    print query.strip()
-
+        
     queryWords = query.strip().split(" ")
 
     posts = Post.objects.filter( 
