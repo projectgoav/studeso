@@ -309,7 +309,7 @@ def follow_tag(request,tagName):
         tag = Tag.objects.get(name=tagName)
         userProfile = UserProfile.objects.get(user=request.user)
         TagFollowing.objects.get_or_create(user=userProfile, tag=tag)
-    return redirect('view_posts', tagName) #TODO redirect back to tag page
+    return redirect('view_posts', tagName)
 
 def about(request):
     context_dict={}
