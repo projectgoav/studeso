@@ -273,13 +273,11 @@ def like_comment(request):
 
 @login_required
 def follow_tag(request,tagName):
-    context_dict = {}
     if request.method == 'GET':
         tag = Tag.objects.get(name=tagName)
         userProfile = UserProfile.objects.get(user=request.user)
-
         TagFollowing.objects.get_or_create(user=userProfile, tag=tag)
-    return redirect('index')
+    return redirect('index') #TODO redirect back to tag page
 
 def about(request):
     context_dict={}

@@ -7,6 +7,9 @@
 	{% for tag in tags %}
 		{{ tag.name }}
 			<a href={% url 'follow_tag' tag.name %}>(follow)</a>
+            {% csrf_token %}
+            <button class="btn btn-default btn-warning" id="follow_tag">Follow This Tag</button>
+        </form>
 	{% endfor %}
 </h2>
 
@@ -16,3 +19,4 @@
     {% endfor %}
 </ol>
 {% endblock %}
+
