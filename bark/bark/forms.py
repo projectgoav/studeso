@@ -12,7 +12,7 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('username', 'email', 'password')
 
-    #Required to check if the user has an ac.uk domain!
+    #Required to check if the user has an ac.uk domain
     def clean(self):
         domain = getInstitution(self.cleaned_data.get('email'))
         if "ac.uk" not in domain:

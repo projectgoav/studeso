@@ -65,38 +65,28 @@ def userprofile(request, username):
 
 # Bark Tag listing
 def viewPosts(request, url_extra):
-    contextDictionary = {}
 
-    tag_names = url_extra.split('/')
-    if tag_names[-1] == '':
-        tag_names = tag_names[:-1]
+    #Split up the tags, remove duplicates and any null tags we might have
+    tags = url_extra.split('/')
+    tags = list(set(tags))
 
-    contextDictionary['tagNames'] = tag_names
+    if '' in tags:
+        tags.remove('')
 
-    queryResults = []
+    Posts = Post.objects.all()
 
-    print tag_names
+    querys = [ ]
 
-    if tag_names == []:
-        queryResults = Post.objects.all()
-    else:
-        # The django.db.models.Q class is an object used
-        # to encapsulate a collection of field lookups,
-        # a more complex query object than a basic query.
-        qObjectSet = Q()
-        for tag_name in tag_names:
-                if tag_name == '':
-                    continue
+    for tag in tags:
+        p = PostTagging.objects.filter(tag=tag.id)
+        print p
+        #querys.append(PostTaagging.objects.filter(tag=tag))
 
-                # Q queries can be combined using & (for "and") or | (for "or").
-                qObjectSet |= Q(tag__name__contains=tag_name)
+    #for query in querys:
+    #    result = Q(result | query)
 
-        print Post.objects.filter(qObjectSet).query
-        queryResults = Post.objects.filter(qObjectSet)
-
-    contextDictionary['posts'] = queryResults
-
-    return render(request, 'bark/posts.html', contextDictionary)
+    #result.distinct()
+    return render(request, 'bark/posts.html', {})
 
 # View a specific bark
 def viewPost(request, post_id, post_slug):
@@ -214,7 +204,7 @@ def search(request):
     query=query.strip()
 
     posts = Post.objects.filter(Q(tag__name__contains=query) | Q(content__contains =query) | Q(title__contains = query)).distinct()
-    
+
     return render(request,'bark/search.html', {'posts':posts})
 
 def get_tag_list(max_results=0, starts_with=''):
