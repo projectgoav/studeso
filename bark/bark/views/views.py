@@ -1,4 +1,4 @@
-from bark.models import Post, Tag, UserProfile, PostTagging, PostLike, Comment, InstitutionTag, UserTag, CommentLike
+from bark.models import Post, Tag, UserProfile, PostTagging, PostLike, Comment, InstitutionTag, UserTag, CommentLike, TagFollowing
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from bark.forms import PostForm, CommentForm
@@ -214,27 +214,6 @@ def search(request):
 
     return render(request,'bark/search.html', {'posts':posts})
 
-def get_tag_list(max_results=0, starts_with=''):
-        tag_list = []
-        if starts_with:
-                tag_list = Tag.objects.filter(name__istartswith=starts_with)
-
-        if max_results > 0:
-                if len(tag_list) > max_results:
-                        tag_list = tag_list[:max_results]
-
-        return tag_list
-
-def suggest_tags(request):
-        tag_list = []
-        starts_with = ''
-        if request.method == 'GET':
-                starts_with = request.GET['suggestion']
-
-        tag_list = get_tag_list(8, starts_with)
-
-        return render(request, 'bark/tag_list.html', {'tag_list': tag_list })
-
 @login_required
 def like_post(request):
     if request.method == "POST":
@@ -269,17 +248,14 @@ def like_comment(request):
 
 
 @login_required
-def auto_add_page(request):
-    tag_name = None
-    url = None
+def follow_tag(request,tagName):
     context_dict = {}
     if request.method == 'GET':
-        tag_name = request.GET['Tag.name']
-        url = request.GET['url']
-        if tag_name:
-            tag = Tag.objects.get(id=tag_name)
-            tag.followers += 1
-    return render(request, 'bark/follow.html', context_dict)
+        tag = Tag.objects.get(name=tagName)
+        userProfile = UserProfile.objects.get(user=request.user)
+
+        TagFollowing.objects.get_or_create(user=userProfile, tag=tag)
+    return redirect('index')
 
 def about(request):
     context_dict={}
