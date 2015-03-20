@@ -4,7 +4,7 @@
 
 <h2>Requirements</h2>
 <ul>
-	<li> Django 1.7 <i>In requiremnets.txt</i> </li>
+	<li> Django 1.7 <i>In requirements.txt</i> </li>
 	<li> Django-Bootstrap3 <i>In requirements.txt</i> </li>
 	<li> Pillow <i>In requirements.txt</i></li>
 	<li> Bootstrap CSS 3 <i>(provided)</i> </li>
@@ -22,9 +22,9 @@
 <p>Install requirements with provided pip requirements file<br>
 <code>pip install requirements/requirements.txt</code></p>
 
-<p>After installing with pip, navigate to the Bark directory. </p>
+<p>After installing with pip, navigate to the Bark directory.</p>
 
-<p>Create and setup the database. <br>
+<p>Create and setup the database.<br>
 <code>python manage.py syncdb</code>
 <br><br>Create a superuser account, if you so wish.</p>
 
