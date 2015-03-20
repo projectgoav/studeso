@@ -2,8 +2,9 @@
 {% load postlist %}
 {% load bootstrap3 %}
 
-{% block body_block %}
+{% block title %}{{ tags.0.name }}{% endblock %}
 
+{% block body_block %}
 <h2>Tags:
 	{% for tag in tags %}
 	<span>

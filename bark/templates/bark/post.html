@@ -10,6 +10,8 @@
     <script src="{% static 'js/like.js' %}"></script>
 {% endblock %}
 
+{% block title %}{{ post.title }}{% endblock %}
+
 {% block body_block %}
 {% if post %}
     <h2 class="page-header col-sm-10">{{ post.title }}
