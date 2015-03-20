@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
+{% load postlist %}
 
 {% block body_block %}
 <h2>Posts with tags: {% for tagName in tagNames %} {{ tagName }} {% endfor %}</h2>
 <ol>
     {% for post in posts %}
-    <li><b><a href="{% url 'view_post' post.id post.slug %}">{{ post.title }}</a></b></li>
+    {% get_view post %}
     {% endfor %}
 </ol>
 {% endblock %}

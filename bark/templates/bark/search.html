@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
+{% load postlist %}
 
 <h2>Search</h2>
 
 {% if posts %}
 
 {% for post in posts %}
-	<li><a href='/bark/{{ post.id }}/{{ post.slug }}'>{{post.title}}</a></li>
+	{% get_view post %}
 {% endfor %}
 
 {% else %}
