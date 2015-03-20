@@ -3,11 +3,10 @@
 
 {% block body_block %}
 
-<h2>Tags: 
-{% for tag in tags %}
+<h2>Tags:
+	{% for tag in tags %}
 		{{ tag.name }}
-			<a href={% url 'follow_tag' tag.slug %}>(follow)</a>
-			{% if not forloop.last %}, {% endif %}
+			<a href={% url 'follow_tag' tag.name %}>(follow)</a>
 	{% endfor %}
 </h2>
 
