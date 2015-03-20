@@ -3,20 +3,27 @@
 {% block body_block %}
 {% load postlist %}
 
-<h2>Search</h2>
-
 {% if posts %}
-
+<h2>Results for "{{ query }}"</h2>
+<h4>
+<br>Related tags:
+{% for tag in tags %}
+	<a href={% url 'view_posts' tag.name %}>{{ tag.name }}</a>
+	{% if not forloop.last %}, {% endif %}
+{% endfor %}
+</h4>
+<br>
+<br>
 {% for post in posts %}
 	{% get_view post %}
 {% endfor %}
 
 {% else %}
-
-<h2>Nothing found</h2>
-
-<b>Why not add a new post <a href="{% url 'add_post' %}"> here?</a></b>
-
+<h2>No results for "{{ query }}"</h2>
+<br>
+<h3>
+<i><a href="{% url 'add_post' %}">Why not add a new post?</a></i>
+</h3>
 {% endif %}
 
 {% endblock %}

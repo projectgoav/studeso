@@ -128,10 +128,13 @@ class Tag(models.Model):
     followers = models.ManyToManyField('UserProfile', through="TagFollowing", null=True)
     posts = models.ManyToManyField('Post', through="PostTagging", null=True)
     description = models.TextField(blank=True)
-
+    slug = models.SlugField(editable=False)
+    
     def save(self, *args, **kwargs):
         # Run clean()
         self.full_clean()
+
+        self.slug = slugify(self.name)
 
         # Custom arg, that if we've updated the description, it's not given a default one...
         # This was a pain in the @ss

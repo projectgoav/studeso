@@ -2,7 +2,15 @@
 {% load postlist %}
 
 {% block body_block %}
-<h2>Posts with tags: {% for tagName in tagNames %} {{ tagName }} {% endfor %}</h2>
+
+<h2>Tags: 
+{% for tag in tags %}
+		{{ tag.name }}
+			<a href={% url 'follow_tag' tag.slug %}>(follow)</a>
+			{% if not forloop.last %}, {% endif %}
+	{% endfor %}
+</h2>
+
 <ol>
     {% for post in posts %}
     {% get_view post %}

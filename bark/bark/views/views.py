@@ -68,28 +68,28 @@ def userprofile(request, username):
 def viewPosts(request, url_extra):
     contextDictionary = {}
 
-    tag_names = url_extra.split('/')
-    if tag_names[-1] == '':
-        tag_names = tag_names[:-1]
-
-    contextDictionary['tagNames'] = tag_names
+    tagSlugURLArguments = url_extra.split('/')
+    if tagSlugURLArguments[-1] == '':
+        tagSlugURLArguments = tagSlugURLArguments[:-1]
 
     queryResults = []
+    tags = []
 
-    if tag_names == []:
+    if tagSlugURLArguments == []:
         queryResults = Post.objects.all()
     else:
-        # The django.db.models.Q class is an object used
-        # to encapsulate a collection of field lookups,
-        # a more complex query object than a basic query.
+        tags = Tag.objects.filter(slug__in=tagSlugURLArguments)
+        
         queryResults = Post.objects
-        for tag_name in tag_names:
+        
+        for tag_name in tagSlugURLArguments:
                 if tag_name == '':
                     continue
-
-                queryResults = queryResults.filter(tag__name=tag_name)
+                
+                queryResults = queryResults.filter(tag__slug=tag_name)
 
     contextDictionary['posts'] = queryResults
+    contextDictionary['tags'] = tags
 
     return render(request, 'bark/posts.html', contextDictionary)
 
@@ -208,11 +208,18 @@ def search(request):
     else:
         query = ''
 
-    query=query.strip()
-
+    query = query.strip()
     posts = Post.objects.filter(Q(tag__name__contains=query) | Q(content__contains =query) | Q(title__contains = query)).distinct()
 
-    return render(request,'bark/search.html', {'posts':posts})
+    possibleMatchingTags = Tag.objects.filter(name__in=query.split(" "))
+
+    contextDictionary = {
+        'posts' : posts,
+        'query' : query,
+        'tags' : possibleMatchingTags
+        }
+        
+    return render(request,'bark/search.html', contextDictionary)
 
 @login_required
 def like_post(request):
@@ -248,10 +255,10 @@ def like_comment(request):
 
 
 @login_required
-def follow_tag(request,tagName):
+def follow_tag(request,tagSlug):
     context_dict = {}
     if request.method == 'GET':
-        tag = Tag.objects.get(name=tagName)
+        tag = Tag.objects.get(slug=tagSlug)
         userProfile = UserProfile.objects.get(user=request.user)
 
         TagFollowing.objects.get_or_create(user=userProfile, tag=tag)
