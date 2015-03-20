@@ -3,7 +3,9 @@
  */
 
 $(document).ready(function(){
-    if(!$('p > img').hasClass('img-responsive')){
-        $('p > img').addClass('img-responsive');
+    var imgsInPanels = $('.panel img');
+
+    if(!imgsInPanels.hasClass('img-responsive')){
+        imgsInPanels.addClass('img-responsive');
     }
 });
