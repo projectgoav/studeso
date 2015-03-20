@@ -5,13 +5,22 @@
 
 {% if posts %}
 <h2>Results for "{{ query }}"</h2>
-<h4>
-<br>Related tags:
-{% for tag in tags %}
-	<a href={% url 'view_posts' tag.name %}>{{ tag.name }}</a>
-	{% if not forloop.last %}, {% endif %}
-{% endfor %}
-</h4>
+{% if tags %}
+    <h4>
+    <br>Related tags:
+
+    {% for tag in tags %}
+        <a href={% url 'view_posts' tag.name %}>{{ tag.name }}</a>
+        <form  id= "follow_tag" method="get" action="{% url 'follow_tag' tag.slug %}">
+            {% csrf_token %}
+            <button class="btn btn-default btn-warning" id="follow_tag">Follow This Tag</button>
+        </form>
+        {% if not forloop.last %}, {% endif %}
+    {% endfor %}
+    </h4>
+{% else %}
+    <h4> No related tags found for "{{ query }}"</h4>
+{% endif %}
 <br>
 <br>
 {% for post in posts %}

@@ -6,7 +6,10 @@
 <h2>Tags: 
 {% for tag in tags %}
 		{{ tag.name }}
-			<a href={% url 'follow_tag' tag.slug %}>(follow)</a>
+		<form  id= "follow_tag" method="get" action="{% url 'follow_tag' tag.slug %}">
+            {% csrf_token %}
+            <button class="btn btn-default btn-warning" id="follow_tag">Follow This Tag</button>
+        </form>
 			{% if not forloop.last %}, {% endif %}
 	{% endfor %}
 </h2>
@@ -17,3 +20,4 @@
     {% endfor %}
 </ol>
 {% endblock %}
+
