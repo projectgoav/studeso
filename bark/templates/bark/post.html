@@ -55,7 +55,7 @@
     </div>
     <h3 class="page-header">Comments ({{ post.comment_set.all|length }})</h3>
 
-    {% for comment in post.comment_set.all %}
+    {% for comment in comments %}
         <div class="panel panel-default">
             <div class="small panel-heading">{{ comment.creation_date }}</div>
             <div class="panel-body">{{ comment.content }}</div>
@@ -66,7 +66,11 @@
                         {% if user.is_authenticated %}
                             {% buttons %}
                                 <button class="comment-like comment-like-{{ forloop.counter }} like-btn" type="submit">
-                                    {% bootstrap_icon "thumbs-up" %}
+                                    {% if comment.liked_by_user %}
+                                        {% bootstrap_icon "ok" %}
+                                    {% else %}
+                                        {% bootstrap_icon "thumbs-up" %}
+                                    {% endif %}
                                 </button>
                             {% endbuttons %}
                         {% endif %}
