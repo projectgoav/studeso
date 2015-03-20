@@ -32,7 +32,7 @@
 <code>python populate.py</br></p>
 
 <p>Before running the server, navigate to the second Bark directory. You should see a lot of python files and 2 folders named <b>management</b> and <b>templatetags</b>. Create <b>keys.py</b> file here and enter this information:<br>
-<code>USERNAME=''</code>
+<code>USERNAME=''</code><br>
 <code>Password=''</code>
 <br>
 <i>This allows bark to send email. You can put in your own email details here if you wish to test the email functions. <br>
