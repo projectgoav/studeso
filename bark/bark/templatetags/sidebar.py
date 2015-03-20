@@ -5,13 +5,7 @@ register = template.Library()
 
 @register.inclusion_tag('sidebar.html')
 def get_sidebar():
-    user_tags = UserTag.objects.all()
-    inst_tags = InstitutionTag.objects.all()
-    other_tags = []
-
-    tags = Tag.objects.all()
-    for t in tags:
-        if t not in user_tags and t not in inst_tags:
-            other_tags += [t]
-
-    return {'U' : user_tags, 'I' : inst_tags, 'A' : other_tags }
+    tags = Tag.objects.all().exclude(id__in=UserTag.objects.all()).exclude(id__in=InstitutionTag.objects.all())
+    users =  Tag.objects.all().filter(id__in=UserTag.objects.all())
+    inst = Tag.objects.all().filter(id__in=InstitutionTag.objects.all())
+    return {'U' : users, 'I' : inst, 'A' : tags }
