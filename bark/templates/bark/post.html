@@ -11,19 +11,29 @@
 
 {% block body_block %}
 {% if post %}
-    <h2 class="page-header col-sm-10">{{ post.title }} <small>Views: {{ post.views }}, <span class="post-like-num">{{ post_likes }}</span> found this interesting</small></h2>
+    <h2 class="page-header col-sm-10">{{ post.title }}
+        <small>
+            Views: {{ post.views }}, <span class="post-like-num">{{ post_likes }}</span> found this interesting
+        </small>
+    </h2>
 
     <div class="col-sm-10">
-    <div class="panel panel-default">
+    <div class="panel panel-primary">
+        <div class="small panel-heading">{{ post.creation_date }}</div>
         <div class="panel-body">{{ post.content }}</div>
         <div class="panel-footer" class="bark-tags">
             <b>Tags: </b>
-            <a class="user" href={% url 'view_posts' post.author.user_tag %}>@{{ post.author.user_tag }}</a>
-            {% if post_inst_tag %}
-                <span> | </span><a class="inst" href={% url 'view_posts' post_inst_tag %}>@{{ post_inst_tag }}</a>
+            {% if not post.anonymous %}
+                <a class="user" href={% url 'view_posts' post.author.user_tag %}>@{{ post.author.user_tag }}</a>
+            <span> | </span>
             {% endif %}
-            {% for post_tag in post.tags.all %}
-                <span> | </span><a class="tag" href={% url 'view_posts' post_tag %} >@{{ post_tag }}</a>
+
+            {% if post_inst_tag %}
+            <a class="inst" href={% url 'view_posts' post_inst_tag %}>@{{ post_inst_tag }}</a>
+            <span> | </span>
+            {% endif %}
+            {% for post_tag in post_tags %}
+            <a class="tag" href={% url 'view_posts' post_tag %} >@{{ post_tag }}</a>
             {% endfor %}
 
         {% if user.is_authenticated %}
@@ -47,14 +57,15 @@
 
     {% for comment in post.comment_set.all %}
         <div class="panel panel-default">
+            <div class="small panel-heading">{{ comment.creation_date }}</div>
             <div class="panel-body">{{ comment.content }}</div>
             <div class="panel-footer bark-tags">
                 <a href="#" class="user">@{{ comment.author }}</a>
-                    <span class="pull-right small">{{ comment.like_set.all|length }} found this helpful
+                    <span class="pull-right small"><span class="comment-like-counter-{{ forloop.counter }}">{{ comment.commentlike_set.all|length }}</span> found this helpful
                         <div class="pull-right small" id="like">
                         {% if user.is_authenticated %}
                             {% buttons %}
-                                <button class="like-btn" type="submit">
+                                <button class="comment-like comment-like-{{ forloop.counter }} like-btn" type="submit">
                                     {% bootstrap_icon "thumbs-up" %}
                                 </button>
                             {% endbuttons %}

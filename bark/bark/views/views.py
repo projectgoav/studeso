@@ -1,4 +1,4 @@
-from bark.models import Post, Tag, UserProfile, PostTagging, PostLike, Comment, InstitutionTag, UserTag
+from bark.models import Post, Tag, UserProfile, PostTagging, PostLike, Comment, InstitutionTag, UserTag, CommentLike
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from bark.forms import PostForm, CommentForm
@@ -11,10 +11,11 @@ numberOfTopPosts = 10
 # Index Page
 # Returns a welcome message
 def index(request):
+    posts = Post.objects.order_by('-rating')[:numberOfTopPosts]
 
     # Create a context dictionary with the top posts.
     contextDictionary = {
-        'topPosts' : Post.objects.order_by('rating')[:numberOfTopPosts]
+        'topPosts': posts
         }
 
     return render(request, 'bark/index.html', contextDictionary)
@@ -38,7 +39,7 @@ def userprofile(request, username):
     context_dic['img'] = user.userprofile.profile_picture
     context_dic['username'] = username
 
-    posts = Post.objects.all().filter(author=user.userprofile)[:5]
+    posts = Post.objects.all().filter(author=user.userprofile).exclude(anonymous=True)[:5]
 
     context_dic['posts'] = posts
     context_dic['post_tags'] = { }
@@ -65,28 +66,32 @@ def userprofile(request, username):
 
 # Bark Tag listing
 def viewPosts(request, url_extra):
+    contextDictionary = {}
 
-    #Split up the tags, remove duplicates and any null tags we might have
-    tags = url_extra.split('/')
-    tags = list(set(tags))
+    tag_names = url_extra.split('/')
+    if tag_names[-1] == '':
+        tag_names = tag_names[:-1]
 
-    if '' in tags:
-        tags.remove('')
+    contextDictionary['tagNames'] = tag_names
 
-    Posts = Post.objects.all()
+    queryResults = []
 
-    querys = [ ]
+    if tag_names == []:
+        queryResults = Post.objects.all()
+    else:
+        # The django.db.models.Q class is an object used
+        # to encapsulate a collection of field lookups,
+        # a more complex query object than a basic query.
+        queryResults = Post.objects
+        for tag_name in tag_names:
+                if tag_name == '':
+                    continue
 
-    for tag in tags:
-        p = PostTagging.objects.filter(tag=tag.id)
-        print p
-        #querys.append(PostTaagging.objects.filter(tag=tag))
+                queryResults = queryResults.filter(tag__name=tag_name)
 
-    #for query in querys:
-    #    result = Q(result | query)
+    contextDictionary['posts'] = queryResults
 
-    #result.distinct()
-    return render(request, 'bark/posts.html', {})
+    return render(request, 'bark/posts.html', contextDictionary)
 
 # View a specific bark
 def viewPost(request, post_id, post_slug):
@@ -96,10 +101,11 @@ def viewPost(request, post_id, post_slug):
         try:
             post = Post.objects.get(id=post_id)
             contextDictionary['post'] = post
-            contextDictionary['post_tags'] = post.tags.all().exclude(name=post.author.user_tag.name).exclude(name=post.author.institution_tag.name)
+            contextDictionary['post_tags'] = post.tags.exclude(name__iexact=post.author.user_tag.name
+                                                               ).exclude(name__iexact=post.author.institution_tag.name)
             contextDictionary['post_likes'] = post.postlike_set.count()
 
-            if post.tags.filter(name=post.author.institution_tag.name):
+            if post.tags.filter(name=post.author.institution_tag.name).exists():
                 contextDictionary['post_inst_tag'] = post.author.institution_tag
 
             post.views += 1
@@ -164,6 +170,7 @@ def addPost(request):
 
             newPost.author = authorProfile
             newPost.save()
+
             tags = request.POST.getlist('taggles[]')
 
             for tag in tags:
@@ -240,7 +247,25 @@ def like_post(request):
             return HttpResponse(post.postlike_set.count())
         except Post.DoesNotExist:
             pass
-            return HttpResponse("Failed")
+        return HttpResponse("Failed")
+
+@login_required
+def like_comment(request):
+    if request.method == "POST":
+        try:
+            post_id = int(request.POST['post_id'])
+            comment_num = int(request.POST['comment_num']) - 1
+            author = UserProfile.objects.get(user=request.user)
+            post = Post.objects.get(pk=post_id)
+            comment = post.comment_set.all()[comment_num]
+            CommentLike.objects.get_or_create(author=author, comment=comment)
+
+            return HttpResponse(comment.commentlike_set.count())
+        except Post.DoesNotExist:
+            pass
+        except Comment.DoesNotExist:
+            pass
+    return HttpResponse("Failed")
 
 
 @login_required
