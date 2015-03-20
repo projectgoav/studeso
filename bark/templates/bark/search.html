@@ -10,11 +10,7 @@
     <br>Related tags:
 
     {% for tag in tags %}
-        <a href={% url 'view_posts' tag.name %}>{{ tag.name }}</a>
-        <form  id= "follow_tag" method="get" action="{% url 'follow_tag' tag.slug %}">
-            {% csrf_token %}
-            <button class="btn btn-default btn-warning" id="follow_tag">Follow This Tag</button>
-        </form>
+        <b><a href={% url 'view_posts' tag.name %}>{{ tag.name }}</a></b> <a href={% url 'follow_tag' tag.name %}>(follow)</a>
         {% if not forloop.last %}, {% endif %}
     {% endfor %}
     </h4>
