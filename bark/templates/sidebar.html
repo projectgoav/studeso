@@ -39,7 +39,7 @@
 <li class="side-heading title">User Tags</li>
 {% if U %}
     {% for t in U %}
-        <li><a class="special-tag user" id="tag" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
+        <li><a class="special-tag user" id="tag" href="{% url 'user_profile' t.name %}">{{ t.name }}</a></li>
     {% endfor %}
 {% else %}
     <li> <strong >There are no User Tags</strong></li>

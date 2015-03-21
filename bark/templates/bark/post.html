@@ -34,7 +34,7 @@
         <div class="panel-footer bark-tags" id="tHEAD">
             <b>Tags: </b>
             {% if not post.anonymous %}
-                <a class="user" href={% url 'view_posts' post.author.user_tag %}>@{{ post.author.user_tag }}</a>
+                <a class="user" href={% url 'user_profile' post.author.user_tag %}>@{{ post.author.user_tag }}</a>
             {% endif %}
 
             {% if post_inst_tag %}
@@ -70,7 +70,7 @@
             <div class="small panel-heading">{{ comment.creation_date }}</div>
             <div class="panel-body">{{ comment.content|markdown }}</div>
             <div class="panel-footer bark-tags">
-                <a href="#" class="user">@{{ comment.author }}</a>
+                <a href={% url 'user_profile' comment.author %} class="user">@{{ comment.author }}</a>
                     <span class="pull-right small"><span class="comment-like-counter-{{ forloop.counter }}">{{ comment.commentlike_set.all|length }}</span> found this helpful
                         <div class="pull-right small" id="like">
                         {% if user.is_authenticated %}
