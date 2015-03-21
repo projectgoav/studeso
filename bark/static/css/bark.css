@@ -31,3 +31,6 @@ body{
 /* Color Options for special Tags */
 .user { color: green; }
 .inst { color:red; }
+
+.title {font-size:16px;}
+.small-l { font-size:10px;}

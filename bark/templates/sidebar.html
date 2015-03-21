@@ -1,29 +1,45 @@
+{% load staticfiles %}
 <ul class="nav nav-sidebar">
-<li class="side-heading"><b><u>Tag List</u></b></li>
-{% if U %}
-    <li class="side-heading"><b>User Tags</b></li>
-    {% for t in U %}
-        <li><a class="special-tag user" id="tag" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
-    {% endfor %}
-{% else %}
-    <li> <strong >There are no User Tags</strong></li>
+<a id="Top"></a>
+<li class="side-heading title"><b>Tag List</b></li>
+<li class="small-l"><a href="#Users">View User Tags</a></li>
+<li class="small-l"><a href="#Inst"> View Institution Tags</a></li>
+
+{% if F %}
+<li class="small-l"><a href="#Tags">View Post Tags</a></li>
+{% if not FE %}
+<li class="side-heading title">Tags You Follow</li>
+{% endif %}
 {% endif %}
 
-{% if I %}
-    <li class="side-heading"><b>Institution Tags</b></li>
-    {% for t in I %}
-        <li><a class="special-tag inst" id="tag" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
-    {% endfor %}
-{% else %}
-    <li> <strong >There are no institution Tags</strong></li>
-{% endif %}
-
+<a id="Tags"></a>
+<li class="side-heading title">Post Tags</li>
 {% if A %}
-    <li class="side-heading"><b>Post Tags</b></li>
     {% for t in A %}
         <li><a id="tag" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
     {% endfor %}
 {% else %}
     <li> <strong >There are no Tags</strong></li>
 {% endif %}
+<li class="small-l"><a href="#Top">Back to Top</a></li>
+<a id="Users"></a>
+<li class="side-heading title">User Tags</li>
+{% if U %}
+    {% for t in U %}
+        <li><a class="special-tag user" id="tag" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
+    {% endfor %}
+{% else %}
+    <li> <strong >There are no User Tags</strong></li>
+{% endif %}
+<li class="small-l"><a href="#Top">Back to Top</a></li>
+<a id="Inst"></a>
+<li class="side-heading title">Institution Tags</li>
+{% if I %}
+    {% for t in I %}
+        <li><a class="special-tag inst" id="tag" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
+    {% endfor %}
+{% else %}
+    <li> <strong >There are no institution Tags</strong></li>
+{% endif %}
+<li class="small-l"><a href="#Top">Back to Top</a></li>
 </ul>

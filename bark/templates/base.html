@@ -79,7 +79,7 @@
 
 <div class="col-sm-3 col-md-2 sidebar" id="help-side">
       {% block side_block %}
-        {% get_sidebar %} <!-- Load Category Data -->
+        {% get_sidebar user.is_authenticated %} <!-- Load Category Data -->
       {% endblock %}
     </div>
 </div>
