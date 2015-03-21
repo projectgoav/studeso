@@ -13,7 +13,7 @@
 <p class="text-muted help-s2">{{ help_text_2|safe }}</p>
 <p class="text-muted help-s3">{{ help_text_3|safe }}</p>
 
-<form class="form form-horizontal" id="form" method="post"
+<form class="form form-horizontal" id="form" method="post" enctype="multipart/form-data"
 
 {% if next %}
  action="/signin/?next={{next}}" method="post" >
@@ -23,7 +23,6 @@
 
     {% csrf_token %}
     {% bootstrap_form form layout='horizontal' %}
-
     {% if form2 %}
       {% bootstrap_form form2 layout='horizontal' %}
     {% endif %}
