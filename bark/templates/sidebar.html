@@ -1,27 +1,27 @@
 <ul class="nav nav-sidebar">
-<li><b><u>Tag List</u></b></li>
+<li class="side-heading"><b><u>Tag List</u></b></li>
 {% if U %}
-    <li><b>User Tags</b></li>
+    <li class="side-heading"><b>User Tags</b></li>
     {% for t in U %}
-        <li><a class="special-tag user" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
+        <li><a class="special-tag user" id="tag" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
     {% endfor %}
 {% else %}
     <li> <strong >There are no User Tags</strong></li>
 {% endif %}
 
 {% if I %}
-    <li><b>Institution Tags</b></li>
+    <li class="side-heading"><b>Institution Tags</b></li>
     {% for t in I %}
-        <li><a class="special-tag inst" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
+        <li><a class="special-tag inst" id="tag" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
     {% endfor %}
 {% else %}
     <li> <strong >There are no institution Tags</strong></li>
 {% endif %}
 
 {% if A %}
-    <li><b>Tags</b></li>
+    <li class="side-heading"><b>Post Tags</b></li>
     {% for t in A %}
-        <li><a href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
+        <li><a id="tag" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
     {% endfor %}
 {% else %}
     <li> <strong >There are no Tags</strong></li>

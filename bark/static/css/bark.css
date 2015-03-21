@@ -2,14 +2,31 @@ body{
     font-family: 'Oxygen', sans-serif;
 }
 
+.navbar {  background-color:white; }
+
+#nav-top { padding-top:0; padding bottom:0; margin-top:0; margin-bottom:0;}
+
+.navbar .navbar .nav > li > a {
+      background-color: white;
+}
+.navbar .nav > li > a:hover {
+      background-color: #FFB445;
+            }
+
 .navbar-brand > img { display:block;
                       height:30px;
                       width:60px;
  }
 
+#tag:hover { background-color:#FFB455; }
+
+.side-heading { text-align: center; }
+
 
 /* Class for special tag, making it italic */
 .special-tag { font-style:italic; }
+
+.special-tag a:hover{ background-color:#FFB445;}
 
 /* Color Options for special Tags */
 .user { color: green; }
