@@ -54,7 +54,7 @@ defaultPostData = [
     ["Python 3 is way better than 2", "Print isn't a statement! This isn't BBC-BASIC, I'm glad Python is catching up with the more modern languages"],
     ["Differece between Java and Javascript?", "I have been taking a course in Java but it seems so different to JS, why doesn't \"var\" work in Java?"],
     ["ADS Lectures", "I've really been enjoying the ADS lectures, that example about the sailing competition was really interesting"],
-    ["Bit lost with n-tier architechtures", "Can anyone help me out?"],
+    ["Bit lost with n-tier architectures", "Can anyone help me out?"],
     ["Did anyone hear Leif's joke this morning?!", "Something about alcohol- I found this really offensive."],
     ["Boyd Orr labs", "Isn't it great how they are open all the time?! I stay close to university and use them to book my holidays, bit cheeky, I know!"],
     ["First year student, bit lost", "I'm confused, do we need 120 credits for our whole year or just one semester? Cheers, Bob :)"],
