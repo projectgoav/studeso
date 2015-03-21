@@ -16,7 +16,7 @@ userNames = [
                 # Standard Users
                 "bat_man_fan123", "leifAzz", "stuck_student55", "johnno94",
                 "barry_the_bear", "xXDragonMasterXx", "gla.Noob.com", "bersty",
-                "ghastly"
+                "ghastly", "test"
             ]
 
 tags = [

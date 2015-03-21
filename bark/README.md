@@ -45,6 +45,7 @@ If you leave the USERNAME and PASSWORD blank Bark will still work. It is not req
 <h2>Test User Logins</h2>
 <ul>
 	<li> <b>Username</b> | <b>Password</b> </li>
-	<li> ghastly         | Test </li>
-	<li> stuck_student55 | Test </li>
+	<li> ghastly         | test </li>
+	<li> stuck_student55 | test </li>
+	<li> test 	     | test </li>
 </ul>
