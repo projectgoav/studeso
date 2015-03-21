@@ -1,11 +1,13 @@
 {% load staticfiles %}
 {% load markdown_deux_tags %}
 <div class="panel panel-default">
-  <div class="panel-heading"><h3 class="panel-title"><a href="{% url 'view_post' post.id post.slug %}">{{ post.title }}</a><small class="num-likes pull-right">{{ post_likes }} found this interesting</small></h3></div>
-  <div class="panel-body">{{ post.content|markdown }}</div>
+  <div class="panel-heading"><h3 class="panel-title"><a href="{% url 'view_post' post.id post.slug %}">{{ post.title|truncatechars:50 }}</a><small class="num-likes pull-right">{{ post_likes }} found this interesting</small></h3></div>
+  <div class="panel-body">{{ post.content|markdown|truncatewords_html:150 }}</div>
   <div class="panel-footer bark-tags">
     <b>Tags: </b>
-      <a class="user" href="{% url 'user_profile' post.author.user.username %}">@{{ post.author.user_tag }}</a>
+        {% if not post.anonymous %}
+                <a class="user" href={% url 'view_posts' post.author.user_tag %}>@{{ post.author.user_tag }}</a>
+        {% endif %}
         {% if post_inst_tag %}
                 <span> | </span><a class="inst" href={% url 'view_posts' post_inst_tag %}>@{{ post_inst_tag }}</a>
             {% endif %}
