@@ -10,7 +10,6 @@
 	<span>
 		{{ tag.name }}
         <form  id= "follow_tag" method="get" action="{% url 'follow_tag' tag %}">
-            {% csrf_token %}
             <button class="btn btn-primary" id="follow_tag">Follow This Tag</button>
         </form>
 			</span>
