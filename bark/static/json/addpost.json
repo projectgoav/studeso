@@ -1,0 +1,29 @@
+{"success":true,"result":
+  [{"selector":".help",
+    "title":"A Little Help from A Friend",
+    "content":"Here's a little tour of the features on the current page you're viewing!<br><br><b>Click </b> the handy link below, press <b>ESC</b> or <b>Click</b> anywhere outside this popover  to exit the tutorial.<br><br>Click <b>Help</b> at anytime to view this tutorial again!<br><br>Nagivate using the <b>Next</b> and <b>Prev</b> buttons or <b>Left</b> and <b>Right</b> arrow keys.",
+    "width":"500px",
+    "placement":"left",
+    "step" : "0"},
+
+    {"selector": "#id_title",
+      "title":"Title your Bark",
+      "content":"Add a descriptive title to your bark!",
+      "width":"400px",
+      "placement":"bottom",
+      "step" : "1"},
+
+    {"selector": "#id_content",
+      "title":"Bark content",
+      "content":"A Bark can be anything you want it to be! A question, something you found interesting or even a joke.<br><br>Barks are assigned <b>Tags</b> which define who will hear you Bark. <b>Tags</b> allow you and others to search for content in a particular content in the site.<br><br><b><u>Please Note</u>: Plese be mindful and only tag your Bark where you want it to be heard. There's no point in Barking about <i>your tastiest steak yet</i> under the tag <i>vegitarian</i><br><br>At Bark we promote a positive atmosphere. Please keep this in mind when barking.</b>",
+      "width":"400px",
+      "placement":"bottom",
+      "step" : "2"},
+
+    {"selector": "#tags",
+      "title":"Tags, Tags, Tags",
+      "content":"Add tags that are keywords associated with your Bark. Tagsare limited to 30 characters and don't require the leading '@' sign",
+      "width":"400px",
+      "placement":"bottom",
+      "step" : "3"}
+  ]}
