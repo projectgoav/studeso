@@ -1,0 +1,43 @@
+{"success":true,"result":
+  [{"selector":".help",
+    "title":"A Little Help from A Friend",
+    "content":"Here's a little tour of the features on the current page you're viewing!<br><br><b>Click </b> the handy link below, press <b>ESC</b> or <b>Click</b> anywhere outside this popover  to exit the tutorial.<br><br>Click <b>Help</b> at anytime to view this tutorial again!<br><br>Nagivate using the <b>Next</b> and <b>Prev</b> buttons or <b>Left</b> and <b>Right</b> arrow keys.",
+    "width":"500px",
+    "placement":"left",
+    "step":"0"},
+
+    {"selector": "#pHEAD",
+      "title":"Viewing a Post",
+      "content":"This is a post you're wanting to view. It shows you some information about it before showing you the content.<br><br><b>Views</b> - Number of people looking at post<br><b>Interesting Votes</b> - Number of people found your post interesting.",
+      "width":"400px",
+      "placement":"bottom",
+      "step":"1"},
+
+    {"selector": "#tiime",
+      "title":"Is this that old?",
+      "content":"We display when the post was created, just incase this information is out of date!",
+      "width":"300px",
+      "placement":"bottom",
+      "step":"2"},
+
+    {"selector": "#tHEAD",
+      "title":"Tags, Tags, Tags",
+      "content":"Clicking a tag name displays a list of posts with that tag attached. <br>Tags in GREEN take you to user profiles<br>Tags in REDare instituation Tags",
+      "width":"300px",
+      "placement":"bottom",
+      "step":"3"},
+
+    { "selector": ".like-post-btn",
+      "title":"Found it Interesting?",
+      "content":"Click the thumbs up image to asy you liked the post!",
+      "width":"300px",
+      "placement":"left",
+      "step":"4"},
+
+    {"selector": "#cHEAD",
+      "title":"Commenting",
+      "content":"All the comments are listed below. You can add one at the bottom of the page!",
+      "width":"500px",
+      "placement":"bottom",
+      "step":"5"}
+  ]}

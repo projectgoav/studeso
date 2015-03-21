@@ -13,7 +13,7 @@
 {% endif %}
 
 <h4 id="help-5"> Here are the Newest, Coolest Barks out there right now!</h4>
-
+<span id="help-6"></span>
 <b><a href="{% url 'add_post' %}">New Bark!!</a></b>
 
 <div id="help-4">
@@ -28,10 +28,16 @@
 {% endblock %}
 
 {% block js %}
+
+
 <script>
 $(".help").click(function(){
     bootstro.start('', {
+      {% if user.is_authenticated %}
+        url : "{% static 'json/indexA.json' %}",
+      {% else %}
         url : "{% static 'json/index.json' %}",
+      {% endif %}
     });
 });
 </script>

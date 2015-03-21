@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load postlist %}
+{% load staticfiles %}
 {% load bootstrap3 %}
 
 {% block title %}{{ tags.0.name }}{% endblock %}
@@ -9,7 +10,7 @@
 	{% for tag in tags %}
 	<span>
 		{{ tag.name }}
-        <form  id= "follow_tag" method="get" action="{% url 'follow_tag' tag %}">
+        <form  id="follow_tag" method="get" action="{% url 'follow_tag' tag %}">
             <button class="btn btn-primary" id="follow_tag">Follow This Tag</button>
         </form>
 			</span>
@@ -22,4 +23,14 @@
     {% if posts.has_other_pages %}
         {% bootstrap_pagination posts %}
     {% endif %}
+{% endblock %}
+
+{% block js %}
+<script>
+$(".help").click(function(){
+		bootstro.start('', {
+				url : "{% static 'json/posts.json' %}",
+		});
+});
+</script>
 {% endblock %}

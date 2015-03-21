@@ -28,10 +28,10 @@
       "placement":"bottom",
       "step" : "3"},
 
-    {"selector": "#user_form",
+    {"selector": "#form",
       "title":"Where do I Login?",
       "content":"Enter your username and password here to login to your Bark account!",
       "width":"800px",
-      "placement":"top",
+      "placement":"bottom",
       "step" : "4"}
   ]}

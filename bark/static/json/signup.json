@@ -14,7 +14,7 @@
       "step" : "1"},
 
 
-    {"selector": "#user_form",
+    {"selector": "#form",
       "title":"What do I need?",
       "content":"You'll need: <ul><li>A username -> that hasn't already registered to Bark</li><li>A .ac.uk email -> Bark is for students, so we keep it that way!</li><li>Account Password -> Keep you safe and secure</li></ul><br><b>Optional</b> Profile Picture -> It's nice to see who you are, but don't worry if you don't like seeing your face online you <b>aren't required</b> to give one. <i>You can change your image at anytime</i>",
       "width":"400px",
