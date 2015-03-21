@@ -14,8 +14,8 @@ userNames = [
                 "lDicks", "SCOTPAUL", "mmckay99", "projectgoav",
 
                 # Standard Users
-                "bat_man_fan123", "leifAzz", "stuck_student55", "johnno94",
-                "barry_the_bear", "xXDragonMasterXx", "gla.Noob.com", "bersty",
+                "john335", "leif-tango", "stuck_student55", "charlie94",
+                "179346852", "dragon-trainer", "chocolate-boy", "wehavemorefun",
                 "ghastly", "test"
             ]
 
@@ -27,6 +27,9 @@ tags = [
             "CS", "Computing", "leif", "twd", "artsandcrafts", "c++",
             "CS-1P", "WAD2", "JOOSE", "Maths-2P", "matrix",
             "codegolf", "python", "python-lists", "help", "java",
+            "c", "django", "php", "n-tier", "clientside", "server",
+            "university", "ADS", "AF2", "AdvancedProgramming",
+            "Sigma16"
         ]
 
 institutionTags = [
@@ -46,13 +49,21 @@ defaultPostData = [
     ["Django sucks"],
     ["Class banter"],
     ["Populate.py is hard"],
-    ["The Godfather - What a movie!"],
-    ["I love arts and crafts"],
+    ["Stuck with Sigma16!"],
+    ["Systems help"],
     ["Java sucks"],
     ["BinSort is tricky"],
     ["Python 3 is way better than 2"],
     ["Ruby on Rails > Python, right?!"],
-    ["Differece between Java and Javascript?"]
+    ["Differece between Java and Javascript?"],
+    ["ADS Lectures"],
+    ["Bit lost with n-tier architechtures"],
+    ["Did anyone hear Leif's joke this morning?!"],
+    ["Boyd Orr labs"],
+    ["First year student, bit lost"],
+    ["Check out this cool new language"],
+    ["Does anyone still use PHP?"],
+    ["Why is Django written in Python?"]
     ]
 
 # Adds some users to the application
