@@ -6,10 +6,19 @@
 <li class="small-l"><a href="#Inst"> View Institution Tags</a></li>
 
 {% if F %}
-<li class="small-l"><a href="#Tags">View Post Tags</a></li>
-{% if not FE %}
-<li class="side-heading title">Tags You Follow</li>
-{% endif %}
+  <li class="small-l"><a href="#Tags">View Post Tags</a></li>
+  {% if not FE %}
+    <li class="side-heading title">Tags You Follow</li>
+
+    {% for t in F %}
+      {% if t.color %}
+        <li><a class="special-tag {{ t.color }}" id="tag" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
+      {% else %}
+        <li><a id="tag" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
+      {% endif %}
+    {% endfor%}
+    <li class="small-l"><a href="#Top">Back to Top</a></li>
+  {% endif %}
 {% endif %}
 
 <a id="Tags"></a>

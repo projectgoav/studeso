@@ -220,7 +220,7 @@ def addPost(request):
                 if tag[-5:] == "ac.uk":
                     try:
                         inst_tag = InstitutionTag.objects.get(name=tag)
-                        if authorProfile.can_post_to_inst_tag(inst_tag):
+                        if authorProfile.canPostToTag(inst_tag):
                             PostTagging.objects.get_or_create(post=newPost, tag=inst_tag)
                             contextDictionary['inst_tag'] = inst_tag
                     except InstitutionTag.DoesNotExist:
@@ -250,7 +250,7 @@ def search(request):
         query = request.POST.get('query',None)
     else:
         query = ''
-        
+
     queryWords = query.strip().split(" ")
 
     posts = Post.objects.filter(
