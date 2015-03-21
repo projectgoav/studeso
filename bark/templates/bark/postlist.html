@@ -5,7 +5,9 @@
   <div class="panel-body">{{ post.content|markdown }}</div>
   <div class="panel-footer bark-tags">
     <b>Tags: </b>
-      <a class="user" href="{% url 'user_profile' post.author.user.username %}">@{{ post.author.user_tag }}</a>
+        {% if not post.anonymous %}
+                <a class="user" href={% url 'view_posts' post.author.user_tag %}>@{{ post.author.user_tag }}</a>
+        {% endif %}
         {% if post_inst_tag %}
                 <span> | </span><a class="inst" href={% url 'view_posts' post_inst_tag %}>@{{ post_inst_tag }}</a>
             {% endif %}
