@@ -3,9 +3,15 @@
  */
 
 $(document).ready(function(){
-    new Taggle('tags', {
+    var taggle = new Taggle('tags', {
         placeholder: 'Press return to add tag...',
         duplicateTagClass: 'bounce',
-        tabIndex: 1
+        tabIndex: 5,
+
+        onTagAdd: function(event, tag){
+            if(tag.length > 30){
+                taggle.remove(tag);
+            }
+        }
     });
 });

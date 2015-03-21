@@ -4,7 +4,7 @@ body{
 
 .navbar {  background-color:white; }
 
-#nav-top { padding-top:0; padding bottom:0; margin-top:0; margin-bottom:0;}
+#nav-top { padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:0;}
 
 .navbar .navbar .nav > li > a {
       background-color: white;
