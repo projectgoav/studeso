@@ -220,7 +220,7 @@ def addPost(request):
                 if tag[-5:] == "ac.uk":
                     try:
                         inst_tag = InstitutionTag.objects.get(name=tag)
-                        if authorProfile.canPostToTag(inst_tag):
+                        if authorProfile.can_post_to_inst_tag(inst_tag):
                             PostTagging.objects.get_or_create(post=newPost, tag=inst_tag)
                             contextDictionary['inst_tag'] = inst_tag
                     except InstitutionTag.DoesNotExist:
@@ -277,7 +277,12 @@ def like_post(request):
             post_id = int(request.POST['post_id'])
             author = UserProfile.objects.get(user=request.user)
             post = Post.objects.get(pk=post_id)
-            PostLike.objects.get_or_create(author=author, post=post)
+
+            post_like = post.postlike_set.filter(author=author)
+            if post_like.exists():
+                post_like.delete()
+            else:
+                PostLike.objects.get_or_create(author=author, post=post)
 
             return HttpResponse(post.postlike_set.count())
         except Post.DoesNotExist:
@@ -293,7 +298,12 @@ def like_comment(request):
             author = UserProfile.objects.get(user=request.user)
             post = Post.objects.get(pk=post_id)
             comment = post.comment_set.all()[comment_num]
-            CommentLike.objects.get_or_create(author=author, comment=comment)
+
+            comment_like = comment.commentlike_set.filter(author=author)
+            if comment_like.exists():
+                comment_like.delete()
+            else:
+                CommentLike.objects.get_or_create(author=author, comment=comment)
 
             return HttpResponse(comment.commentlike_set.count())
         except Post.DoesNotExist:

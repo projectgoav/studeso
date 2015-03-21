@@ -21,7 +21,7 @@ $(document).ready(function(){
             data: {post_id: postID, csrfmiddlewaretoken:csrf_token},
             success: function(data){
                 $('.post-like-num').html(data);
-                $('.like-post-btn').children().removeClass('glyphicon-thumbs-up').addClass('glyphicon-ok');
+                $('.like-post-btn').children().toggleClass('glyphicon-thumbs-up').toggleClass('glyphicon-ok');
 
             },
             error: function(data){
@@ -40,7 +40,7 @@ $(document).ready(function(){
                 data: {post_id: postID, comment_num:commentNum, csrfmiddlewaretoken:csrf_token},
                 success: function(data){
                     $('.comment-like-counter-' + commentNum).html(data);
-                    $(button).children().removeClass('glyphicon-thumbs-up').addClass('glyphicon-ok');
+                    $(button).children().toggleClass('glyphicon-thumbs-up').toggleClass('glyphicon-ok');
                 },
                 error: function(data){
                     alert("Like adding failed, try again");
