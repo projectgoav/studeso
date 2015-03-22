@@ -16,7 +16,7 @@
 
     <div class="panel panel-default">
         <div class="panel-body">
-            <form id="post_form" method="post" action="{% url 'add_post' '' %}">
+            <form id="post_form" method="post" action="{% url 'add_post' %}">
                 {% csrf_token %}
                 {% bootstrap_field form.title %}
                 {% bootstrap_field form.content %}
@@ -40,11 +40,6 @@ $(".help").click(function(){
         url : "{% static 'json/addpost.json' %}",
     });
 });
-</script>
-<!-- This script creates the JS variable "defaultTagList", which is used in
-    as the default value in the Taggle text entry -->
-<script type="text/javascript">
-    var defaultTagList = {{ defaultTagList | safe }}
 </script>
 
 <script src="{% static 'js/add_post.js' %}"></script>

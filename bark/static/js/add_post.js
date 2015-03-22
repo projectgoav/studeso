@@ -4,7 +4,6 @@
 
 $(document).ready(function(){
     var taggle = new Taggle('tags', {
-	tags: defaultTagList,
         placeholder: 'Press return to add tag...',
         duplicateTagClass: 'bounce',
         tabIndex: 5,
