@@ -5,7 +5,7 @@ import django
 import random
 
 #TODO import correct models here.
-from bark.models import UserProfile, Post, User, Tag, PostTagging, Comment, CommentLike
+from bark.models import UserProfile, Post, User, Tag, PostTagging, Comment, CommentLike, PostLike
 
 django.setup()
 
@@ -134,6 +134,15 @@ def addPosts():
             for user in allUsers:
                 if (random.randint(0, 1) == 1):
                     CommentLike.objects.get_or_create(author = user, comment = comment)
+
+        # Get some random users to like the post.
+        # We pretend each post in the site is visited by the first half of the user base,
+        # each user that visits it will randomly like or not like the post.
+        for postLikerIndex in range(0, random.randint(0, len(allUsers) / 2)):
+            postLiker = allUsers[postLikerIndex]
+
+            if (random.randint(0, 1) == 0):
+                PostLike.objects.get_or_create(author = postLiker, post = post)
 
     print str(len(defaultPostData)) + " posts added!\n"
 
