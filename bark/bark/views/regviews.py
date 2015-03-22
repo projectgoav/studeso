@@ -139,7 +139,7 @@ def signin(request):
             password = form.cleaned_data['password']
 
             # Attempt to login
-            user = authenticate(username=username, password=password)
+            user = authenticate(username = username, password = password)
             # If we've made it
             if user:
                 if user.is_active:
