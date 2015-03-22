@@ -29,7 +29,10 @@ tags = [
             "codegolf", "python", "python-lists", "help", "java",
             "c", "django", "php", "n-tier", "clientside", "server",
             "university", "ads", "af2", "advanced_programming",
-            "sigma16", "systems", "boredom",
+            "sigma16", "systems", "boredom", "javascript", "java-help",
+            "code-help", "python-help", "coding-careers", "codemonkey",
+            "banter", "lectures", "cs2t", "database", "postgre", "mysql",
+            "sqlite", "sqlite3", "sql"
         ]
 
 institutionTags = [
@@ -124,7 +127,6 @@ def addPosts():
         userIndex += 1
 
         for i in range(random.randint(0, len(tags) - 1)):
-            print tags[i]
             PostTagging.objects.create(post=post, tag = Tag.objects.get(name = tags[i]))
 
         for commentIndex in range(len(post_data[2])):

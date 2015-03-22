@@ -310,7 +310,7 @@ def search(request):
         return render(request, 'bark/search.html', contextDictionary)
 
     posts = Post.objects
-    # queryAndTerms might look like ["cs", "bark", "all python"], this means
+    # QueryAndTerms might look like ["cs", "bark", "all python"], this means
     # "cs" AND "bark" must appear, but then either of "all python" can appear.
 
     queryAndTerms = map(unicode.strip, query.strip().split("+"))
@@ -318,7 +318,7 @@ def search(request):
     for queryAndTerm in queryAndTerms:
         queryOrTerms = re.split("[| ]", queryAndTerm)
        
-        # posts starts out as all posts, then repeatedly gets filtered to include *any* posts
+        # Posts starts out as all posts, then repeatedly gets filtered to include *any* posts
         # matching each "AND" term.
         posts = posts.filter(
             reduce(operator.or_, (Q(tag__name__icontains = queryWord) for queryWord in queryOrTerms)) |
@@ -326,12 +326,12 @@ def search(request):
             reduce(operator.or_, (Q(title__icontains = queryWord) for queryWord in queryOrTerms))
             ).distinct().order_by('-rating')
 
-    # this code uses the "re" regex package to split the query string into words (by any punctuation),
+    # This code uses the "re" regex package to split the query string into words (by any punctuation),
     # then creates a regex that will match any of these words, and then uses name__iregex to see if the tag
     # name matches any of the query words. I had to use this as so far in Django there is no __iin query
     # (a case insensitive "in" query).
 
-    # the purpose of this variable is so if the user searches "python", the tag "python-list" will
+    # The purpose of this variable is so if the user searches "python", the tag "python-list" will
     # be suggested, but if they search "c", the tag "computing" will not be suggested.
     minimumLengthOfTagToFlagTagsContainingIt = 2
     tagWords = [word for word in re.split("[+| ]+", query) if word != '']
