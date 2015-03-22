@@ -385,8 +385,12 @@ def follow_tag(request,tagName):
 @login_required
 def unfollow_tag(request, tagName):
     if request.method == 'GET':
-        tag = Tag.objects.get(name=tagName)
-        userProfile = UserProfile.objects.get(user=request.user)
+        try:
+            tag = Tag.objects.get(name=tagName)
+            userProfile = UserProfile.objects.get(user=request.user)
+        except (Tag.DoesNotExist, UserProfile.DoesNotExist):
+            return redirect('index')
+
         try:
             TagFollowing.objects.get(user=userProfile, tag=tag).delete()
         except TagFollowing.DoesNotExist:
