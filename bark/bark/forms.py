@@ -127,7 +127,7 @@ class PasswordResetForm2(forms.Form):
 class PasswordChangeForm(forms.Form):
     old_pass = forms.CharField(label='Old Password', max_length=50, widget=forms.PasswordInput(), required=True)
     new_pass1 = forms.CharField(label='New Password', max_length=50, widget=forms.PasswordInput(), required=True)
-    new_pass2 = forms.CharField(label='New Passowrd (Again)', max_length=50, widget=forms.PasswordInput(), required=True)
+    new_pass2 = forms.CharField(label='New Password (Again)', max_length=50, widget=forms.PasswordInput(), required=True)
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
