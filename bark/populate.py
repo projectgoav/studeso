@@ -24,12 +24,12 @@ tags = [
             "admin", "bark", "all", "open",
 
             #Random Tags
-            "CS", "Computing", "leif", "twd", "artsandcrafts", "c++",
-            "CS-1P", "WAD2", "JOOSE", "Maths-2P", "matrix",
+            "cs", "computing", "leif", "twd", "artsandcrafts", "c++",
+            "cs-1p", "wad2", "joose", "maths-2p", "matrix",
             "codegolf", "python", "python-lists", "help", "java",
             "c", "django", "php", "n-tier", "clientside", "server",
-            "university", "ADS", "AF2", "AdvancedProgramming",
-            "Sigma16"
+            "university", "ADS", "AF2", "advanced_programming",
+            "sigma16", "systems", "boredom",
         ]
 
 institutionTags = [

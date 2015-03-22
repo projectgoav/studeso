@@ -4,7 +4,7 @@ from bark.models import UserProfile, Post, UserReset, Comment, getInstitution
 from django.views.generic.edit import CreateView
 
 
-# Get data for user when they sign up
+# get data for user when they sign up
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
 
@@ -12,14 +12,15 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('username', 'email', 'password')
 
-    #Required to check if the user has an ac.uk domain
-    def clean(self):    
+    # required to check if the user has an ac.uk domain
+    def clean(self):
         domain = getInstitution(self.cleaned_data.get('email'))
+
         if "ac.uk" not in domain:
             print "Invalid Education domain."
             self.add_error('email', "Invalid institution email given. You'll need one with .ac.uk to signup with bark.")
 
-# Get data for the User Profile
+# get data for the User Profile
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
@@ -27,7 +28,7 @@ class UserProfileForm(forms.ModelForm):
 
 class PostForm(forms.ModelForm):
     class Meta:
-        # Provide an association between PostForm and Post.
+        # provide an association between PostForm and Post.
         model = Post
         exclude = ('slug', 'views', 'author', 'creation_date', 'rating', 'tags')
 
@@ -42,7 +43,7 @@ class CommentForm(forms.ModelForm):
         exclude = ('author', 'post')
 
 
-# Login Form (as name suggests)
+# login Form (as name suggests)
 class LoginForm(forms.Form):
     username = forms.CharField(label='Username', max_length=50, required=True)
     password = forms.CharField(label='Password', max_length=50, widget=forms.PasswordInput(), required=True)

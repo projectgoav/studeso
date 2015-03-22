@@ -291,6 +291,8 @@ def addPost(request, url_extra=""):
     return render(request, 'bark/addPost.html', contextDictionary)
 
 # Search view
+maxNumberOfRelatedTags = 15
+
 def search(request):
     if request.method=="POST":
         query = request.POST.get('query',None)
@@ -319,13 +321,17 @@ def search(request):
     # name matches any of the query words. I had to use this as so far in Django there is no __iin query
     # (a case insensitive "in" query).
     tagWords = [word for word in re.split("[+| ]+", query) if word != '']
-    print tagWords
     possibleMatchingTags = Tag.objects.filter(name__iregex = r'(' + '|'.join(tagWords) + ')')
+
+    # For matching tags, order them by how similar the length is to the query string length.
+    orderedMatchingTags = sorted(
+        possibleMatchingTags,
+        key = lambda tag: abs(len(query) - len(tag.name)))[:maxNumberOfRelatedTags]
 
     contextDictionary = {
         'posts' : posts,
         'query' : query,
-        'tags' : possibleMatchingTags
+        'tags' : orderedMatchingTags
         }
 
     return render(request,'bark/search.html', contextDictionary)
