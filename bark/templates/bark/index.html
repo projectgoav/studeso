@@ -15,8 +15,6 @@
 <h4 id="help-5"> Here are the Newest, Coolest Barks out there right now!</h4>
 <span id="help-6"></span>
 
-<b><a href="{% url 'add_post' %}">New Bark!!</a></b>
-
 <form class="input-block-level" action="{% url 'add_post' %}">
     {% csrf_token %}
     <div class="form-group">
