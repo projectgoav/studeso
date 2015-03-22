@@ -25,11 +25,9 @@ def index(request):
 
         # If the user is logged in, filter post_list by tags that the user follows.
         userTagFollowings = TagFollowing.objects.filter(user = foundUserProfile)
-        
         userFollowedTags = [userTagFollowing.tag for userTagFollowing in userTagFollowings]
         
         post_list = post_list.filter(tag__name__in = userFollowedTags)
-                                   
     except UserProfile.DoesNotExist:
         pass
 
