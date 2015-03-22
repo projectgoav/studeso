@@ -135,9 +135,7 @@ class Tag(models.Model):
     slug = models.SlugField(editable=False)
     
     def save(self, *args, **kwargs):
-        # Run clean()
-        self.full_clean()
-
+        self.name = self.name.lower()
         self.slug = slugify(self.name)
 
         # Custom arg, that if we've updated the description, it's not given a default one...
@@ -150,10 +148,6 @@ class Tag(models.Model):
     def genDescription(self):
         self.description = "This is for discussing @" + self.name + "."
 
-    def clean(self):
-        # Remove any spaces from name
-        if self.name:
-            self.name.replace(" ", "")
 
     def __unicode__(self):
         return self.name

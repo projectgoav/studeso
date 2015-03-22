@@ -157,3 +157,26 @@ class LikeTest(TestCase):
 
         CommentLike.objects.create(author=post.author, comment=comment)
         self.assertRaises(IntegrityError, CommentLike.objects.create, author=post.author, comment=comment)
+
+
+class TagTest(TestCase):
+    def setUp(self):
+        test_user = User.objects.create(username='test_student2', password='test', email='test@USER.gla.ac.uk')
+        UserProfile.objects.create(user=test_user)
+
+    def test_tags_are_lowercase(self):
+        tag = Tag.objects.create(name="HELLO")
+
+        self.assertEquals(tag.name, "hello")
+
+    def test_institution_tags_are_lowercase(self):
+        test_user = User.objects.get(username='test_student2')
+        test_user = UserProfile.objects.get(user=test_user)
+
+        self.assertEquals(test_user.institution_tag.name, 'user.gla.ac.uk')
+
+    def test_user_can_post_to_lowered_institution_tag(self):
+        test_user = User.objects.get(username='test_student2')
+        test_user = UserProfile.objects.get(user=test_user)
+
+        self.assertTrue(test_user.can_post_to_inst_tag(InstitutionTag.objects.get(name='user.gla.ac.uk')))
