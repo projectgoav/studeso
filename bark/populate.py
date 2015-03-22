@@ -5,7 +5,7 @@ import django
 import random
 
 #TODO import correct models here.
-from bark.models import UserProfile, Post, User, Tag, PostTagging, Comment
+from bark.models import UserProfile, Post, User, Tag, PostTagging, Comment, CommentLike
 
 django.setup()
 
@@ -52,7 +52,7 @@ defaultPostData = [
     ["Java sucks", "Why is everything a reference? And why are integer types autoboxed!?",["Java definetly does suck!", "I know right?! Why isn't there a &special syntax for references!"]],
     ["BinSort is tricky", "What's the advantage of binary sort over merge sort?", ["I think Binary Sort (and binary search?) can run in Log(n) times- although I'm not sure what that means", "I think n is the size of the data set?"]],
     ["Python 3 is way better than 2", "Print isn't a statement! This isn't BBC-BASIC, I'm glad Python is catching up with the more modern languages",["Yeah Python 3 RULES!:P", "Yeah in most languages it's a function", "I kind of liked Python 2..."]],
-    ["Differece between Java and Javascript?", "I have been taking a course in Java but it seems so different to JS, why doesn't \"var\" work in Java?", ["In Java, variable types have to be declared, so you have to say 'Integer x'", "No idea, I thought they were the same thing!"]],
+    ["Difference between Java and Javascript?", "I have been taking a course in Java but it seems so different to JS, why doesn't \"var\" work in Java?", ["In Java, variable types have to be declared, so you have to say 'Integer x'", "No idea, I thought they were the same thing!"]],
     ["ADS Lectures", "I've really been enjoying the ADS lectures, that example about the sailing competition was really interesting", ["Yeah! Wasn't it!", "It was a shame half the class didn't show up...","I really enjoy ADS, it's a more theory based course than WAD"]],
     ["Bit lost with n-tier architectures", "Can anyone help me out?", ["I think n-tier is where you can have many middleware units?", "Not sure- maybe ask @leif?"]],
     ["Did anyone hear Leif's joke this morning?!", "Something about alcohol- I found this really offensive.", ["Aw don't be a jelly, it's just banter!", "I think he's hilarious!", "He kind of scares me sometimes..."]],
@@ -127,7 +127,13 @@ def addPosts():
             PostTagging.objects.create(post=post, tag=Tag.objects.get(name=tags[i]))
 
         for commentIndex in range(len(post_data[2])):
-            Comment.objects.create(author = allUsers[userIndex % len(allUsers)], post = post, content=post_data[2][commentIndex])
+            author = allUsers[random.randint(0, len(allUsers) - 1)]
+
+            comment = Comment.objects.create(author = author, post = post, content=post_data[2][commentIndex])
+
+            for user in allUsers:
+                if (random.randint(0, 1) == 1):
+                    CommentLike.objects.get_or_create(author = user, comment = comment)
 
     print str(len(defaultPostData)) + " posts added!\n"
 
