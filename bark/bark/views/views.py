@@ -16,9 +16,24 @@ numberOfTopPosts = 10
 # Index Page
 # Returns a welcome message
 def index(request):
-    post_list = Post.objects.order_by('-rating')
+    post_list = Post.objects
 
-    paginator = Paginator(post_list, numberOfTopPosts)
+    # First, check the user is logged in.
+    foundUserProfile = None
+    try:
+        foundUserProfile = UserProfile.objects.get(user = request.user.id)
+
+        # If the user is logged in, filter post_list by tags that the user follows.
+        userTagFollowings = TagFollowing.objects.filter(user = foundUserProfile)
+        
+        userFollowedTags = [userTagFollowing.tag for userTagFollowing in userTagFollowings]
+        
+        post_list = post_list.filter(tag__name__in = userFollowedTags)
+                                   
+    except UserProfile.DoesNotExist:
+        pass
+
+    paginator = Paginator(post_list.order_by('-rating').distinct(), numberOfTopPosts)
 
     page = request.GET.get('page')
     try:
