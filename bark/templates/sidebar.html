@@ -16,7 +16,7 @@
       {% if t.color %}
         <li><a class="special-tag {{ t.color }}" id="tag" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
       {% else %}
-        <li><a id="tag" href="{% url 'view_posts' t.name %}">{{ t.name }} <small>(x)</small></a></li>
+        <li><a id="tag" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
       {% endif %}
     {% endfor%}
     <li class="small-l"><a href="#Top">Back to Top</a></li>
