@@ -12,7 +12,6 @@ def get_sidebar(user):
     #Getting if the user has logged in
     
     if user.is_authenticated():
-        print user
         user_profile = UserProfile.objects.get(user=user)
         f_tags = TagFollowing.objects.all().filter(user=user_profile)
         followed = [ ]
@@ -30,7 +29,6 @@ def get_sidebar(user):
                 t_dic['color'] = "inst"
             followed.append(t_dic)
 
-        print followed
     #Many happy returns
         if (len(followed) == 0):
             return { 'U' : users, 'I' : inst, 'A' : tags, 'F' : followed, 'FE' : { }}
