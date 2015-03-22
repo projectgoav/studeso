@@ -10,12 +10,14 @@ def get_sidebar(user):
     inst = Tag.objects.all().filter(id__in=InstitutionTag.objects.all())
 
     #Getting if the user has logged in
+    
     if user.is_authenticated():
         user_profile = UserProfile.objects.get(user=user)
         f_tags = TagFollowing.objects.all().filter(user=user_profile)
         followed = [ ]
-
+        
         #Get all the tags they follow, if any and add them to a dictionary for template
+        
         for tag in f_tags:
             t_dic = { }
             tag_o = Tag.objects.get(id=tag.tag_id)
@@ -27,6 +29,7 @@ def get_sidebar(user):
                 t_dic['color'] = "inst"
             followed.append(t_dic)
 
+        print followed
     #Many happy returns
         if (len(followed) == 0):
             return { 'U' : users, 'I' : inst, 'A' : tags, 'F' : followed, 'FE' : { }}
