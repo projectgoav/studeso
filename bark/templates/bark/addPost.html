@@ -6,9 +6,7 @@
 {% load markdown_deux_tags %}
 
 {% block script %}
-    <script src="{% static 'taggle/assets/js/taggle.min.js' %}"></script>
     <link href="{% static 'taggle/assets/css/taggle.min.css' %}" rel="stylesheet"/>
-    <script src="{% static 'js/add_post.js' %}"></script>
     <link href="{% static 'css/add_post.css' %}" rel="stylesheet"/>
 {% endblock %}
 {% block title %}Add a Bark!{% endblock %}
@@ -43,4 +41,7 @@ $(".help").click(function(){
     });
 });
 </script>
+
+<script src="{% static 'js/add_post.js' %}"></script>
+<script src="{% static 'taggle/assets/js/taggle.min.js' %}"></script>
 {% endblock %}
