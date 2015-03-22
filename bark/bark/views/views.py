@@ -273,7 +273,8 @@ def search(request):
     # then creates a regex that will match any of these words, and then uses name__iregex to see if the tag
     # name matches any of the query words. I had to use this as so far in Django there is no __iin query
     # (a case insensitive "in" query).
-    possibleMatchingTags = Tag.objects.filter(name__iregex = r'(' + '|'.join(re.split("[+| ]", query)) + ')')
+    tagWords = re.split("[+| ]+", query)
+    possibleMatchingTags = Tag.objects.filter(name__iregex = r'(' + '|'.join(tagWords) + ')')
 
     contextDictionary = {
         'posts' : posts,
