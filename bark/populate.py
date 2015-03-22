@@ -126,7 +126,7 @@ def addPosts():
         print "\t > " + str(post)
         userIndex += 1
 
-        for i in range(random.randint(0, len(tags) - 1)):
+        for i in range(random.randint(0, len(tags) / 2)):
             PostTagging.objects.create(post=post, tag = Tag.objects.get(name = tags[i]))
 
         for commentIndex in range(len(post_data[2])):
