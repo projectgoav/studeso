@@ -34,7 +34,7 @@ urlpatterns = patterns('',
                        url(r'^bark/(?P<post_id>[\w-]+)/(?P<post_slug>[\w-]+)/', views.viewPost, name='view_post'),
                        #
                        # #Add new Bark
-                       url(r'^new/?(.*)', views.addPost, name = 'add_post'),
+                       url(r'^new/(.*)?$', views.addPost, name = 'add_post'),
                        #
                        # #Search
                        # #Followed by query string or some form of search regex
