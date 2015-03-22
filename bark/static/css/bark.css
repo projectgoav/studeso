@@ -17,10 +17,11 @@ body{
                       height:30px;
                       width:60px;
  }
-
-#tag:hover { background-color:#FFB455; }
+#nav-top { width:100%;}
 
 .side-heading { text-align: center; }
+
+#tags a:hover {background-color:#FFB455; }
 
 
 /* Class for special tag, making it italic */
