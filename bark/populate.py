@@ -11,7 +11,7 @@ django.setup()
 
 userNames = [
                 # Admins
-                "lDicks", "SCOTPAUL", "mmckay99", "projectgoav",
+                "ldicks", "scotpaul", "mmckay99", "projectgoav",
 
                 # Standard Users
                 "john335", "leif-tango", "stuck_student55", "charlie94",
@@ -28,7 +28,7 @@ tags = [
             "cs-1p", "wad2", "joose", "maths-2p", "matrix",
             "codegolf", "python", "python-lists", "help", "java",
             "c", "django", "php", "n-tier", "clientside", "server",
-            "university", "ADS", "AF2", "advanced_programming",
+            "university", "ads", "af2", "advanced_programming",
             "sigma16", "systems", "boredom",
         ]
 
@@ -100,7 +100,7 @@ def addTags():
 
     for tag in tags:
         print "\t > " + tag
-        Tag.objects.get_or_create(name=tag)
+        Tag.objects.get_or_create(name = tag)
 
     print str(len(tags)) + " tags added!\n"
 
@@ -123,8 +123,9 @@ def addPosts():
         print "\t > " + str(post)
         userIndex += 1
 
-        for i in range(random.randint(0, len(tags)-1)):
-            PostTagging.objects.create(post=post, tag=Tag.objects.get(name=tags[i]))
+        for i in range(random.randint(0, len(tags) - 1)):
+            print tags[i]
+            PostTagging.objects.create(post=post, tag = Tag.objects.get(name = tags[i]))
 
         for commentIndex in range(len(post_data[2])):
             author = allUsers[random.randint(0, len(allUsers) - 1)]

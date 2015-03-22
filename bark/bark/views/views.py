@@ -54,7 +54,7 @@ def index(request):
 
 def userprofile(request, username):
     try:
-        user = User.objects.get(username=username)
+        user = User.objects.get(username__iexact = username)
     except:
         return render(request, 'bark/profile.html', {'NOT_FOUND' : True})
 
@@ -67,9 +67,12 @@ def userprofile(request, username):
     #Get all user info for the Template
     context_dic['bio'] = user.userprofile.user_tag.description
     context_dic['img'] = user.userprofile.profile_picture
-    context_dic['username'] = username
+    context_dic['username'] = user.username
 
-    posts = Post.objects.all().filter(author=user.userprofile).exclude(anonymous=True).order_by('-rating')[:numberOfTopPosts]
+    context_dic['usertag'] = user.username.lower()
+
+    posts = Post.objects.all().filter(author = user.userprofile)\
+        .exclude(anonymous=True).order_by('-rating')[:numberOfTopPosts]
 
     context_dic['posts'] = posts
     context_dic['post_tags'] = { }

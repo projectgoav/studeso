@@ -8,6 +8,7 @@ from django.views.generic.edit import CreateView
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
 
+
     class Meta:
         model = User
         fields = ('username', 'email', 'password')
