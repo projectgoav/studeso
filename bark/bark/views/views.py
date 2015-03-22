@@ -10,6 +10,7 @@ from functools import reduce
 
 import re
 import operator
+import unicodedata
 
 numberOfTopPosts = 10
 
@@ -226,11 +227,10 @@ def viewPost(request, post_id, post_slug):
 
 
 @login_required
-def addPost(request):
+def addPost(request, url_extra=""):
     contextDictionary = {}
 
     if request.method == 'POST':
-        print request.POST
         form = PostForm(request.POST)
 
         if form.is_valid():
@@ -273,8 +273,19 @@ def addPost(request):
             print form.errors
 
     else:
+        # Parse the tag names (if any), so we can autofill our
+        # Taggle input field with them.
+        tag_names = url_extra.split('/')
+        if tag_names[-1] == '':
+            tag_names = tag_names[:-1]
+
         form = PostForm()
 
+        # Convert the unicode list of tag names to ASCII.
+        tagNamesAsList = [normalisedString.encode('ascii', 'ignore') for normalisedString in tag_names]
+        
+        contextDictionary['defaultTagList'] = tagNamesAsList 
+        
     contextDictionary['form'] = form
 
     return render(request, 'bark/addPost.html', contextDictionary)
