@@ -42,25 +42,25 @@ institutionTags = [
         ]
 
 defaultPostData = [
-    ["C++ Help", "Should I learn C or C++ first?"],
-    ["Python Stuck", "What does the % operator mean in Python? I heard it means modulus for C++, is it the same?"],
-    ["Django sucks", "I've been using Ruby on Rails and Ruby's functional programming is just so much easier than Python's."],
-    ["Class banter", "Who would have guessed that he was eating a sandwich in AF2!"],
-    ["Populate.py is hard", "I can't think of sample data for the population script- can I scrape data from Reddit?"],
-    ["Stuck with Sigma16!", "How can I implement stacks in Sigma16? Is there a special operation type, like x86?"],
-    ["Systems help", "I'm really stuck with Sigma16 and I can't find it on Google, does anyone know where I can get a copy from?"],
-    ["Java sucks", "Why is everything a reference? And why are integer types autoboxed!?"],
-    ["BinSort is tricky", "What's the advantage of binary sort over merge sort?"],
-    ["Python 3 is way better than 2", "Print isn't a statement! This isn't BBC-BASIC, I'm glad Python is catching up with the more modern languages"],
-    ["Differece between Java and Javascript?", "I have been taking a course in Java but it seems so different to JS, why doesn't \"var\" work in Java?"],
-    ["ADS Lectures", "I've really been enjoying the ADS lectures, that example about the sailing competition was really interesting"],
-    ["Bit lost with n-tier architectures", "Can anyone help me out?"],
-    ["Did anyone hear Leif's joke this morning?!", "Something about alcohol- I found this really offensive."],
-    ["Boyd Orr labs", "Isn't it great how they are open all the time?! I stay close to university and use them to book my holidays, bit cheeky, I know!"],
-    ["First year student, bit lost", "I'm confused, do we need 120 credits for our whole year or just one semester? Cheers, Bob :)"],
-    ["Check out this cool new language", "Haskell is a functional programming lanaguage and it's really great, but really hard to get my head around. Has anyone got any experience with it?"],
-    ["Does anyone still use PHP?", "I once heard PHP called a 'write once, never read' lanaguge! Hilarous!"],
-    ["Why is Django written in Python?", "Surely a compiled language such as Java or a functional language would suit the request-response paradigm better?"]
+    ["C++ Help", "Should I learn C or C++ first?", ["I'd go with C first, as C++ is derived from C, it's a natural progression!:)", "C++: nobody uses C anymore", "Why not just learn BCPL?"]],
+    ["Python Stuck", "What does the % operator mean in Python? I heard it means modulus for C++, is it the same?", ["I think it's also the modulus operator? Not 100% sure though as I think operators can be overloaded"]],
+    ["Django sucks", "I've been using Ruby on Rails and Ruby's functional programming is just so much easier than Python's.", ["Django is amazing! Have you read Tango With Django? It really helped me understand the API"]],
+    ["Class banter", "Who would have guessed that he was eating a sandwich in AF2!",["I know haha, hilarious!", "Thought it was a wrap?", "I didn't understand the lecture at all... too distracted! :P"]],
+    ["Populate.py is hard", "I can't think of sample data for the population script- can I scrape data from Reddit?",[ "I think scraping data from websites is harder than you think- just be imaginative and come up with your own posts?"]],
+    ["Stuck with Sigma16!", "How can I implement stacks in Sigma16? Is there a special operation type, like x86?", ["No idea, I don't think there is a special instruction", "No, it's a RISC instruction set", "What's RISC?"]],
+    ["Systems help", "I'm really stuck with Sigma16 and I can't find it on Google, does anyone know where I can get a copy from?", ["No I think it's the lecturer's own project", "I saw someting similar on the MIT website?"]],
+    ["Java sucks", "Why is everything a reference? And why are integer types autoboxed!?",["Java definetly does suck!", "I know right?! Why isn't there a &special syntax for references!"]],
+    ["BinSort is tricky", "What's the advantage of binary sort over merge sort?", ["I think Binary Sort (and binary search?) can run in Log(n) times- although I'm not sure what that means", "I think n is the size of the data set?"]],
+    ["Python 3 is way better than 2", "Print isn't a statement! This isn't BBC-BASIC, I'm glad Python is catching up with the more modern languages",["Yeah Python 3 RULES!:P", "Yeah in most languages it's a function", "I kind of liked Python 2..."]],
+    ["Differece between Java and Javascript?", "I have been taking a course in Java but it seems so different to JS, why doesn't \"var\" work in Java?", ["In Java, variable types have to be declared, so you have to say 'Integer x'", "No idea, I thought they were the same thing!"]],
+    ["ADS Lectures", "I've really been enjoying the ADS lectures, that example about the sailing competition was really interesting", ["Yeah! Wasn't it!", "It was a shame half the class didn't show up...","I really enjoy ADS, it's a more theory based course than WAD"]],
+    ["Bit lost with n-tier architectures", "Can anyone help me out?", ["I think n-tier is where you can have many middleware units?", "Not sure- maybe ask @leif?"]],
+    ["Did anyone hear Leif's joke this morning?!", "Something about alcohol- I found this really offensive.", ["Aw don't be a jelly, it's just banter!", "I think he's hilarious!", "He kind of scares me sometimes..."]],
+    ["Boyd Orr labs", "Isn't it great how they are open all the time?! I stay close to university and use them to book my holidays, bit cheeky, I know!", ["It's ALWAYS busy, especially with people on Facebook...", "I think it's a great place but I wish you could eat and drink..."]],
+    ["First year student, bit lost", "I'm confused, do we need 120 credits for our whole year or just one semester? Cheers, Bob :)", "Hi Bob, yeah it's just for the year.", "120 credits per semester?! I'm going to need a time turner! :P", "Think it's just for the year mate..."],
+    ["Check out this cool new language", "Haskell is a functional programming lanaguage and it's really great, but really hard to get my head around. Has anyone got any experience with it?", ["I read a good book- Learn you a Haskell or something?", "Haskell is GREAT for multi-core systems! When functions don't have side effects parallelism is trivial"]],
+    ["Does anyone still use PHP?", "I once heard PHP called a 'write once, never read' lanaguge! Hilarous!",["I don't think PHP is used in industry much anymore", "My cousin uses PHP in his job, but I think he would prefer Python."]],
+    ["Why is Django written in Python?", "Surely a compiled language such as Java or a functional language would suit the request-response paradigm better?", ["A lot of the Django functions rely on reflection- and Java's reflection is a bit poor...", "Yeah agreed! I'm going to write Javango! :p"]]
     ]
 
 # Adds some users to the application
@@ -126,8 +126,8 @@ def addPosts():
         for i in range(random.randint(0, len(tags)-1)):
             PostTagging.objects.create(post=post, tag=Tag.objects.get(name=tags[i]))
 
-        Comment.objects.create(author=allUsers[userIndex % len(allUsers)], post=post, content="This is a great post!")
-        Comment.objects.create(author=allUsers[(userIndex + 1) % len(allUsers)], post=post, content="Agreed!")
+        for commentIndex in range(len(post_data[2])):
+            Comment.objects.create(author = allUsers[userIndex % len(allUsers)], post = post, content=post_data[2][commentIndex])
 
     print str(len(defaultPostData)) + " posts added!\n"
 
