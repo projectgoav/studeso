@@ -100,7 +100,7 @@ def viewPosts(request, url_extra):
 
         foundUserProfile = None
         try:
-            foundUserProfile = UserProfile.objects.get(user = request.user)
+            foundUserProfile = UserProfile.objects.get(user = request.user.id)
 
             for tagIndex in range(0, len(tags)):
                 tagFollowing = None
