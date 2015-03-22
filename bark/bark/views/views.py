@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from functools import reduce
 
+import re
 import operator
 
 numberOfTopPosts = 10
@@ -251,16 +252,21 @@ def search(request):
     else:
         query = ''
 
-    queryWords = query.strip().split(" ")
+    posts = Post.objects
+    # cs, bark, all python
+    # or "all python"
+    queryAndTerms = map(unicode.strip, query.strip().split("+"))
 
-    posts = Post.objects.filter(
-        reduce(operator.or_, (Q(tag__name__contains = queryWord) for queryWord in queryWords)) |
-        reduce(operator.or_, (Q(content__contains = queryWord) for queryWord in queryWords)) |
-        reduce(operator.or_, (Q(title__contains = queryWord) for queryWord in queryWords))
-        ).distinct().order_by('-rating')
+    for queryAndTerm in queryAndTerms:
+        queryOrTerms = queryAndTerm.split(" ")
+       
+        posts = posts.filter(
+            reduce(operator.or_, (Q(tag__name__icontains = queryWord) for queryWord in queryOrTerms)) |
+            reduce(operator.or_, (Q(content__icontains = queryWord) for queryWord in queryOrTerms)) |
+            reduce(operator.or_, (Q(title__icontains = queryWord) for queryWord in queryOrTerms))
+            ).distinct().order_by('-rating')
 
-
-    possibleMatchingTags = Tag.objects.filter(name__in=queryWords)
+    possibleMatchingTags = Tag.objects.filter(name__iregex = r'(' + '|'.join(re.findall(r"[\w']+", query)) + ')')
 
     contextDictionary = {
         'posts' : posts,
