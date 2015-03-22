@@ -90,7 +90,7 @@ class PasswordResetForm2(forms.Form):
     username = forms.CharField(label='Username', max_length=50, required=True)
     code = forms.CharField(label='Reset Code', required=True)
     new_pass1 = forms.CharField(label='New Password', max_length=50, widget=forms.PasswordInput(), required=True)
-    new_pass2 = forms.CharField(label='New Passowrd (Again)', max_length=50, widget=forms.PasswordInput(), required=True)
+    new_pass2 = forms.CharField(label='New Password (Again)', max_length=50, widget=forms.PasswordInput(), required=True)
 
 
     def clean(self):
