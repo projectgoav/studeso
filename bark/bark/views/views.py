@@ -266,6 +266,10 @@ def search(request):
             reduce(operator.or_, (Q(title__icontains = queryWord) for queryWord in queryOrTerms))
             ).distinct().order_by('-rating')
 
+    # This code uses the "re" regex package to split the query string into words (by any punctuation),
+    # then creates a regex that will match any of these words, and then uses name__iregex to see if the tag
+    # name matches any of the query words. I had to use this as so far in Django there is no __iin query
+    # (a case insensitive "in" query).
     possibleMatchingTags = Tag.objects.filter(name__iregex = r'(' + '|'.join(re.findall(r"[\w']+", query)) + ')')
 
     contextDictionary = {
