@@ -16,6 +16,7 @@ def get_sidebar(user):
         followed = [ ]
 
         #Get all the tags they follow, if any and add them to a dictionary for template
+
         for tag in f_tags:
             t_dic = { }
             tag_o = Tag.objects.get(id=tag.tag_id)

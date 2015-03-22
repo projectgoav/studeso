@@ -16,9 +16,22 @@ numberOfTopPosts = 10
 # Index Page
 # Returns a welcome message
 def index(request):
-    post_list = Post.objects.order_by('-rating')
+    post_list = Post.objects
 
-    paginator = Paginator(post_list, numberOfTopPosts)
+    # First, check the user is logged in.
+    foundUserProfile = None
+    try:
+        foundUserProfile = UserProfile.objects.get(user = request.user.id)
+
+        # If the user is logged in, filter post_list by tags that the user follows.
+        userTagFollowings = TagFollowing.objects.filter(user = foundUserProfile)
+        userFollowedTags = [userTagFollowing.tag for userTagFollowing in userTagFollowings]
+        
+        post_list = post_list.filter(tag__name__in = userFollowedTags)
+    except UserProfile.DoesNotExist:
+        pass
+
+    paginator = Paginator(post_list.order_by('-rating').distinct(), numberOfTopPosts)
 
     page = request.GET.get('page')
     try:
@@ -97,6 +110,27 @@ def viewPosts(request, url_extra):
         queryResults = Post.objects.order_by('-rating')
     else:
         tags = Tag.objects.filter(name__in=tag_names)
+
+        foundUserProfile = None
+        try:
+            foundUserProfile = UserProfile.objects.get(user = request.user.id)
+
+            for tagIndex in range(0, len(tags)):
+                tagFollowing = None
+                try:
+                    tagFollowing = TagFollowing.objects.get(user = foundUserProfile, tag = tags[tagIndex])
+                except:
+                    tagFollowing = None
+
+                tags[tagIndex].followed_by_user = (tagFollowing != None)
+                                   
+        except UserProfile.DoesNotExist:
+            # If we can't find the user profile (i.e. nobody is logged in),
+            # then we just say that the "user" follows ALL the tags.
+            # tagsAreFollowedByUser = [True] * len(tags)               
+            for tagIndex in range(0, len(tags)):
+                tags[tagIndex].followed_by_user = False
+
         # The django.db.models.Q class is an object used
         # to encapsulate a collection of field lookups,
         # a more complex query object than a basic query.
@@ -273,7 +307,9 @@ def search(request):
     # then creates a regex that will match any of these words, and then uses name__iregex to see if the tag
     # name matches any of the query words. I had to use this as so far in Django there is no __iin query
     # (a case insensitive "in" query).
-    possibleMatchingTags = Tag.objects.filter(name__iregex = r'(' + '|'.join(re.findall(r"[\w']+", query)) + ')')
+    tagWords = [word for word in re.split("[+| ]+", query) if word != '']
+    print tagWords
+    possibleMatchingTags = Tag.objects.filter(name__iregex = r'(' + '|'.join(tagWords) + ')')
 
     contextDictionary = {
         'posts' : posts,
@@ -334,6 +370,15 @@ def follow_tag(request,tagName):
         userProfile = UserProfile.objects.get(user=request.user)
         TagFollowing.objects.get_or_create(user=userProfile, tag=tag)
     return redirect('view_posts', tagName)
+
+@login_required
+def unfollow_tag(request, tagName):
+    if request.method == 'GET':
+        tag = Tag.objects.get(name=tagName)
+        userProfile = UserProfile.objects.get(user=request.user)
+        TagFollowing.objects.get(user=userProfile, tag=tag).delete()
+
+    return redirect('index')
 
 def about(request):
     context_dict={}

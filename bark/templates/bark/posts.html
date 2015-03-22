@@ -6,13 +6,19 @@
 {% block title %}{{ tags.0.name }}{% endblock %}
 
 {% block body_block %}
-<h2>Tags:
+<h2>Tag{% if tags|length != 1 %}s{% endif %}:
 	{% for tag in tags %}
 	<span>
 		{{ tag.name }}
+        {% if not tag.followed_by_user %}
         <form  id="follow_tag" method="get" action="{% url 'follow_tag' tag %}">
             <button class="btn btn-primary" id="follow_tag">Follow This Tag</button>
         </form>
+        {% else %}
+        <form id="follow_tag" method="get" action="{% url 'unfollow_tag' tag %}">
+            <button class="btn btn-primary" id="follow_tag">Unfollow This Tag</button>
+        </form>
+        {% endif %}
 			</span>
 	{% endfor %}
 </h2>

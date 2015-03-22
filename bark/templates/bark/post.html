@@ -48,7 +48,7 @@
 
         {% if user.is_authenticated %}
             {% csrf_token %}
-                <div class="pull-right" id="like">
+                <div class="pull-right" id="post-like">
                 {% buttons %}
                     <button class="like-post-btn" type="submit">
                         {% if post_liked %}
@@ -67,12 +67,11 @@
 
     {% for comment in comments %}
         <div class="panel panel-default">
-            <div class="small panel-heading">{{ comment.creation_date }}</div>
+            <div class="small panel-heading">{{ comment.creation_date }}<span class="pull-right small"><span class="comment-like-counter-{{ forloop.counter }}">{{ comment.commentlike_set.all|length }}</span> found this helpful</span></div>
             <div class="panel-body">{{ comment.content|markdown }}</div>
             <div class="panel-footer bark-tags">
                 <a href={% url 'user_profile' comment.author %} class="user">@{{ comment.author }}</a>
-                    <span class="pull-right small"><span class="comment-like-counter-{{ forloop.counter }}">{{ comment.commentlike_set.all|length }}</span> found this helpful
-                        <div class="pull-right small" id="like">
+                        <div class="pull-right small">
                         {% if user.is_authenticated %}
                             {% buttons %}
                                 <button class="comment-like comment-like-{{ forloop.counter }} like-btn" type="submit">
@@ -85,7 +84,6 @@
                             {% endbuttons %}
                         {% endif %}
                         </div>
-                    </span>
             </div>
         </div>
     {% endfor %}
@@ -105,6 +103,9 @@
             </div>
         </form>
     {% endif %}
+
+  </div>
+
 {% else %}
     <h2>No post exists!</h2>
 {% endif %}

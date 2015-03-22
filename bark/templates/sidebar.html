@@ -1,58 +1,55 @@
 {% load staticfiles %}
-<ul class="nav nav-sidebar">
-<a id="Top"></a>
+<ul class="nav nav-sidebar" id="tags">
 <li class="side-heading title"><b>Tag List</b></li>
 <li class="small-l"><a href="#Users">View User Tags</a></li>
 <li class="small-l"><a href="#Inst"> View Institution Tags</a></li>
 
-<!-- If user has logged in, display options if they havge followed tags
+<!-- If user has logged in, display options if they have followed tags
      If not, just leave blank and list all the tags -->
 
 {% if F %}
-  <li class="small-l"><a href="#Tags">View Post Tags</a></li>
+  <li class="small-l"><a href="#pTags">View Post Tags</a></li>
   {% if not FE %}
-    <li class="side-heading title">Tags You Follow</li>
+    <li class="side-heading title"><b>Tags You Follow</b></li>
     {% for t in F %}
       {% if t.color %}
-        <li><a class="special-tag {{ t.color }}" id="tag" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
+        <li><a class="speical-tag {{ t.color }}" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
       {% else %}
-        <li><a id="tag" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
+        <li><a href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
       {% endif %}
     {% endfor%}
-    <li class="small-l"><a href="#Top">Back to Top</a></li>
+    <li class="small-l"><a href="#tags">Back to Top</a></li>
   {% endif %}
 {% endif %}
 
 <!-- List all other tags with sidebar navigation inline -->
 
-<a id="Tags"></a>
-<li class="side-heading title">Post Tags</li>
+
+<li class="side-heading title" id="pTags">Post Tags</li>
 {% if A %}
     {% for t in A %}
-        <li><a id="tag" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
+        <li><a class="tag" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
     {% endfor %}
 {% else %}
     <li> <strong >There are no Tags</strong></li>
 {% endif %}
-<li class="small-l"><a href="#Top">Back to Top</a></li>
-<a id="Users"></a>
-<li class="side-heading title">User Tags</li>
+<li class="small-l"><a href="#tags">Back to Top</a></li>
+<li class="side-heading title" id="Users">User Tags</li>
 {% if U %}
     {% for t in U %}
-        <li><a class="special-tag user" id="tag" href="{% url 'user_profile' t.name %}">{{ t.name }}</a></li>
+        <li><a class="special-tag user" href="{% url 'user_profile' t.name %}">{{ t.name }}</a></li>
     {% endfor %}
 {% else %}
     <li> <strong >There are no User Tags</strong></li>
 {% endif %}
-<li class="small-l"><a href="#Top">Back to Top</a></li>
-<a id="Inst"></a>
-<li class="side-heading title">Institution Tags</li>
+<li class="small-l"><a href="#tags">Back to Top</a></li>
+<li class="side-heading title" id="Inst">Institution Tags</li>
 {% if I %}
     {% for t in I %}
-        <li><a class="special-tag inst" id="tag" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
+        <li><a class="special-tag inst" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
     {% endfor %}
 {% else %}
     <li> <strong >There are no institution Tags</strong></li>
 {% endif %}
-<li class="small-l"><a href="#Top">Back to Top</a></li>
+<li class="small-l"><a href="#tags">Back to Top</a></li>
 </ul>
