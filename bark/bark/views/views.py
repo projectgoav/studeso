@@ -16,9 +16,22 @@ numberOfTopPosts = 10
 # Index Page
 # Returns a welcome message
 def index(request):
-    post_list = Post.objects.order_by('-rating')
+    post_list = Post.objects
 
-    paginator = Paginator(post_list, numberOfTopPosts)
+    # First, check the user is logged in.
+    foundUserProfile = None
+    try:
+        foundUserProfile = UserProfile.objects.get(user = request.user.id)
+
+        # If the user is logged in, filter post_list by tags that the user follows.
+        userTagFollowings = TagFollowing.objects.filter(user = foundUserProfile)
+        userFollowedTags = [userTagFollowing.tag for userTagFollowing in userTagFollowings]
+        
+        post_list = post_list.filter(tag__name__in = userFollowedTags)
+    except UserProfile.DoesNotExist:
+        pass
+
+    paginator = Paginator(post_list.order_by('-rating').distinct(), numberOfTopPosts)
 
     page = request.GET.get('page')
     try:
@@ -97,6 +110,27 @@ def viewPosts(request, url_extra):
         queryResults = Post.objects.order_by('-rating')
     else:
         tags = Tag.objects.filter(name__in=tag_names)
+
+        foundUserProfile = None
+        try:
+            foundUserProfile = UserProfile.objects.get(user = request.user.id)
+
+            for tagIndex in range(0, len(tags)):
+                tagFollowing = None
+                try:
+                    tagFollowing = TagFollowing.objects.get(user = foundUserProfile, tag = tags[tagIndex])
+                except:
+                    tagFollowing = None
+
+                tags[tagIndex].followed_by_user = (tagFollowing != None)
+                                   
+        except UserProfile.DoesNotExist:
+            # If we can't find the user profile (i.e. nobody is logged in),
+            # then we just say that the "user" follows ALL the tags.
+            # tagsAreFollowedByUser = [True] * len(tags)               
+            for tagIndex in range(0, len(tags)):
+                tags[tagIndex].followed_by_user = False
+
         # The django.db.models.Q class is an object used
         # to encapsulate a collection of field lookups,
         # a more complex query object than a basic query.
