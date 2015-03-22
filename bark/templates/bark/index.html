@@ -32,6 +32,11 @@
         {% bootstrap_pagination topPosts %}
     {% endif %}
 <br />
+
+<!-- If there are no top posts, i.e. if the user hasn't followed any tags -->
+{% if topPosts|length == 0 %}
+<h2>You aren't following any tags!<br /><br /><b>Use the sidebar on the left to get started!</b></h2>
+{% endif %}
 {% endblock %}
 
 {% block js %}
