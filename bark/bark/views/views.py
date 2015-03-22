@@ -97,6 +97,27 @@ def viewPosts(request, url_extra):
         queryResults = Post.objects.order_by('-rating')
     else:
         tags = Tag.objects.filter(name__in=tag_names)
+
+        foundUserProfile = None
+        try:
+            foundUserProfile = UserProfile.objects.get(user = request.user)
+
+            for tagIndex in range(0, len(tags)):
+                tagFollowing = None
+                try:
+                    tagFollowing = TagFollowing.objects.get(user = foundUserProfile, tag = tags[tagIndex])
+                except:
+                    tagFollowing = None
+
+                tags[tagIndex].followed_by_user = (tagFollowing != None)
+                                   
+        except UserProfile.DoesNotExist:
+            # If we can't find the user profile (i.e. nobody is logged in),
+            # then we just say that the "user" follows ALL the tags.
+            # tagsAreFollowedByUser = [True] * len(tags)               
+            for tagIndex in range(0, len(tags)):
+                tags[tagIndex].followed_by_user = False
+
         # The django.db.models.Q class is an object used
         # to encapsulate a collection of field lookups,
         # a more complex query object than a basic query.
