@@ -335,6 +335,15 @@ def follow_tag(request,tagName):
         TagFollowing.objects.get_or_create(user=userProfile, tag=tag)
     return redirect('view_posts', tagName)
 
+@login_required
+def unfollow_tag(request, tagName):
+    if request.method == 'GET':
+        tag = Tag.objects.get(name=tagName)
+        userProfile = UserProfile.objects.get(user=request.user)
+        TagFollowing.objects.get(user=userProfile, tag=tag).delete()
+
+    return redirect('index')
+
 def about(request):
     context_dict={}
     return render(request,'bark/about.html',context_dict)
