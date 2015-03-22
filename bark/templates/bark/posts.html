@@ -6,7 +6,7 @@
 {% block title %}{{ tags.0.name }}{% endblock %}
 
 {% block body_block %}
-<h2>Tags:
+<h2>Tag{% if tags|length != 1 %}s{% endif %}:
 	{% for tag in tags %}
 	<span>
 		{{ tag.name }}

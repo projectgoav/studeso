@@ -273,7 +273,9 @@ def search(request):
     # then creates a regex that will match any of these words, and then uses name__iregex to see if the tag
     # name matches any of the query words. I had to use this as so far in Django there is no __iin query
     # (a case insensitive "in" query).
-    possibleMatchingTags = Tag.objects.filter(name__iregex = r'(' + '|'.join(re.split("[+| ]", query)) + ')')
+    tagWords = [word for word in re.split("[+| ]+", query) if word != '']
+    print tagWords
+    possibleMatchingTags = Tag.objects.filter(name__iregex = r'(' + '|'.join(tagWords) + ')')
 
     contextDictionary = {
         'posts' : posts,
@@ -334,6 +336,15 @@ def follow_tag(request,tagName):
         userProfile = UserProfile.objects.get(user=request.user)
         TagFollowing.objects.get_or_create(user=userProfile, tag=tag)
     return redirect('view_posts', tagName)
+
+@login_required
+def unfollow_tag(request, tagName):
+    if request.method == 'GET':
+        tag = Tag.objects.get(name=tagName)
+        userProfile = UserProfile.objects.get(user=request.user)
+        TagFollowing.objects.get(user=userProfile, tag=tag).delete()
+
+    return redirect('index')
 
 def about(request):
     context_dict={}
