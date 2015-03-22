@@ -3,26 +3,36 @@
 {% load staticfiles %}
 {% load bootstrap3 %}
 
-{% block title %}{{ tags.0.name }}{% endblock %}
+{% block title %}{{ tags.0.name }}...{% endblock %}
 
 {% block body_block %}
-<h2>Tag{% if tags|length != 1 %}s{% endif %}:
-	{% for tag in tags %}
-	<span>
-		{{ tag.name }}
+<h2>Tag{% if tags|length != 1 %}s{% endif %}:</h2>
+<div class="row">
+    {% for tag in tags %}
+
+    <div class="col-sm-4">
+        <h3>{{ tag.name }}</h3>
+
         {% if not tag.followed_by_user %}
-        <form  id="follow_tag" method="get" action="{% url 'follow_tag' tag %}">
+
+        <form id="follow_tag" method="get" action="{% url 'follow_tag' tag %}">
             <button class="btn btn-primary" id="follow_tag">Follow This Tag</button>
         </form>
+
         {% else %}
         <form id="follow_tag" method="get" action="{% url 'unfollow_tag' tag %}">
             <button class="btn btn-primary" id="follow_tag">Unfollow This Tag</button>
         </form>
         {% endif %}
-			</span>
-	{% endfor %}
-</h2>
+        <br />
+        <form id="follow_tag" method="get" action="{% url 'add_post' tag %}">
+            <button class="btn btn-small btn-warning" id="follow_tag">New post with tag</button>
+        </form>
+    </div>
 
+    {% endfor %}
+</div>
+<br />
     {% for post in posts %}
     {% get_view post %}
     {% endfor %}
@@ -33,10 +43,10 @@
 
 {% block js %}
 <script>
-$(".help").click(function(){
-		bootstro.start('', {
-				url : "{% static 'json/posts.json' %}",
-		});
-});
+    $(".help").click(function () {
+        bootstro.start('', {
+            url: "{% static 'json/posts.json' %}",
+        });
+    });
 </script>
 {% endblock %}
