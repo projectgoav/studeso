@@ -1,13 +1,13 @@
 from django import forms
 from django.contrib.auth.models import User
-from bark.models import UserProfile, Post, UserReset, Comment, getInstitution
+from bark.models import UserProfile, Post, UserReset, Comment, getInstitution, Tag
 from django.views.generic.edit import CreateView
 
 
 # get data for user when they sign up
 class UserForm(forms.ModelForm):
+    username = forms.CharField(label="username")
     password = forms.CharField(widget=forms.PasswordInput())
-
 
     class Meta:
         model = User
@@ -15,12 +15,22 @@ class UserForm(forms.ModelForm):
 
     # required to check if the user has an ac.uk domain
     def clean(self):
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
+
         domain = getInstitution(self.cleaned_data.get('email'))
+        
+        try:
+            foundExistingTag = Tag.objects.get(name__iexact = username)
+
+            raise forms.ValidationError("There is already a tag with the same name.")
+        except Tag.DoesNotExist:
+            pass
 
         if "ac.uk" not in domain:
             print "Invalid Education domain."
             self.add_error('email', "Invalid institution email given. You'll need one with .ac.uk to signup with bark.")
-
+            
 # get data for the User Profile
 class UserProfileForm(forms.ModelForm):
     class Meta:
