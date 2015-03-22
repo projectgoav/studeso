@@ -40,9 +40,7 @@ def index(request):
 
 def userprofile(request, username):
     try:
-        print username
         user = User.objects.get(username=username)
-        print user
     except:
         return render(request, 'bark/profile.html', {'NOT_FOUND' : True})
 
@@ -209,7 +207,9 @@ def addPost(request):
             try:
                 authorProfile = UserProfile.objects.get(user = request.user)
             except UserProfile.DoesNotExist:
-                # TODO: Redirect the user to a meaningful "Not logged in" page?
+                # This means that the user in the site has no UserProfile- which should
+                # be impossible as they should have been given one when they signed up.
+                # Although it might be better if they were redirected to a meaningful error page.
                 return redirect('index')
 
             newPost.author = authorProfile
@@ -253,13 +253,16 @@ def search(request):
         query = ''
 
     posts = Post.objects
-    # cs, bark, all python
-    # or "all python"
+    # queryAndTerms might look like ["cs", "bark", "all python"], this means
+    # "cs" AND "bark" must appear, but then either of "all python" can appear.
+
     queryAndTerms = map(unicode.strip, query.strip().split("+"))
 
     for queryAndTerm in queryAndTerms:
         queryOrTerms = queryAndTerm.split(" ")
        
+        # posts starts out as all posts, then repeatedly gets filtered to include *any* posts
+        # matching each "AND" term.
         posts = posts.filter(
             reduce(operator.or_, (Q(tag__name__icontains = queryWord) for queryWord in queryOrTerms)) |
             reduce(operator.or_, (Q(content__icontains = queryWord) for queryWord in queryOrTerms)) |
@@ -320,7 +323,8 @@ def like_comment(request):
             pass
         except Comment.DoesNotExist:
             pass
-    return HttpResponse("Failed")
+
+    return HttpResponse("Failed to like comment.")
 
 
 @login_required
