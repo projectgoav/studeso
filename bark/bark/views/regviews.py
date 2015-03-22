@@ -9,6 +9,8 @@ from bark.forms import *
 from bark.email import sendWelcomeEmail, sendChangeEmail, sendResetEmail
 from bark.models import UserReset, UserProfile
 
+import random, string
+
 #View a list of people on the site
 def users(request):
     return HttpResponse("Person 1<br>Person 2<br>Person 3<br>Person 4")
@@ -224,7 +226,11 @@ def passwordReset(request):
             username = form.cleaned_data['username']
             email = form.cleaned_data['email']
 
-            u = UserReset.objects.get_or_create(username=username, code=123456)[0]
+            randomCode = ""
+            for i in range(0, random.randint(5, 10)):
+                randomCode += str(random.choice(string.digits))
+
+            u = UserReset.objects.get_or_create(username=username, code = randomCode)[0]
 
             try:
                 sendResetEmail(email, u.code)
