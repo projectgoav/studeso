@@ -259,7 +259,7 @@ def search(request):
     queryAndTerms = map(unicode.strip, query.strip().split("+"))
 
     for queryAndTerm in queryAndTerms:
-        queryOrTerms = queryAndTerm.split(" ")
+        queryOrTerms = re.split("[| ]", queryAndTerm)
        
         # posts starts out as all posts, then repeatedly gets filtered to include *any* posts
         # matching each "AND" term.
