@@ -23,6 +23,8 @@ class UserProfile(models.Model):
 
     def save(self, *args, **kwargs):
         institution = getInstitution(self.user.email)
+
+        # Automatically add user tag and institution tag to the user
         self.user_tag = UserTag.objects.get_or_create(name=self.user.username)[0]
         self.institution_tag = InstitutionTag.objects.get_or_create(name=institution)[0]
         super(UserProfile, self).save(*args, **kwargs)
@@ -72,6 +74,7 @@ class PostLike(Like):
         return str(self.author) + " liked " + str(self.post)
 
     class Meta:
+        # Prevent a user from liking a post twice
         unique_together = ('author', 'post',)
 
 
@@ -82,6 +85,7 @@ class CommentLike(Like):
         return str(self.author) + " liked " + str(self.comment)
 
     class Meta:
+        # Prevent a user from liking a comment twice
         unique_together = ('author', 'comment',)
 
 
@@ -137,7 +141,6 @@ class Tag(models.Model):
         self.slug = slugify(self.name)
 
         # Custom arg, that if we've updated the description, it's not given a default one...
-        # This was a pain in the @ss
         update = kwargs.pop('update', None)
         if not update:
             self.genDescription()

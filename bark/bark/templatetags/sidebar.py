@@ -1,5 +1,5 @@
 from django import template
-from bark.models import UserTag, InstitutionTag, Tag, TagFollowing
+from bark.models import UserTag, InstitutionTag, Tag, TagFollowing, UserProfile
 
 register = template.Library()
 
@@ -11,7 +11,8 @@ def get_sidebar(user):
 
     #Getting if the user has logged in
     if user.is_authenticated():
-        f_tags = TagFollowing.objects.all().filter(user=user)
+        user_profile = UserProfile.objects.get(user=user)
+        f_tags = TagFollowing.objects.all().filter(user=user_profile)
         followed = [ ]
 
         #Get all the tags they follow, if any and add them to a dictionary for template
