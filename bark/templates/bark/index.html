@@ -9,10 +9,11 @@
   <h2 id="help-3">Welcome back to Bark, {{ user.username }}!</h2>
 {% else %}
   <h2 id="help-3">Welcome to Bark!</h2>
-  <h3>A Student Q&amp;A discussion Site</h3>
+  <h3>A student Q&amp;A discussion site</h3>
 {% endif %}
 
-<h4 id="help-5"> Here are the Newest, Coolest Barks out there right now!</h4>
+<h4 id="help-5"> Here are the newest, coolest Barks
+    {% if user.is_authenticated %}from tags you follow!{% else %}out there right now!{% endif %}</h4>
 <span id="help-6"></span>
 
 <form class="input-block-level" action="{% url 'add_post' %}">
