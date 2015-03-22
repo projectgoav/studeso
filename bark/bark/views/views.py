@@ -330,8 +330,18 @@ def search(request):
     # then creates a regex that will match any of these words, and then uses name__iregex to see if the tag
     # name matches any of the query words. I had to use this as so far in Django there is no __iin query
     # (a case insensitive "in" query).
+
+    # the purpose of this variable is so if the user searches "python", the tag "python-list" will
+    # be suggested, but if they search "c", the tag "computing" will not be suggested.
+    minimumLengthOfTagToFlagTagsContainingIt = 2
     tagWords = [word for word in re.split("[+| ]+", query) if word != '']
-    possibleMatchingTags = Tag.objects.filter(name__iregex = r'(' + '|'.join(tagWords) + ')')
+    
+    possibleMatchingTags = Tag.objects.none()
+    for tagWord in tagWords:
+        possibleMatchingTags |= Tag.objects.filter(name__iexact = tagWord)
+
+        if (len(tagWord) > minimumLengthOfTagToFlagTagsContainingIt):
+            possibleMatchingTags |= Tag.objects.filter(name__icontains = tagWord)
 
     # For matching tags, order them by how similar the length is to the query string length.
     orderedMatchingTags = sorted(
