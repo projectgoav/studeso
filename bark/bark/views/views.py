@@ -376,9 +376,12 @@ def unfollow_tag(request, tagName):
     if request.method == 'GET':
         tag = Tag.objects.get(name=tagName)
         userProfile = UserProfile.objects.get(user=request.user)
-        TagFollowing.objects.get(user=userProfile, tag=tag).delete()
+        try:
+            TagFollowing.objects.get(user=userProfile, tag=tag).delete()
+        except TagFollowing.DoesNotExist:
+            pass
 
-    return redirect('index')
+    return redirect('view_posts', tagName)
 
 def about(request):
     context_dict={}
