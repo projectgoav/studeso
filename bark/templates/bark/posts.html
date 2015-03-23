@@ -10,20 +10,17 @@
 <div class="row">
     {% for tag in tags %}
 
-    <div class="col-sm-2">
-        <h3><a href="{% url 'add_post' tag %}">{{ tag.name }}</a></h3>
+    <div class="col-sm-4">
+        <h3>{{ tag.name }}</h3>
 
+        {% buttons %}
         {% if not tag.followed_by_user %}
-
-        <form id="follow_tag_form" method="get" action="{% url 'follow_tag' tag %}">
-            <button class="btn btn-primary" id="follow_tag">Follow This Tag</button>
-        </form>
-
+            <button class="btn btn-primary" id="follow_tag" action="{% url 'follow_tag' tag %}" >Follow This Tag</button>
         {% else %}
-        <form id="unfollow_tag_form" method="get" action="{% url 'unfollow_tag' tag %}">
-            <button class="btn btn-primary" id="unfollow_tag">Unfollow This Tag</button>
-        </form>
+            <button class="btn btn-primary" id="unfollow_tag" action="{% url 'unfollow_tag' tag %}">Unfollow This Tag</button>
         {% endif %}
+        <button class="btn btn-primary" id="new_bark_with_tag" action="{% url 'add_post' tag %}">Bark with Tag</button>
+       {% endbuttons %}
     </div>
     {% endfor %}
 </div>
