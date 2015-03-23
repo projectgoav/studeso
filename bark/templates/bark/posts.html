@@ -15,18 +15,18 @@
 
         {% if not tag.followed_by_user %}
 
-        <form id="follow_tag" method="get" action="{% url 'follow_tag' tag %}">
+        <form id="follow_tag_form" method="get" action="{% url 'follow_tag' tag %}">
             <button class="btn btn-primary" id="follow_tag">Follow This Tag</button>
         </form>
 
         {% else %}
-        <form id="follow_tag" method="get" action="{% url 'unfollow_tag' tag %}">
-            <button class="btn btn-primary" id="follow_tag">Unfollow This Tag</button>
+        <form id="unfollow_tag_form" method="get" action="{% url 'unfollow_tag' tag %}">
+            <button class="btn btn-primary" id="unfollow_tag">Unfollow This Tag</button>
         </form>
         {% endif %}
         <br />
-        <form id="follow_tag" method="get" action="{% url 'add_post' tag %}">
-            <button class="btn btn-small btn-warning" id="follow_tag">New post with tag</button>
+        <form id="post_with_tag_form" method="get" action="{% url 'add_post' tag %}">
+            <button class="btn btn-small btn-warning" id="post_with_tag">New post with tag</button>
         </form>
     </div>
 

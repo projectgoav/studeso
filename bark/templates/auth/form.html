@@ -16,9 +16,9 @@
 <form class="form form-horizontal" id="form" method="post" enctype="multipart/form-data"
 
 {% if next %}
- action="/signin/?next={{next}}" method="post" >
+ action="/signin/?next={{next}}">
 {% else %}
- action="{% url form_url %}" method="post" >
+ action="{% url form_url %}" >
 {% endif %}
 
     {% csrf_token %}
