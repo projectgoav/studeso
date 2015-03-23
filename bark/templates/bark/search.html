@@ -1,16 +1,19 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Search - {{ query }} {% endblock %}
 
 {% block body_block %}
 {% load postlist %}
 
 {% if posts %}
-<h2>Results for "{{ query }}"</h2>
+<h2 id="head">Results for "{{ query }}"</h2>
 {% if tags %}
     <h4>
     <br>Related tags:
 
     {% for tag in tags %}
-        <b><a href={% url 'view_posts' tag.name %}>{{ tag.name }}</a></b> <a href={% url 'follow_tag' tag.name %}>(follow)</a>
+        <b><a href={% url 'view_posts' tag.name %}>{{ tag.name }}</a></b>  <a href={% url 'follow_tag' tag.name %}>(follow)</a>
         {% if not forloop.last %}, {% endif %}
     {% endfor %}
     </h4>
@@ -27,11 +30,20 @@
 
 
 {% else %}
-<h2>Oh shit-h tzu, no results for "{{ query }}"!</h2>
+<h2 id="head">Oh shit-h tzu, no results for "{{ query }}"!</h2>
 <br>
 <h3>
 <i><a href="{% url 'add_post' '' %}">Why not Bark about it?</a></i>
 </h3>
 {% endif %}
+{% endblock %}
 
+{% block js %}
+<script>
+$(".help").click(function(){
+    bootstro.start('', {
+        url : "{% static 'json/search.json' %}",
+    });
+});
+</script>
 {% endblock %}

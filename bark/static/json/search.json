@@ -6,10 +6,10 @@
     "placement":"left",
     "step" : "0"},
 
-    {"selector": ".page-heading",
-      "title":"About Bark",
-      "content":"There's not much to this page. Just a little about Bark and the team behind it.",
+    {"selector": "#head",
+      "title":"Search",
+      "content":"The search function is really powerful. What we can find for you is displayed below. On the odd occasion we can't find anything for you we display a nice message and options to Bark about it!",
       "width":"400px",
-      "placement":"right",
+      "placement":"bottom",
       "step" : "1"}
   ]}
