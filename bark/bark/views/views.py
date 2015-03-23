@@ -27,7 +27,7 @@ def index(request):
         # If the user is logged in, filter post_list by tags that the user follows.
         userTagFollowings = TagFollowing.objects.filter(user = foundUserProfile)
         userFollowedTags = [userTagFollowing.tag for userTagFollowing in userTagFollowings]
-        
+
         post_list = post_list.filter(tag__name__in = userFollowedTags)
     except UserProfile.DoesNotExist:
         pass
@@ -127,11 +127,11 @@ def viewPosts(request, url_extra):
                     tagFollowing = None
 
                 tags[tagIndex].followed_by_user = (tagFollowing != None)
-                                   
+
         except UserProfile.DoesNotExist:
             # If we can't find the user profile (i.e. nobody is logged in),
             # then we just say that the "user" follows ALL the tags.
-            # tagsAreFollowedByUser = [True] * len(tags)               
+            # tagsAreFollowedByUser = [True] * len(tags)
             for tagIndex in range(0, len(tags)):
                 tags[tagIndex].followed_by_user = False
 
@@ -286,9 +286,9 @@ def addPost(request, url_extra=""):
 
         # Convert the unicode list of tag names to ASCII.
         tagNamesAsList = [normalisedString.encode('ascii', 'ignore') for normalisedString in tag_names]
-        
-        contextDictionary['defaultTagList'] = tagNamesAsList 
-        
+
+        contextDictionary['defaultTagList'] = tagNamesAsList
+
     contextDictionary['form'] = form
 
     return render(request, 'bark/addPost.html', contextDictionary)
@@ -317,7 +317,7 @@ def search(request):
 
     for queryAndTerm in queryAndTerms:
         queryOrTerms = re.split("[| ]", queryAndTerm)
-       
+
         # Posts starts out as all posts, then repeatedly gets filtered to include *any* posts
         # matching each "AND" term.
         posts = posts.filter(
@@ -335,7 +335,7 @@ def search(request):
     # be suggested, but if they search "c", the tag "computing" will not be suggested.
     minimumLengthOfTagToFlagTagsContainingIt = 2
     tagWords = [word for word in re.split("[+| ]+", query) if word != '']
-    
+
     possibleMatchingTags = Tag.objects.none()
     for tagWord in tagWords:
         possibleMatchingTags |= Tag.objects.filter(name__iexact = tagWord)
@@ -352,7 +352,7 @@ def search(request):
     contextDictionary['posts'] = posts
     contextDictionary['query'] = query
     contextDictionary['tags'] = orderedMatchingTags
-    
+
     return render(request,'bark/search.html', contextDictionary)
 
 @login_required
@@ -405,7 +405,12 @@ def follow_tag(request,tagName):
         tag = Tag.objects.get(name=tagName)
         userProfile = UserProfile.objects.get(user=request.user)
         TagFollowing.objects.get_or_create(user=userProfile, tag=tag)
-    return redirect('view_posts', tagName)
+        referer = request.META.get('HTTP_REFERER')
+
+    if referer:
+        return HttpResponseRedirect(referer)
+    else:
+        return redirect('view_posts', tagName)
 
 @login_required
 def unfollow_tag(request, tagName):
@@ -421,7 +426,12 @@ def unfollow_tag(request, tagName):
         except TagFollowing.DoesNotExist:
             pass
 
-    return redirect('view_posts', tagName)
+        referer = request.META.get('HTTP_REFERER')
+
+    if referer:
+        return HttpResponseRedirect(referer)
+    else:
+        return redirect('view_posts', tagName)
 
 def about(request):
     context_dict={}
