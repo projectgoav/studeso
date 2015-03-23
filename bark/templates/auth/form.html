@@ -18,7 +18,7 @@
 {% if next %}
  action="/signin/?next={{next}}" method="post" >
 {% else %}
- action="{% url form_url %}}" method="post" >
+ action="{% url form_url %}" method="post" >
 {% endif %}
 
     {% csrf_token %}

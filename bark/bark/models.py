@@ -35,7 +35,7 @@ class UserProfile(models.Model):
 
 class UserReset(models.Model):
     username = models.CharField(max_length=100)
-    code = models.IntegerField(blank=False, default=99999)
+    code = models.IntegerField(blank=False, default=999999)
 
     def __unicode__(self):
         return str(self.code)
@@ -133,7 +133,7 @@ class Tag(models.Model):
     posts = models.ManyToManyField('Post', through="PostTagging", null=True)
     description = models.TextField(blank=True)
     slug = models.SlugField(editable=False)
-    
+
     def save(self, *args, **kwargs):
         self.name = self.name.lower()
         self.slug = slugify(self.name)

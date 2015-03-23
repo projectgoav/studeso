@@ -9,15 +9,7 @@ from bark.forms import *
 from bark.email import sendWelcomeEmail, sendChangeEmail, sendResetEmail
 from bark.models import UserReset, UserProfile
 
-import random, string
-
-#View a list of people on the site
-def users(request):
-    return HttpResponse("Person 1<br>Person 2<br>Person 3<br>Person 4")
-
-#View specific user profile
-def view_user(request):
-    return HttpResponse("Person 1<br><br>Sample information<br>Sample information<br>More sample information")
+from random import randint
 
 #Update User Profile with given data
 #MUST BE LOGGED IN
@@ -163,7 +155,7 @@ def signin(request):
     context_dic['next'] = next_url
     context_dic['page_head'] = "Sign In"
     context_dic['help_text_2'] = """Sign in to Bark!<br><b>Don't have an account?</b> <a href="/signin/">Sign up here!</a>"""
-    context_dic['help_text_3'] = """Forgot your password? Reset it <a href="/password-reset-do/">here</a>"""
+    context_dic['help_text_3'] = """Forgot your password? Reset it <a href="/password-reset/">here</a>"""
     context_dic['form_button'] = "Sign In"
     context_dic['form_url'] = "signin"
     context_dic['help_url'] = "json/signin.json"
@@ -226,11 +218,11 @@ def passwordReset(request):
             username = form.cleaned_data['username']
             email = form.cleaned_data['email']
 
-            randomCode = ""
-            for i in range(0, random.randint(5, 10)):
-                randomCode += str(random.choice(string.digits))
+            randomCode = randint(100000,999999)
 
-            u = UserReset.objects.get_or_create(username=username, code = randomCode)[0]
+            u = UserReset.objects.get_or_create(username=username)[0]
+            u.code = randomCode
+            u.save()
 
             try:
                 sendResetEmail(email, u.code)
