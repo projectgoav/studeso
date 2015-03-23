@@ -6,20 +6,20 @@
 {% block title %}{{ tags.0.name }}...{% endblock %}
 
 {% block body_block %}
-<h2>Tag{% if tags|length != 1 %}s{% endif %}: <small class="text-muted">Click on a Tag name to create a new Bark in that tag!</small></h2>
+<h2>Tag{{ tags|pluralize }}:</h2>
 <div class="row">
     {% for tag in tags %}
 
-    <div class="col-sm-4">
+    <div class="col-sm-6">
         <h3>{{ tag.name }}</h3>
 
         {% buttons %}
         {% if not tag.followed_by_user %}
-            <button class="btn btn-primary" id="follow_tag" action="{% url 'follow_tag' tag %}" >Follow This Tag</button>
+            <a href="{% url 'follow_tag' tag %}"><button class="btn btn-primary" id="follow_tag">Follow This Tag</button></a>
         {% else %}
-            <button class="btn btn-primary" id="unfollow_tag" action="{% url 'unfollow_tag' tag %}">Unfollow This Tag</button>
+            <a href="{% url 'unfollow_tag' tag %}"><button class="btn btn-primary" id="unfollow_tag">Unfollow This Tag</button></a>
         {% endif %}
-        <button class="btn btn-primary" id="new_bark_with_tag" action="{% url 'add_post' tag %}">Bark with Tag</button>
+            <a href="{% url 'add_post' tag %}"><button class="btn btn-warning" id="new_bark_with_tag">Bark with Tag</button></a>
        {% endbuttons %}
     </div>
     {% endfor %}
