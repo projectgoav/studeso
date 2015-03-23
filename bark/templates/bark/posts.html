@@ -6,12 +6,12 @@
 {% block title %}{{ tags.0.name }}...{% endblock %}
 
 {% block body_block %}
-<h2>Tag{% if tags|length != 1 %}s{% endif %}:</h2>
+<h2>Tag{% if tags|length != 1 %}s{% endif %}: <small class="text-muted">Click on a Tag name to create a new Bark in that tag!</small></h2>
 <div class="row">
     {% for tag in tags %}
 
-    <div class="col-sm-4">
-        <h3>{{ tag.name }}</h3>
+    <div class="col-sm-2">
+        <h3><a href="{% url 'add_post' tag %}">{{ tag.name }}</a></h3>
 
         {% if not tag.followed_by_user %}
 
@@ -24,12 +24,7 @@
             <button class="btn btn-primary" id="unfollow_tag">Unfollow This Tag</button>
         </form>
         {% endif %}
-        <br />
-        <form id="post_with_tag_form" method="get" action="{% url 'add_post' tag %}">
-            <button class="btn btn-small btn-warning" id="post_with_tag">New post with tag</button>
-        </form>
     </div>
-
     {% endfor %}
 </div>
 <br />

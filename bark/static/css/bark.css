@@ -23,6 +23,8 @@ body{
 
 #tags a:hover {background-color:#FFB455; }
 
+#new_btn {display:inline-block; }
+
 
 /* Class for special tag, making it italic */
 .special-tag { font-style:italic; }
