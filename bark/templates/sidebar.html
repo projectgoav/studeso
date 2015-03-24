@@ -7,11 +7,11 @@
 <!-- If user has logged in, display options if they have followed tags
      If not, just leave blank and list all the tags -->
 
-{% if F %}
+{% if FollowedTags %}
   <li class="small-l"><a href="#pTags">View Post Tags</a></li>
   {% if not FE %}
     <li class="side-heading title"><b>Tags You Follow</b></li>
-    {% for t in F %}
+    {% for t in FollowedTags %}
       {% if t.color %}
         <li><a class="speical-tag {{ t.color }}" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
       {% else %}
@@ -26,8 +26,8 @@
 
 
 <li class="side-heading title" id="pTags">Post Tags</li>
-{% if A %}
-    {% for t in A %}
+{% if AllTags %}
+    {% for t in AllTags %}
         <li><a class="tag" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
     {% endfor %}
 {% else %}
@@ -35,8 +35,8 @@
 {% endif %}
 <li class="small-l"><a href="#tags">Back to Top</a></li>
 <li class="side-heading title" id="Users">User Tags</li>
-{% if U %}
-    {% for t in U %}
+{% if UserTags %}
+    {% for t in UserTags %}
         <li><a class="special-tag user" href="{% url 'user_profile' t.name %}">{{ t.name }}</a></li>
     {% endfor %}
 {% else %}
@@ -44,8 +44,8 @@
 {% endif %}
 <li class="small-l"><a href="#tags">Back to Top</a></li>
 <li class="side-heading title" id="Inst">Institution Tags</li>
-{% if I %}
-    {% for t in I %}
+{% if InstTags %}
+    {% for t in InstTags %}
         <li><a class="special-tag inst" href="{% url 'view_posts' t.name %}">{{ t.name }}</a></li>
     {% endfor %}
 {% else %}

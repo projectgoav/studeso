@@ -3,8 +3,12 @@ from bark.models import UserTag, InstitutionTag, Tag, TagFollowing, UserProfile
 
 register = template.Library()
 
+# Provides the List of Tags at the side for users
+# Sidebar varies depending on the state of the user and if one is logged in or not.
 @register.inclusion_tag('sidebar.html')
 def get_sidebar(user):
+
+    #Get all the tags Bark has knowledge off, splitting them into types
     tags = Tag.objects.all().exclude(id__in=UserTag.objects.all()).exclude(id__in=InstitutionTag.objects.all())
     users =  Tag.objects.all().filter(id__in=UserTag.objects.all())
     inst = Tag.objects.all().filter(id__in=InstitutionTag.objects.all())
@@ -15,8 +19,7 @@ def get_sidebar(user):
         f_tags = TagFollowing.objects.all().filter(user=user_profile)
         followed = [ ]
 
-        #Get all the tags they follow, if any and add them to a dictionary for template
-
+        #Get all the tags they follow, if any, and add them to a dictionary for template making special note of the colours
         for tag in f_tags:
             t_dic = { }
             tag_o = Tag.objects.get(id=tag.tag_id)
@@ -30,8 +33,8 @@ def get_sidebar(user):
 
     #Many happy returns
         if (len(followed) == 0):
-            return { 'U' : users, 'I' : inst, 'A' : tags, 'F' : followed, 'FE' : { }}
+            return { 'UserTags' : users, 'InstTags' : inst, 'AllTags' : tags, 'FollowedTags' : followed, 'FE' : { }}
         else:
-            return { 'U' : users, 'I' : inst, 'A' : tags, 'F' : followed}
+            return { 'UserTags' : users, 'InstTags' : inst, 'AllTags' : tags, 'FollowedTags' : followed}
 
-    return {'U' : users, 'I' : inst, 'A' : tags }
+    return {'UserTags' : users, 'InstTags' : inst, 'AllTags' : tags }
