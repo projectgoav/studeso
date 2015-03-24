@@ -160,7 +160,7 @@ def viewPosts(request, url_extra):
     contextDictionary['posts'] = posts
     contextDictionary['tags'] = tags
 
-    return render(request, 'bark/posts.html', contextDictionary)
+    return render(request, 'bark/postlist.html', contextDictionary)
 
 # View a specific bark
 def viewPost(request, post_id, post_slug):
@@ -226,7 +226,7 @@ def viewPost(request, post_id, post_slug):
 
 
     contextDictionary['form'] = form
-    return render(request, 'bark/post.html', contextDictionary)
+    return render(request, 'bark/postview.html', contextDictionary)
 
 
 @login_required

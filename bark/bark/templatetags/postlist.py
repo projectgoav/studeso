@@ -3,7 +3,7 @@ from bark.models import Post, Tag
 
 register = template.Library()
 
-@register.inclusion_tag('bark/postlist.html')
+@register.inclusion_tag('bark/postformat.html')
 def get_view(post):
     context_dictionary = {}
 

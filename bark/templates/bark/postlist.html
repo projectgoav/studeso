@@ -1,18 +1,44 @@
+{% extends 'base.html' %}
+{% load postlist %}
 {% load staticfiles %}
-{% load markdown_deux_tags %}
-<div class="panel panel-default">
-  <div class="panel-heading"><h3 class="panel-title"><a href="{% url 'view_post' post.id post.slug %}">{{ post.title|truncatechars:50 }}</a><small class="num-likes pull-right">{{ post_likes }} found this interesting</small></h3></div>
-  <div class="panel-body">{{ post.content|markdown|truncatewords_html:150 }}</div>
-  <div class="panel-footer bark-tags">
-    <b>Tags: </b>
-        {% if not post.anonymous %}
-                <a class="user" href={% url 'user_profile' post.author.user_tag %}>@{{ post.author.user_tag }}</a>
+{% load bootstrap3 %}
+
+{% block title %}{{ tags.0.name }}...{% endblock %}
+
+{% block body_block %}
+<h2>Tag{{ tags|pluralize }}:</h2>
+<div class="row">
+    {% for tag in tags %}
+
+    <div class="col-sm-6">
+        <h3>{{ tag.name }}</h3>
+
+        {% buttons %}
+        {% if not tag.followed_by_user %}
+            <a href="{% url 'follow_tag' tag %}"><button class="btn btn-primary" id="follow_tag">Follow This Tag</button></a>
+        {% else %}
+            <a href="{% url 'unfollow_tag' tag %}"><button class="btn btn-primary" id="unfollow_tag">Unfollow This Tag</button></a>
         {% endif %}
-        {% if post_inst_tag %}
-                <span> | </span><a class="inst" href={% url 'view_posts' post_inst_tag %}>@{{ post_inst_tag }}</a>
-            {% endif %}
-            {% for post_tag in post_tags %}
-                <span> | </span><a class="tag" href={% url 'view_posts' post_tag %} >@{{ post_tag }}</a>
-            {% endfor %}
+            <a href="{% url 'add_post' tag %}"><button class="btn btn-warning" id="new_bark_with_tag">Bark with Tag</button></a>
+       {% endbuttons %}
     </div>
-  </div>
+    {% endfor %}
+</div>
+<br />
+    {% for post in posts %}
+    {% get_view post %}
+    {% endfor %}
+    {% if posts.has_other_pages %}
+        {% bootstrap_pagination posts %}
+    {% endif %}
+{% endblock %}
+
+{% block js %}
+<script>
+    $(".help").click(function () {
+        bootstro.start('', {
+            url: "{% static 'json/posts.json' %}",
+        });
+    });
+</script>
+{% endblock %}
