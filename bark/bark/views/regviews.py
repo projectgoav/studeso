@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
-from django.contrib.auth.views import password_change
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
@@ -36,6 +35,7 @@ def profileUpdate(request):
 
         form = UserProfileUpdateForm(request=request, initial={ 'bio' : request.user.userprofile.user_tag.description})
 
+    #Fill out the context with the required form
     context_dic['form'] = form
     context_dic['page_head'] = "Update Profile"
     context_dic['help_text_2'] = """This is some of the personal information we've got about you.<br>You're welcome to change anything at any time!<br><br><b>Your 'About Me' appears when users click on your name tag. It's a post always at the top of the page, showing you off in all your glory!</b>"""
@@ -88,13 +88,9 @@ def signup(request):
                 if nuser:
                     if nuser.is_active:
                         login(request, nuser)
-                        return HttpResponseRedirect('/')
+                        return redirect('/')
                 else:
                     print "Something went wrong, logging in...."
-
-        # If something went wrong, it goes to terminal and to the template.
-        else:
-            print user_form.errors, profile_form.errors
 
     # If GET, just display form
     else:
@@ -115,8 +111,9 @@ def signup(request):
 #User can sign in
 def signin(request):
 
+    # Finds where we want to go, if the user is wanting to do something but is yet to login
+    # Handles users with ?next=[URL] properly
     next_url = ""
-
     if request.GET:
         next_url = request.GET['next']
 
@@ -137,15 +134,11 @@ def signin(request):
                 if user.is_active:
                     login(request, user)
 
+                    # Remembering to redirect to the next place, if we've got one
                     if next_url == "":
-                        return HttpResponseRedirect('/')
+                        return redirect('/')
                     else:
-                        return HttpResponseRedirect(next_url)
-
-            else:
-                print form.errors
-        else:
-            print form.errors
+                        return redirect(next_url)
 
     # if a GET (or any other method) we'll create a blank form
     else:
@@ -191,8 +184,6 @@ def passwordChange(request):
                 print "Unable to send password change email :("
 
             return render(request, 'auth/timeout-page.html', {'TITLE' : 'Password Changed', 'MESSAGE' : "You've changed your password"})
-        else:
-            print form.errors
 
     # if a GET (or any other method) we'll create a blank form
     else:
@@ -230,9 +221,6 @@ def passwordReset(request):
                 #If a problem,print the code to the terminal
                 print "ERROR sending reset request. The code is" + str(u.code)
             return redirect('/password-reset-do/')
-
-        else:
-            print form.errors
 
     # if a GET (or any other method) we'll create a blank form
     else:
@@ -275,9 +263,6 @@ def passwordResetCode(request):
                 print "Could not send Reset complete email to user"
 
             return render(request, 'auth/timeout-page.html',  {'TITLE' : "Password Reset Complete", 'MESSAGE' : "Your password has been reset."})
-
-        else:
-            print form.errors
 
     # if a GET (or any other method) we'll create a blank form
     else:
