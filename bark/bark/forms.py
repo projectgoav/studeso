@@ -1,8 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
 from bark.models import UserProfile, Post, UserReset, Comment, getInstitution, Tag
-from django.views.generic.edit import CreateView
-
 
 # get data for user when they sign up
 class UserForm(forms.ModelForm):
@@ -19,7 +17,7 @@ class UserForm(forms.ModelForm):
         password = self.cleaned_data.get('password')
 
         domain = getInstitution(self.cleaned_data.get('email'))
-        
+
         try:
             foundExistingTag = Tag.objects.get(name__iexact = username)
 
@@ -27,10 +25,11 @@ class UserForm(forms.ModelForm):
         except Tag.DoesNotExist:
             pass
 
+        #Checking email that it's a proper ac.uk email
         if "ac.uk" not in domain:
             print "Invalid Education domain."
             self.add_error('email', "Invalid institution email given. You'll need one with .ac.uk to signup with bark.")
-            
+
 # get data for the User Profile
 class UserProfileForm(forms.ModelForm):
     class Meta:
@@ -65,6 +64,8 @@ class LoginForm(forms.Form):
         cleaned_data = super(LoginForm, self).clean()
         username = cleaned_data.get("username")
         password = cleaned_data.get("password")
+
+        #Verify the details of the account
         try:
             user = User.objects.get(username=username)
             if not user.check_password(password):
@@ -85,6 +86,7 @@ class PasswordResetForm1(forms.Form):
         username = cleaned_data.get("username")
         email = cleaned_data.get("email")
 
+        #Check the user exists
         try:
             user = User.objects.get(username=username)
         except:
@@ -92,6 +94,7 @@ class PasswordResetForm1(forms.Form):
             self.add_error('email','')
             return
 
+        #Check the emails match before sending a code
         if user.email != email:
             self.add_error('email', 'Account email is incorrect.')
 
@@ -111,23 +114,31 @@ class PasswordResetForm2(forms.Form):
         new_pass1 = cleaned_data.get('new_pass1')
         new_pass2 = cleaned_data.get('new_pass2')
 
+
+        #Make sure the User exists
         try:
             user = User.objects.get(username=username)
         except:
             self.add_error('username', 'No account with that Username found.')
             return
 
+        #Make sure they have requested a reset code
         try:
-            print username
             userCode = UserReset.objects.get(username=username)
-            print userCode
         except:
             self.add_error('username', 'Given username has not requested a code. If you require one, click the link at the top of the page.')
             return
 
-        if userCode.code != int(code):
-            self.add_error('code', 'Reset code is invalid.')
+        #Catching malformed codes, if they are strings or floats
+        try:
+            icode = int(code)
+        except:
+            self.add_error('code', 'Reset code must be a number')
             return
+
+        #Making sure the code is correct and the new password is correct
+        if userCode.code != icode:
+            self.add_error('code', 'Reset code is invalid.')
 
         if new_pass1 != new_pass2:
             self.add_error('new_pass1', "Passwords didn't match")
@@ -150,9 +161,11 @@ class PasswordChangeForm(forms.Form):
         new_pass1 = cleaned_data.get('new_pass1')
         new_pass2 = cleaned_data.get('new_pass2')
 
+        #Check existing password is correct
         if not self.request.user.check_password(old_pass):
             self.add_error('old_pass', "Your current password is incorrect")
 
+        #Check the new passwords are equal
         if new_pass1 != new_pass2:
             self.add_error('new_pass1', "Your passwords didn't match.")
             self.add_error('new_pass2', "Your passwords didn't match.")
