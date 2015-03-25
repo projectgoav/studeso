@@ -1,7 +1,7 @@
 from django.db import IntegrityError
 from models import UserProfile, InstitutionTag, UserTag, Post, PostTagging, Tag, Comment, PostLike, CommentLike
 from django.contrib.auth.models import User
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.core.exceptions import ValidationError
 
 
@@ -180,3 +180,28 @@ class TagTest(TestCase):
         test_user = UserProfile.objects.get(user=test_user)
 
         self.assertTrue(test_user.can_post_to_inst_tag(InstitutionTag.objects.get(name='user.gla.ac.uk')))
+
+
+
+
+class ViewTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    #Testing we redirect to some pages with Login-Required
+    def test_redirect(self):
+        response = self.client.get('/new/', follow=True)
+        self.assertRedirects(response, '/signin/?next=/new/')
+        response = self.client.post('/password-change/', follow=True)
+        self.assertRedirects(response, '/signin/?next=/password-change/')
+
+    #Checking forms with black details
+    def test_user_login(self):
+        response = self.client.post('/signin/', {}) # blank data dictionary
+        self.assertFormError(response, 'form', 'username', 'This field is required.')
+
+
+    #Check we do have a 404 page correctly
+    def test_404_page(self):
+        response = self.client.get('/rango/', follow=True)
+        self.assertEqual(response.status_code, 404)
