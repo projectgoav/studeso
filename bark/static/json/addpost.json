@@ -20,7 +20,7 @@
       "placement":"bottom",
       "step" : "2"},
 
-    {"selector": "#tags",
+    {"selector": "#tag-entry",
       "title":"Tags, Tags, Tags",
       "content":"Add tags that are keywords associated with your Bark. Tagsare limited to 30 characters and don't require the leading '@' sign",
       "width":"400px",

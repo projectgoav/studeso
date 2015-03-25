@@ -8,13 +8,7 @@
 {% block js %}
     <script src="{% static 'js/jquery.cookie.js' %}"></script>
     <script src="{% static 'js/like.js' %}"></script>
-    <script>
-    $(".help").click(function(){
-        bootstro.start('', {
-            url : "{% static 'json/post.json' %}",
-        });
-    });
-    </script>
+{% include "helpscript.html" with help_url="json/post.json" %}
 {% endblock %}
 
 {% block title %}{{ post.title }}{% endblock %}

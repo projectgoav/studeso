@@ -1,0 +1,10 @@
+<!-- Abstracted Help Script -->
+{% load staticfiles %}
+
+<script>
+$(".help").click(function(){
+    bootstro.start('', {
+        url : "{% static help_url %}",
+    });
+});
+</script>

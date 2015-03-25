@@ -34,13 +34,7 @@
 </div>
 
 {% block js %}
-<script>
-$(".help").click(function(){
-    bootstro.start('', {
-        url : "{% static 'json/about.json' %}",
-    });
-});
-</script>
+{% include "helpscript.html" with help_url="json/about.json" %}
 {% endblock %}
 
 

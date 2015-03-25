@@ -34,13 +34,7 @@
 {% endblock %}
 
 {% block js %}
-<script>
-$(".help").click(function(){
-    bootstro.start('', {
-        url : "{% static 'json/addpost.json' %}",
-    });
-});
-</script>
+{% include "helpscript.html" with help_url="json/addpost.json" %}
 <!-- This script creates the JS variable "defaultTagList", which is used in
     as the default value in the Taggle text entry -->
 <script type="text/javascript">

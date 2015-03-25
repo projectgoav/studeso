@@ -38,17 +38,9 @@
 {% endblock %}
 
 {% block js %}
-
-
-<script>
-$(".help").click(function(){
-    bootstro.start('', {
-      {% if user.is_authenticated %}
-        url : "{% static 'json/indexA.json' %}",
-      {% else %}
-        url : "{% static 'json/index.json' %}",
-      {% endif %}
-    });
-});
-</script>
+  {% if user.is_authenticated %}
+    {% include "helpscript.html" with help_url="json/indexA.json" %}
+  {% else %}
+    {% include "helpscript.html" with help_url="json/index.json" %}
+  {% endif %}
 {% endblock %}
