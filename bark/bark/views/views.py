@@ -76,21 +76,18 @@ def userprofile(request, username):
 
     context_dic['posts'] = posts
     context_dic['post_tags'] = { }
-    rating = 0
+    likes = 0
     views = 0
 
     #Calculating total views and rating for the user
     for p in posts:
-        rating += p.rating
+        likes += p.postlike_set.count()
         views += p.views
         context_dic['post_tags'][p.title] = p.tags
 
     context_dic['bark_count'] = posts.count()
 
-    if rating == 0:
-        context_dic['bark_rating'] = 0
-    else:
-        context_dic['bark_rating'] = rating / posts.count()
+    context_dic['total_likes'] = likes
 
     context_dic['bark_views'] = views
 
