@@ -76,18 +76,24 @@ def userprofile(request, username):
 
     context_dic['posts'] = posts
     context_dic['post_tags'] = { }
-    likes = 0
+    post_likes = 0
+    comment_likes = 0
     views = 0
 
-    #Calculating total views and rating for the user
+    #Calculating total views and post likes for the user
     for p in posts:
-        likes += p.postlike_set.count()
+        post_likes += p.postlike_set.count()
         views += p.views
         context_dic['post_tags'][p.title] = p.tags
 
+    # Calculate the number of comment likes for the user
+    for comment in user.userprofile.comment_set.all():
+        comment_likes += comment.commentlike_set.count()
+
     context_dic['bark_count'] = posts.count()
 
-    context_dic['total_likes'] = likes
+    context_dic['post_likes'] = post_likes
+    context_dic['comment_likes'] = comment_likes
 
     context_dic['bark_views'] = views
 
