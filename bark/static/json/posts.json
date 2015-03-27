@@ -6,9 +6,9 @@
     "placement":"left",
     "step":"0"},
 
-    {"selector": ".btn-primary",
+    {"selector": "#TAGS",
       "title":"Following A Tag",
-      "content":"Clicking this button allows you to follow the tag. This will appear at the top of the sidebar on the left allowing you ",
+      "content":"Clicking this button allows you to follow the tag. This will appear at the top of the sidebar on the left allowing you easy access to the content you want to see. Click the button againt to unfollow the tag.",
       "width":"400px",
       "placement":"bottom",
       "step":"1"}
